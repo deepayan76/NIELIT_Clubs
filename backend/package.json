@@ -1,0 +1,39 @@
+{
+  "name": "nielit-tech-clubs-backend",
+  "version": "1.0.0",
+  "description": "Backend API service for NIELIT Tech Clubs",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --ext js,mjs,cjs,json,env src/server.js",
+    "test": "node test-phase7.js",
+    "test:phase5": "node test-phase5.js",
+    "test:phase6": "node test-phase6.js",
+    "test:phase7": "node test-phase7.js"
+  },
+  "keywords": [
+    "nielit",
+    "tech-clubs",
+    "express",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "NIELIT Tech Clubs",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.9.5",
+    "resend": "^6.28.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

@@ -1,0 +1,51 @@
+:root {
+  /* Colors */
+  --primary-blue: #6A89A7;
+  --blue-dark: #16364A;
+  --blue-light: #8EA8C0;
+  --blue-panel-hover: #5F7E9C;
+
+  --white: #FFFFFF;
+  --black: #000000;
+  --bg-page: #FFFFFF;
+
+  --text-dark: #111111;
+  --text-muted: #666666;
+  --text-light: #FFFFFF;
+
+  --nav-bg: #D9D9D9;
+  --nav-active: #FFFFFF;
+  --nav-text: #222222;
+
+  --input-bg: #F8F8F8;
+  --input-placeholder: #888888;
+  --border-light: #E5E5E5;
+  --border-active: #16364A;
+
+  /* Accent Club Colors */
+  --ai-purple: #8B5CF6;
+  --programming-blue: #2563EB;
+  --cyber-green: #10B981;
+  --iot-orange: #F97316;
+
+  /* Layout & Spacing */
+  --max-width: 1368px;
+  --container-padding: 36px;
+  --section-gap: 70px;
+  --card-gap: 30px;
+
+  /* Border Radii */
+  --radius-panel: 10px;
+  --radius-card: 9px;
+  --radius-btn: 7px;
+  --radius-pill: 999px;
+  --radius-selector: 6px;
+  --radius-input: 7px;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Transitions */
+  --transition-fast: 180ms ease;
+  --transition-normal: 250ms ease;
+}

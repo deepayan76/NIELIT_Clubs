@@ -1,0 +1,265 @@
+.hero-section {
+  padding: 0;
+}
+
+.hero-panel {
+  background-color: var(--primary-blue);
+  border-radius: var(--radius-panel);
+  padding: clamp(38px, 4.2vw, 60px) clamp(28px, 4vw, 56px) clamp(32px, 3.6vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 3.2vw, 44px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+}
+
+/* Left Content */
+.hero-content-left {
+  flex: 0 0 46%;
+  max-width: 46%;
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  z-index: 2;
+}
+
+.hero-text-block {
+  margin-bottom: clamp(20px, 2.2vw, 28px);
+}
+
+.hero-eyebrow {
+  display: block;
+  font-size: clamp(12.5px, 1.1vw, 14.5px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 500;
+  line-height: 1.14;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: -0.015em;
+}
+
+.hero-desc {
+  font-size: clamp(14.5px, 1.15vw, 16px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.94);
+  font-weight: 400;
+}
+
+/* 3D Character Image (Prominent & Big) */
+.hero-character-wrapper {
+  margin-bottom: clamp(24px, 2.6vw, 34px);
+  max-width: clamp(280px, 26vw, 360px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hero-character-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 777 / 702;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.13));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  will-change: transform;
+}
+
+@keyframes heroCharFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-character-img {
+    animation: heroCharFloat 5.5s ease-in-out infinite;
+  }
+}
+
+.hero-character-wrapper:hover .hero-character-img {
+  animation-play-state: paused;
+  transform: translateY(-6px) scale(1.025);
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.2));
+}
+
+/* Action Buttons */
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Right Content */
+.hero-content-right {
+  flex: 0 0 54%;
+  max-width: 54%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero-3d-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-3d-scene-container {
+  width: 100%;
+  max-width: clamp(520px, 48vw, 680px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.22));
+  cursor: grab;
+}
+
+.hero-3d-scene-container:active {
+  cursor: grabbing;
+}
+
+.hero-3d-scene-fallback {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tablet Landscape / Small Desktop (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+  .hero-panel {
+    padding: 44px 34px;
+    gap: 28px;
+  }
+  .hero-content-left {
+    flex: 0 0 47%;
+    max-width: 47%;
+  }
+  .hero-content-right {
+    flex: 0 0 53%;
+    max-width: 53%;
+  }
+  .hero-character-wrapper {
+    max-width: 310px;
+    margin-bottom: 24px;
+  }
+  .hero-3d-scene-container {
+    max-width: 520px;
+  }
+}
+
+/* Tablet Portrait (768px - 1023px) */
+@media (max-width: 1023px) {
+  .hero-panel {
+    flex-direction: column;
+    padding: 44px 32px;
+    gap: 36px;
+    text-align: center;
+  }
+  .hero-content-left {
+    flex: 0 0 100%;
+    max-width: 100%;
+    align-items: center;
+  }
+  .hero-content-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .hero-character-wrapper {
+    max-width: 300px;
+    margin: 0 auto 26px;
+    justify-content: center;
+  }
+  .hero-3d-scene-container {
+    max-width: 480px;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+}
+
+/* Mobile Large (480px - 767px) */
+@media (max-width: 767px) {
+  .hero-panel {
+    padding: 34px 20px 28px;
+    gap: 26px;
+    border-radius: 8px;
+  }
+  .hero-title {
+    font-size: clamp(26px, 6.5vw, 32px);
+    margin-bottom: 12px;
+  }
+  .hero-desc {
+    font-size: 14.5px;
+    line-height: 1.45;
+  }
+  .hero-br {
+    display: none;
+  }
+  .hero-character-wrapper {
+    max-width: 250px;
+    margin: 0 auto 20px;
+    justify-content: center;
+  }
+  .hero-cta-group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 12px;
+    justify-content: center;
+  }
+  .hero-cta-group .custom-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .hero-3d-scene-container {
+    max-width: 360px;
+  }
+}
+
+/* Mobile Small (<= 420px) */
+@media (max-width: 420px) {
+  .hero-panel {
+    padding: 26px 16px 22px;
+    gap: 20px;
+  }
+  .hero-title {
+    font-size: 24px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .hero-cta-group .custom-btn {
+    width: 100%;
+  }
+  .hero-character-wrapper {
+    max-width: 210px;
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+  .hero-3d-scene-container {
+    max-width: 290px;
+  }
+}

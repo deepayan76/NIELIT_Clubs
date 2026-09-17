@@ -1,0 +1,64 @@
+.custom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.custom-btn:focus-visible {
+  outline: 2px solid var(--blue-dark);
+  outline-offset: 2px;
+}
+
+/* Variants */
+.btn-white {
+  background-color: var(--white);
+  color: var(--text-dark);
+  border-radius: var(--radius-btn);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.btn-white:hover {
+  background-color: #F0F3F6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn-white:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border-radius: var(--radius-btn);
+}
+
+.btn-primary:hover {
+  background-color: var(--blue-panel-hover);
+  transform: translateY(-2px);
+}
+
+/* Sizes */
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.btn-md {
+  padding: 11px 20px;
+  font-size: 15px;
+}
+
+.btn-lg {
+  padding: 13px 26px;
+  font-size: 16px;
+}

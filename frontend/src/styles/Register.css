@@ -1,0 +1,325 @@
+.register-section {
+  padding-top: 10px;
+}
+
+.register-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: center;
+}
+
+/* Left Registration Panel */
+.register-panel {
+  background-color: var(--primary-blue);
+  border-radius: var(--radius-panel);
+  padding: clamp(32px, 3.8vw, 44px) clamp(20px, 3.8vw, 48px);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.register-panel-title {
+  text-align: center;
+  font-size: clamp(26px, 2.5vw, 36px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: clamp(20px, 2.5vw, 28px);
+  letter-spacing: -0.01em;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: block;
+  font-size: clamp(14px, 1.1vw, 15px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.club-question-label {
+  font-size: clamp(15px, 1.2vw, 16px);
+  margin-bottom: 12px;
+}
+
+/* Club Selector Cards */
+.club-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.club-selector-card {
+  position: relative;
+  background-color: var(--white);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-selector);
+  padding: 10px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-dark);
+  min-height: 72px;
+}
+
+.club-selector-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.club-selector-card.selected {
+  border-color: var(--blue-dark);
+  box-shadow: 0 0 0 1.5px var(--blue-dark), 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.selector-radio-dot {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid #777;
+  background-color: transparent;
+}
+
+.club-selector-card.selected .selector-radio-dot {
+  background-color: var(--blue-dark);
+  border-color: var(--blue-dark);
+}
+
+.selector-icon-wrap {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selector-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.selector-name {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Inputs */
+.form-input,
+.form-textarea {
+  background-color: var(--input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-input);
+  padding: 12px 16px;
+  font-size: 15px;
+  color: var(--text-dark);
+  width: 100%;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--blue-dark);
+  background-color: var(--white);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--input-placeholder);
+  font-size: 14px;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.input-error {
+  border-color: #FF6B6B !important;
+  background-color: #FFF2F2 !important;
+}
+
+.form-error-msg {
+  font-size: 12.5px;
+  color: #FFE6E6;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Submit Row */
+.register-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.register-submit-btn {
+  background-color: var(--white);
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 26px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.register-submit-btn:hover:not(:disabled) {
+  background-color: #F0F3F6;
+  transform: translateY(-2px);
+}
+
+.register-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.register-info-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.35;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Right Side Graphics */
+.register-side-graphics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  gap: 24px;
+}
+
+.register-side-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.register-top-logo {
+  width: 318px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.1));
+}
+
+.register-side-bottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-checklist-img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.1));
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .register-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .register-side-graphics {
+    align-items: center;
+    gap: 28px;
+  }
+  .register-side-top {
+    justify-content: center;
+    padding-right: 0;
+  }
+  .register-top-logo {
+    width: 220px;
+  }
+  .register-checklist-img {
+    max-width: 280px;
+  }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .register-panel {
+    padding: 28px 16px;
+    border-radius: 8px;
+  }
+  .register-panel-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  .club-selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .register-submit-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .register-submit-btn {
+    width: 100%;
+  }
+  .register-top-logo {
+    width: 180px;
+  }
+  .register-checklist-img {
+    max-width: 240px;
+  }
+}
+
+/* Extra Small Mobile (<= 380px) */
+@media (max-width: 380px) {
+  .register-panel {
+    padding: 22px 12px;
+  }
+  .club-selector-card {
+    min-height: 64px;
+    padding: 8px 4px;
+  }
+  .register-top-logo {
+    width: 150px;
+  }
+  .register-checklist-img {
+    max-width: 200px;
+  }
+}

@@ -1,0 +1,140 @@
+.club-card {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-blue);
+  border-radius: var(--radius-card);
+  padding: clamp(20px, 2.5vw, 28px) clamp(20px, 3vw, 36px);
+  margin-bottom: var(--card-gap);
+  gap: clamp(20px, 2.8vw, 36px);
+  min-height: 200px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.club-card:last-child {
+  margin-bottom: 0;
+}
+
+.club-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.club-card-media {
+  flex: 0 0 54%;
+  max-width: 54%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.club-card-image {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+}
+
+.club-card-content {
+  flex: 0 0 46%;
+  max-width: 46%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--text-light);
+}
+
+.club-card-title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 500;
+  margin-bottom: clamp(8px, 1vw, 12px);
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.club-card-description {
+  font-size: clamp(14px, 1.1vw, 15px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: clamp(14px, 1.5vw, 20px);
+  font-weight: 400;
+}
+
+.club-card-action {
+  margin-top: auto;
+}
+
+.club-explore-btn {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 18px !important;
+  border-radius: 6px !important;
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .club-card {
+    padding: 20px 24px;
+    gap: 20px;
+    min-height: 180px;
+  }
+  .club-card-media {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .club-card-content {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .club-card-image {
+    max-height: 150px;
+  }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .club-card {
+    flex-direction: column;
+    padding: 24px 18px;
+    gap: 18px;
+    text-align: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  .club-card-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .club-card-image {
+    max-height: 140px;
+  }
+  .club-card-content {
+    flex: 0 0 100%;
+    max-width: 100%;
+    align-items: center;
+  }
+  .club-card-title {
+    margin-bottom: 8px;
+  }
+  .club-card-description {
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .club-explore-btn {
+    padding: 9px 24px !important;
+  }
+}
+
+/* Extra Small Mobile (<= 380px) */
+@media (max-width: 380px) {
+  .club-card {
+    padding: 20px 14px;
+  }
+  .club-card-image {
+    max-height: 120px;
+  }
+  .club-explore-btn {
+    width: 100%;
+  }
+}

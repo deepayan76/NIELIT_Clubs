@@ -1,0 +1,230 @@
+.about-section {
+  padding: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: stretch;
+}
+
+/* Left Blue Panel */
+.about-left-panel {
+  background-color: var(--primary-blue);
+  border-radius: var(--radius-panel);
+  padding: clamp(36px, 4.5vw, 56px) clamp(24px, 4vw, 48px);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.about-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+.about-panel-logo {
+  height: clamp(56px, 5.5vw, 72px);
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
+}
+
+.about-panel-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-panel-eyebrow {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.about-panel-subtitle {
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 400;
+}
+
+.about-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 480px;
+}
+
+.about-paragraph {
+  font-size: clamp(14.5px, 1.2vw, 16px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 400;
+}
+
+/* Right 3-Stage Process */
+.about-process-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  width: 100%;
+}
+
+.process-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.stage-title {
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 400;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+}
+
+.process-connector {
+  width: 18px;
+  height: clamp(50px, 6vw, 70px);
+  background-color: var(--blue-dark);
+  border-radius: var(--radius-pill);
+  margin: 10px auto;
+}
+
+/* Stage 1: Explore */
+.stage-explore {
+  justify-content: center;
+}
+
+.stage-explore .stage-image-container {
+  position: absolute;
+  right: calc(50% + 75px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stage-explore-img {
+  width: clamp(75px, 7vw, 90px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Stage 2: Create */
+.stage-create {
+  justify-content: center;
+}
+
+.stage-create .stage-image-container {
+  position: absolute;
+  left: calc(50% + 70px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stage-create-img {
+  width: clamp(110px, 10vw, 130px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Stage 3: Collaborate */
+.stage-collaborate {
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.stage-collaborate-img {
+  width: clamp(140px, 14vw, 180px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-panel-body {
+    max-width: 100%;
+  }
+  .about-process-wrapper {
+    padding: 24px 0;
+  }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+  .about-left-panel {
+    padding: 28px 18px;
+    border-radius: 8px;
+  }
+  .about-panel-header {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .about-panel-logo {
+    height: 48px;
+    max-width: 130px;
+  }
+  .stage-explore .stage-image-container,
+  .stage-create .stage-image-container {
+    position: static;
+    transform: none;
+  }
+  .stage-explore {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .stage-create {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .stage-title {
+    font-size: 24px;
+  }
+  .process-connector {
+    height: 36px;
+    width: 12px;
+    margin: 6px auto;
+  }
+  .stage-explore-img {
+    width: 75px;
+  }
+  .stage-create-img {
+    width: 110px;
+  }
+  .stage-collaborate-img {
+    width: 150px;
+  }
+}
+
+/* Extra Small Mobile (<= 380px) */
+@media (max-width: 380px) {
+  .about-left-panel {
+    padding: 24px 14px;
+  }
+  .about-panel-logo {
+    height: 42px;
+  }
+  .stage-title {
+    font-size: 22px;
+  }
+}

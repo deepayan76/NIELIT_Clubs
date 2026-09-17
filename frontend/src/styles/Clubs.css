@@ -1,0 +1,8 @@
+.clubs-section {
+  padding-top: 20px;
+}
+
+.clubs-list {
+  display: flex;
+  flex-direction: column;
+}

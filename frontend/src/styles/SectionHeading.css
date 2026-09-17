@@ -1,0 +1,26 @@
+.section-heading-wrapper {
+  margin-bottom: 36px;
+}
+
+.section-heading-wrapper.align-center {
+  text-align: center;
+}
+
+.section-heading-wrapper.align-left {
+  text-align: left;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
