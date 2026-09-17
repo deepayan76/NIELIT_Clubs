@@ -73,8 +73,8 @@ const healthHandler = (req, res) => {
 
   res.status(200).json({
     success: true,
+    status: 'ok',
     message: 'NIELIT Tech Clubs backend is running.',
-    environment: process.env.NODE_ENV || 'development',
     database: dbState,
     timestamp: new Date().toISOString()
   });
