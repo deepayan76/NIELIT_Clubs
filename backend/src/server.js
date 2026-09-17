@@ -17,6 +17,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 // Apply Helmet for HTTP Security Headers (keep CSP off for decoupled API)
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
@@ -29,11 +30,12 @@ const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173,http:
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, or server tests)
+    // Allow requests with no origin (like mobile apps, curl, uptime monitors, or server tests)
     if (!origin) return callback(null, true);
 
+    const cleanOrigin = origin.trim().replace(/\/$/, '').toLowerCase();
     const isAllowed = allowedOrigins.some(
-      (allowed) => origin.toLowerCase() === allowed.toLowerCase()
+      (allowed) => allowed.toLowerCase() === cleanOrigin
     );
 
     if (isAllowed) {
@@ -56,10 +58,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 /**
- * Health Check API Endpoint
- * GET /api/health
+ * Health Check API Endpoints
+ * GET /health, GET /api/health
  */
-app.get('/api/health', (req, res) => {
+const healthHandler = (req, res) => {
   const dbStateMap = {
     0: 'disconnected',
     1: 'connected',
@@ -72,10 +74,14 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'NIELIT Tech Clubs backend is running.',
+    environment: process.env.NODE_ENV || 'development',
     database: dbState,
     timestamp: new Date().toISOString()
   });
-});
+};
+
+app.get('/health', healthHandler);
+app.get('/api/health', healthHandler);
 
 /**
  * Public Student Registration API
@@ -84,28 +90,36 @@ app.get('/api/health', (req, res) => {
 app.use('/api/registrations', registrationRoutes);
 
 /**
- * Admin Authentication API (Phase 5)
+ * Admin Authentication API (Phase 5, 7)
  * /api/admin/auth/login, /api/admin/auth/logout, /api/admin/auth/me
  */
 app.use('/api/admin/auth', adminAuthRoutes);
 
 /**
- * Protected Admin Registration, Decision & Directory API (Phase 4, 5, 6)
+ * Protected Admin Registration, Decision & Directory API (Phase 4, 5, 6, 7)
  * /api/admin/registrations, /stats, /:id, /approve, /reject, /students, /notifications
  */
 app.use('/api/admin', adminRegistrationRoutes);
 
 /**
- * Student Authentication API (Phase 5)
- * /api/auth/login, /api/auth/logout, /api/auth/me
+ * Student Authentication API (Phase 5, 7)
+ * /api/auth/login, /api/auth/logout, /api/auth/me, /api/auth/change-password, /api/auth/forgot-password, /api/auth/reset-password
  */
 app.use('/api/auth', studentAuthRoutes);
 
 /**
- * Protected Student Portal API (Phase 6)
+ * Protected Student Portal API (Phase 6, 7)
  * /api/student/profile, /api/student/application, /api/student/notifications
  */
 app.use('/api/student', studentRoutes);
+
+// Fallback 404 handler for undefined API routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Cannot ${req.method} ${req.originalUrl} - Endpoint not found.`
+  });
+});
 
 // Centralized Error Handling Middleware
 app.use(errorHandler);
@@ -116,19 +130,19 @@ app.use(errorHandler);
  */
 async function startServer() {
   console.log('----------------------------------------------------');
-  console.log('🚀 Initializing NIELIT Tech Clubs Backend (Phase 5)');
+  console.log('🚀 Initializing NIELIT Tech Clubs Backend (Phase 7)');
   console.log('----------------------------------------------------');
 
   // Establish MongoDB Atlas connection
   await connectDB();
 
-  // Start HTTP Listener
-  app.listen(PORT, () => {
-    console.log(`✓ NIELIT Tech Clubs backend running on port ${PORT}`);
-    console.log(`✓ Health endpoint available at http://localhost:${PORT}/api/health`);
-    console.log(`✓ Registrations API available at http://localhost:${PORT}/api/registrations`);
-    console.log(`✓ Admin API available at http://localhost:${PORT}/api/admin/registrations`);
-    console.log(`✓ Student Auth API available at http://localhost:${PORT}/api/auth`);
+  // Start HTTP Listener binding to 0.0.0.0
+  app.listen(PORT, HOST, () => {
+    console.log(`✓ NIELIT Tech Clubs backend running at http://${HOST}:${PORT}`);
+    console.log(`✓ Health endpoint available at http://${HOST}:${PORT}/api/health`);
+    console.log(`✓ Registrations API available at http://${HOST}:${PORT}/api/registrations`);
+    console.log(`✓ Admin API available at http://${HOST}:${PORT}/api/admin/registrations`);
+    console.log(`✓ Student Auth API available at http://${HOST}:${PORT}/api/auth`);
     console.log('----------------------------------------------------');
   });
 }
