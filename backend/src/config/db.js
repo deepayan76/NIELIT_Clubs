@@ -14,7 +14,7 @@ export async function connectDB() {
 
   try {
     const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000 // 5s timeout for fast feedback
+      serverSelectionTimeoutMS: 10000 // 10s timeout for cloud cold-start resilience
     });
 
     console.log(`✓ MongoDB connected successfully to Atlas (${conn.connection.host})`);
