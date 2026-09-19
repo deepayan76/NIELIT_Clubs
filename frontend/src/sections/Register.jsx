@@ -51,16 +51,56 @@ export default function Register() {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.club) newErrors.club = 'Please select a club.';
-    if (!formData.name.trim()) newErrors.name = 'Name is required.';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = 'Please enter a valid email address.';
+
+    // 1. Club: Required
+    if (!formData.club) {
+      newErrors.club = 'Please select a club.';
     }
-    if (!formData.rollNumber.trim()) newErrors.rollNumber = 'Roll Number is required.';
-    if (!formData.semester.trim()) newErrors.semester = 'Semester is required.';
-    if (!formData.reason.trim()) newErrors.reason = 'Please provide your reason for joining.';
+
+    // 2. Name: Required, max 100 chars
+    const name = formData.name.trim();
+    if (!name) {
+      newErrors.name = 'Name is required.';
+    } else if (name.length > 100) {
+      newErrors.name = 'Name cannot exceed 100 characters.';
+    }
+
+    // 3. Email: Required, valid email format, max 100 chars
+    const email = formData.email.trim();
+    if (!email) {
+      newErrors.email = 'Email is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    } else if (email.length > 100) {
+      newErrors.email = 'Email cannot exceed 100 characters.';
+    }
+
+    // 4. Roll Number: Required, max 50 chars
+    const rollNumber = formData.rollNumber.trim();
+    if (!rollNumber) {
+      newErrors.rollNumber = 'Roll Number is required.';
+    } else if (rollNumber.length > 50) {
+      newErrors.rollNumber = 'Roll Number cannot exceed 50 characters.';
+    }
+
+    // 5. Semester: Required, integer between 1 and 6
+    const semester = formData.semester.trim();
+    if (!semester) {
+      newErrors.semester = 'Semester is required.';
+    } else if (!/^[1-6]$/.test(semester)) {
+      newErrors.semester = 'Semester must be an integer between 1 and 6.';
+    }
+
+    // 6. Reason: Required, min 10 chars, max 1000 chars
+    const reason = formData.reason.trim();
+    if (!reason) {
+      newErrors.reason = 'Please provide your reason for joining.';
+    } else if (reason.length < 10) {
+      newErrors.reason = 'Reason must be at least 10 characters long.';
+    } else if (reason.length > 1000) {
+      newErrors.reason = 'Reason cannot exceed 1000 characters.';
+    }
+
     return newErrors;
   };
 
