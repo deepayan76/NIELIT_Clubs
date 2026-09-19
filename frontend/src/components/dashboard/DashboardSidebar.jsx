@@ -4,6 +4,7 @@ import {
   User,
   FileText,
   Layers,
+  BookMarked,
   Settings,
   LogOut,
   X
@@ -39,6 +40,12 @@ export default function DashboardSidebar({ activeRoute, isOpen, onClose }) {
       label: 'My Club',
       route: '/dashboard/club',
       icon: Layers
+    },
+    {
+      id: 'resources',
+      label: 'Resources',
+      route: '/dashboard/resources',
+      icon: BookMarked
     },
     {
       id: 'settings',

@@ -52,6 +52,7 @@ export function getRouteTitle(routerState) {
     isForgotPassword,
     isResetPassword,
     isDashboard,
+    dashboardSubroute,
     isAdminLogin,
     isAdminDashboard,
     adminSubroute
@@ -67,11 +68,19 @@ export function getRouteTitle(routerState) {
   if (isLogin) return 'Student Login | NIELIT Tech Clubs';
   if (isForgotPassword) return 'Forgot Password | NIELIT Tech Clubs';
   if (isResetPassword) return 'Reset Password | NIELIT Tech Clubs';
-  if (isDashboard) return 'Dashboard | NIELIT Tech Clubs';
+  if (isDashboard) {
+    if (dashboardSubroute === 'resources') {
+      return 'Resources | NIELIT Tech Clubs';
+    }
+    return 'Dashboard | NIELIT Tech Clubs';
+  }
 
   // 3. Admin Portal
   if (isAdminLogin) return 'Admin Login | NIELIT Tech Clubs';
   if (isAdminDashboard) {
+    if (adminSubroute === 'resources') {
+      return 'Admin Resources | NIELIT Tech Clubs';
+    }
     if (adminSubroute === 'registrations') {
       return 'Registrations | NIELIT Tech Clubs';
     }
@@ -598,6 +607,7 @@ export function useRouter() {
     if (clean === 'profile') dashboardSubroute = 'profile';
     else if (clean === 'application') dashboardSubroute = 'application';
     else if (clean === 'club') dashboardSubroute = 'club';
+    else if (clean === 'resources') dashboardSubroute = 'resources';
     else if (clean === 'settings') dashboardSubroute = 'settings';
     else dashboardSubroute = 'home';
   }
@@ -629,6 +639,7 @@ export function useRouter() {
     if (clean === 'registrations') adminSubroute = 'registrations';
     else if (clean === 'students') adminSubroute = 'students';
     else if (clean === 'clubs') adminSubroute = 'clubs';
+    else if (clean === 'resources') adminSubroute = 'resources';
     else if (clean === 'notifications') adminSubroute = 'notifications';
     else if (clean === 'settings') adminSubroute = 'settings';
     else adminSubroute = 'dashboard';

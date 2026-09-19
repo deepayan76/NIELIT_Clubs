@@ -14,6 +14,7 @@ import DashboardHome from './pages/dashboard/DashboardHome';
 import Profile from './pages/dashboard/Profile';
 import ApplicationPage from './pages/dashboard/ApplicationPage';
 import MyClubPage from './pages/dashboard/MyClubPage';
+import ResourcesPage from './pages/dashboard/ResourcesPage';
 import SettingsPage from './pages/dashboard/SettingsPage';
 import { AuthProvider } from './context/AuthContext';
 
@@ -24,6 +25,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import Registrations from './pages/admin/Registrations';
 import Students from './pages/admin/Students';
 import Clubs from './pages/admin/Clubs';
+import AdminResources from './pages/admin/AdminResources';
 import Notifications from './pages/admin/Notifications';
 import AdminSettings from './pages/admin/AdminSettings';
 import { AdminAuthProvider } from './context/AdminAuthContext';
@@ -156,6 +158,10 @@ function AppContent() {
         adminComponent = <Clubs />;
         title = 'Technical Clubs';
         break;
+      case 'resources':
+        adminComponent = <AdminResources />;
+        title = 'Resources';
+        break;
       case 'notifications':
         adminComponent = <Notifications />;
         title = 'Admin Notifications';
@@ -208,6 +214,10 @@ function AppContent() {
       case 'club':
         activeComponent = <MyClubPage />;
         title = 'My Club';
+        break;
+      case 'resources':
+        activeComponent = <ResourcesPage />;
+        title = 'Learning Resources';
         break;
       case 'settings':
         activeComponent = <SettingsPage />;

@@ -11,6 +11,8 @@ import adminRegistrationRoutes from './routes/adminRegistration.routes.js';
 import adminAuthRoutes from './routes/adminAuth.routes.js';
 import studentAuthRoutes from './routes/studentAuth.routes.js';
 import studentRoutes from './routes/student.routes.js';
+import resourceRoutes from './routes/resource.routes.js';
+import adminResourceRoutes from './routes/adminResource.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -116,6 +118,18 @@ app.use('/api/auth', studentAuthRoutes);
  * /api/student/profile, /api/student/application, /api/student/notifications
  */
 app.use('/api/student', studentRoutes);
+
+/**
+ * Public/Student Learning Resources API
+ * /api/resources
+ */
+app.use('/api/resources', resourceRoutes);
+
+/**
+ * Protected Admin Learning Resources API
+ * /api/admin/resources
+ */
+app.use('/api/admin/resources', adminResourceRoutes);
 
 // Fallback 404 handler for undefined API routes
 app.use((req, res) => {

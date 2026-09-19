@@ -4,6 +4,7 @@ import {
   FileCheck2,
   Users,
   Layers,
+  BookMarked,
   Bell,
   Settings,
   LogOut,
@@ -40,6 +41,12 @@ export default function AdminSidebar({ activeRoute, isOpen, onClose }) {
       label: 'Clubs',
       route: '/admin/clubs',
       icon: Layers
+    },
+    {
+      id: 'resources',
+      label: 'Resources',
+      route: '/admin/resources',
+      icon: BookMarked
     },
     {
       id: 'notifications',
