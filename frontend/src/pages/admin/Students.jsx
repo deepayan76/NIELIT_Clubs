@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { adminApi } from '../../services/adminApi';
-import { Search, Users, Eye, CheckCircle2, X } from 'lucide-react';
+import { Search, Users, Eye, CheckCircle2, XCircle, UserX, X } from 'lucide-react';
 import UserAvatar from '../../components/dashboard/UserAvatar';
+import TerminateStudentDialog from '../../components/admin/TerminateStudentDialog';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -9,42 +10,79 @@ export default function Students() {
   const [search, setSearch] = useState('');
   const [clubFilter, setClubFilter] = useState('ALL');
   const [semesterFilter, setSemesterFilter] = useState('ALL');
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success');
 
   // Selected Student Profile Modal
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  useEffect(() => {
-    async function loadStudents() {
-      setLoading(true);
-      try {
-        const data = await adminApi.getStudents({
-          search,
-          club: clubFilter,
-          semester: semesterFilter
-        });
-        setStudents(data);
-      } catch (e) {
-        console.error('Failed to load students:', e);
-      } finally {
-        setLoading(false);
-      }
+  // Terminate Dialog State
+  const [terminatingStudent, setTerminatingStudent] = useState(null);
+
+  const loadStudents = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await adminApi.getStudents({
+        search,
+        club: clubFilter,
+        semester: semesterFilter
+      });
+      setStudents(data);
+    } catch (e) {
+      console.error('Failed to load students:', e);
+    } finally {
+      setLoading(false);
     }
-    loadStudents();
   }, [search, clubFilter, semesterFilter]);
+
+  useEffect(() => {
+    loadStudents();
+  }, [loadStudents]);
+
+  const handleTerminateConfirm = async (studentId, reason) => {
+    const studentName = terminatingStudent?.name || 'Student';
+    await adminApi.terminateStudent(studentId, reason);
+    setToastMessage(`✓ Student account for ${studentName} has been terminated.`);
+    setToastType('success');
+    setTimeout(() => setToastMessage(''), 6000);
+    await loadStudents();
+  };
 
   return (
     <div>
       <div className="dash-welcome-banner">
         <h2 className="dash-welcome-title">Enrolled Students Directory</h2>
         <p className="dash-welcome-subtitle">
-          Verified active student members across all technical club chapters.
+          Verified student members across all technical club chapters.
         </p>
       </div>
+
+      {toastMessage && (
+        <div
+          style={{
+            padding: '12px 18px',
+            backgroundColor: toastType === 'success' ? '#ECFDF5' : '#FEF2F2',
+            color: toastType === 'success' ? '#047857' : '#B91C1C',
+            border: `1px solid ${toastType === 'success' ? '#A7F3D0' : '#FECACA'}`,
+            borderRadius: '8px',
+            marginBottom: '20px',
+            fontWeight: 600,
+            fontSize: '0.9rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+          role="status"
+        >
+          {toastType === 'success' ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
+          <span>{toastMessage}</span>
+        </div>
+      )}
 
       <div className="admin-table-card">
         <div className="admin-table-header-bar">
           <div>
-            <h3 className="admin-table-title">Active Members ({students.length})</h3>
+            <h3 className="admin-table-title">Members Directory ({students.length})</h3>
           </div>
 
           <div className="admin-toolbar">
@@ -97,14 +135,14 @@ export default function Students() {
                 <th>Club</th>
                 <th>Semester</th>
                 <th>Account Status</th>
-                <th>Actions</th>
+                <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
                   <td colSpan="7" style={{ textAlign: 'center', padding: '36px', color: 'var(--admin-gray)' }}>
-                    Loading active student members...
+                    Loading student members...
                   </td>
                 </tr>
               ) : students.length === 0 ? (
@@ -114,38 +152,60 @@ export default function Students() {
                   </td>
                 </tr>
               ) : (
-                students.map((st) => (
-                  <tr key={st._id}>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <UserAvatar name={st.name} />
-                        <span className="admin-student-name">{st.name}</span>
-                      </div>
-                    </td>
-                    <td>{st.rollNumber}</td>
-                    <td>{st.email}</td>
-                    <td>
-                      <span style={{ fontWeight: 600, color: 'var(--admin-dark-blue)' }}>
-                        {st.club} Club
-                      </span>
-                    </td>
-                    <td>{st.semester}th Sem</td>
-                    <td>
-                      <span className="status-tag approved" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
-                        <CheckCircle2 size={12} /> Active
-                      </span>
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        className="btn-action-view"
-                        onClick={() => setSelectedStudent(st)}
-                      >
-                        <Eye size={14} /> View Profile
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                students.map((st) => {
+                  const isTerminated = st.accountStatus === 'TERMINATED';
+                  return (
+                    <tr key={st._id}>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <UserAvatar name={st.name} />
+                          <span className="admin-student-name">{st.name}</span>
+                        </div>
+                      </td>
+                      <td>{st.rollNumber}</td>
+                      <td>{st.email}</td>
+                      <td>
+                        <span style={{ fontWeight: 600, color: 'var(--admin-dark-blue)' }}>
+                          {st.club} Club
+                        </span>
+                      </td>
+                      <td>{st.semester}th Sem</td>
+                      <td>
+                        {isTerminated ? (
+                          <span className="status-tag rejected" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                            <XCircle size={12} /> Terminated
+                          </span>
+                        ) : (
+                          <span className="status-tag approved" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                            <CheckCircle2 size={12} /> Active
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        <div className="admin-table-actions" style={{ justifyContent: 'flex-end' }}>
+                          <button
+                            type="button"
+                            className="btn-action-view"
+                            onClick={() => setSelectedStudent(st)}
+                            title="View Student Profile"
+                          >
+                            <Eye size={14} /> View
+                          </button>
+                          {!isTerminated && st.role === 'STUDENT' && (
+                            <button
+                              type="button"
+                              className="btn-action-reject"
+                              onClick={() => setTerminatingStudent(st)}
+                              title="Terminate Student Account"
+                            >
+                              <UserX size={14} /> Terminate
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -196,7 +256,15 @@ export default function Students() {
                 </div>
                 <div className="detail-item">
                   <span className="detail-label">Account Status</span>
-                  <span className="detail-value" style={{ color: '#047857', fontWeight: 600 }}>Active</span>
+                  <span
+                    className="detail-value"
+                    style={{
+                      color: selectedStudent.accountStatus === 'TERMINATED' ? '#DC2626' : '#047857',
+                      fontWeight: 600
+                    }}
+                  >
+                    {selectedStudent.accountStatus === 'TERMINATED' ? 'Terminated (Disabled)' : 'Active'}
+                  </span>
                 </div>
                 <div className="detail-item">
                   <span className="detail-label">Joined / Approved Date</span>
@@ -204,6 +272,24 @@ export default function Students() {
                     {selectedStudent.joinedDate ? new Date(selectedStudent.joinedDate).toLocaleDateString('en-GB') : '17 Sep 2026'}
                   </span>
                 </div>
+                {selectedStudent.accountStatus === 'TERMINATED' && (
+                  <>
+                    <div className="detail-item">
+                      <span className="detail-label">Terminated On</span>
+                      <span className="detail-value" style={{ color: '#DC2626' }}>
+                        {selectedStudent.terminatedAt ? new Date(selectedStudent.terminatedAt).toLocaleDateString('en-GB') : 'Recent'}
+                      </span>
+                    </div>
+                    {selectedStudent.terminationReason && (
+                      <div className="detail-item" style={{ gridColumn: 'span 2' }}>
+                        <span className="detail-label">Termination Reason</span>
+                        <span className="detail-value" style={{ color: '#991B1B' }}>
+                          {selectedStudent.terminationReason}
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             </div>
 
@@ -219,6 +305,14 @@ export default function Students() {
           </div>
         </div>
       )}
+
+      {/* Terminate Student Confirmation Dialog */}
+      <TerminateStudentDialog
+        student={terminatingStudent}
+        isOpen={Boolean(terminatingStudent)}
+        onClose={() => setTerminatingStudent(null)}
+        onConfirm={handleTerminateConfirm}
+      />
     </div>
   );
 }

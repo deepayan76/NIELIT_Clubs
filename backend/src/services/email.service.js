@@ -3,6 +3,7 @@ import { getRegistrationReceivedTemplate } from '../templates/registrationReceiv
 import { getApplicationApprovedTemplate } from '../templates/applicationApproved.js';
 import { getApplicationRejectedTemplate } from '../templates/applicationRejected.js';
 import { getPasswordResetTemplate } from '../templates/passwordReset.js';
+import { getAccountTerminatedTemplate } from '../templates/accountTerminated.js';
 
 /**
  * Email Service
@@ -248,6 +249,63 @@ export async function sendPasswordResetEmail({
     };
   } catch (err) {
     console.error('✕ Unexpected error in sendPasswordResetEmail:', err.message || err);
+    return {
+      success: false,
+      error: err.message || err
+    };
+  }
+}
+
+/**
+ * Sends Account Terminated notification email to the student.
+ * Failure to deliver email will NOT roll back account termination.
+ */
+export async function sendAccountTerminationEmail({
+  name,
+  email,
+  rollNumber,
+  club
+}) {
+  const resend = getResendClient();
+  const fromAddress = process.env.EMAIL_FROM || 'NIELIT Tech Clubs <onboarding@resend.dev>';
+
+  if (!resend) {
+    console.warn('⚠️  RESEND_API_KEY is not defined in .env. Automated termination email skipped.');
+    return {
+      success: false,
+      error: 'RESEND_API_KEY not configured'
+    };
+  }
+
+  try {
+    const htmlContent = getAccountTerminatedTemplate({
+      name,
+      club,
+      rollNumber
+    });
+
+    const { data, error } = await resend.emails.send({
+      from: fromAddress,
+      to: [email],
+      subject: 'NIELIT Tech Clubs — Account Status Update',
+      html: htmlContent
+    });
+
+    if (error) {
+      console.error('✕ Resend termination email delivery failed:', error.message || error);
+      return {
+        success: false,
+        error: error.message || error
+      };
+    }
+
+    console.log(`✓ Account Terminated email sent successfully to ${email} (ID: ${data?.id})`);
+    return {
+      success: true,
+      id: data?.id
+    };
+  } catch (err) {
+    console.error('✕ Unexpected error in sendAccountTerminationEmail:', err.message || err);
     return {
       success: false,
       error: err.message || err

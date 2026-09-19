@@ -5,7 +5,8 @@ import Registration, { ALLOWED_CLUBS, ALLOWED_SEMESTERS } from '../models/Regist
 import User from '../models/User.js';
 import {
   sendApplicationApprovedEmail,
-  sendApplicationRejectedEmail
+  sendApplicationRejectedEmail,
+  sendAccountTerminationEmail
 } from '../services/email.service.js';
 import { logAuditEvent } from '../services/audit.service.js';
 
@@ -461,11 +462,103 @@ export async function getEnrolledStudents(req, res, next) {
         accountStatus: s.accountStatus,
         role: s.role,
         joinedDate: s.createdAt,
-        registrationId: s.registrationId
+        registrationId: s.registrationId,
+        terminatedAt: s.terminatedAt || null,
+        terminationReason: s.terminationReason || null
       }))
     });
   } catch (error) {
     console.error('Error fetching enrolled students:', error);
+    return next(error);
+  }
+}
+
+/**
+ * PATCH /api/admin/students/:id/terminate
+ * Terminates/deactivates a student account, revokes active sessions via tokenVersion increment, and dispatches notification
+ */
+export async function terminateStudent(req, res, next) {
+  try {
+    const { id } = req.params;
+
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student account not found.'
+      });
+    }
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student account not found.'
+      });
+    }
+
+    // Confirm the target is a STUDENT (prevent termination of ADMIN or other roles)
+    if (user.role !== 'STUDENT') {
+      return res.status(403).json({
+        success: false,
+        message: 'Cannot terminate an administrator account.'
+      });
+    }
+
+    // Prevent terminating already terminated accounts
+    if (user.accountStatus === 'TERMINATED') {
+      return res.status(409).json({
+        success: false,
+        message: 'This student account has already been terminated.'
+      });
+    }
+
+    // Sanitize optional reason (max 500 characters) and prevent mass assignment
+    const rawReason = typeof req.body?.reason === 'string' ? req.body.reason.trim() : '';
+    const terminationReason = rawReason ? rawReason.substring(0, 500) : '';
+
+    // Update account status, increment tokenVersion to revoke active sessions, record metadata
+    user.accountStatus = 'TERMINATED';
+    user.tokenVersion = (user.tokenVersion || 0) + 1;
+    user.terminatedAt = new Date();
+    user.terminatedBy = req.user?.id ? new mongoose.Types.ObjectId(req.user.id) : null;
+    user.terminationReason = terminationReason || null;
+
+    await user.save();
+
+    // Create Audit Log record
+    await logAuditEvent({
+      req,
+      actorRole: 'ADMIN',
+      actorIdentifier: req.user?.email || 'admin@nielit.edu.in',
+      action: 'STUDENT_ACCOUNT_TERMINATED',
+      targetType: 'USER',
+      targetId: user._id,
+      metadata: {
+        studentName: user.name,
+        studentEmail: user.email,
+        rollNumber: user.rollNumber,
+        club: user.club,
+        reason: terminationReason || 'Administrative termination'
+      }
+    });
+
+    // Send notification email asynchronously (email failure must NOT rollback termination)
+    sendAccountTerminationEmail({
+      name: user.name,
+      email: user.email,
+      rollNumber: user.rollNumber,
+      club: user.club
+    }).catch((emailErr) => {
+      console.error('Failed to send account termination email:', emailErr.message || emailErr);
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Student account terminated successfully.'
+    });
+  } catch (error) {
+    console.error('Error terminating student account:', error);
     return next(error);
   }
 }

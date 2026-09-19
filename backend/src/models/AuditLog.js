@@ -24,7 +24,8 @@ const auditLogSchema = new mongoose.Schema(
         'STUDENT_LOGIN_FAILED',
         'STUDENT_PASSWORD_CHANGED',
         'STUDENT_PASSWORD_RESET_REQUESTED',
-        'STUDENT_PASSWORD_RESET_COMPLETED'
+        'STUDENT_PASSWORD_RESET_COMPLETED',
+        'STUDENT_ACCOUNT_TERMINATED'
       ],
       required: true
     },

@@ -6,6 +6,7 @@ import {
   approveRegistration,
   rejectRegistration,
   getEnrolledStudents,
+  terminateStudent,
   getAdminNotifications
 } from '../controllers/adminRegistration.controller.js';
 import { requireAdmin } from '../middleware/auth.js';
@@ -37,6 +38,9 @@ router.patch('/registrations/:id/reject', rejectRegistration);
 
 // GET /api/admin/students - Enrolled active students list from User collection
 router.get('/students', getEnrolledStudents);
+
+// PATCH /api/admin/students/:id/terminate - Terminate/deactivate student account
+router.patch('/students/:id/terminate', terminateStudent);
 
 // GET /api/admin/notifications - Real-time admin notifications
 router.get('/notifications', getAdminNotifications);

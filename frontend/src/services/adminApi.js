@@ -164,6 +164,18 @@ export const adminApi = {
   },
 
   /**
+   * Terminate/deactivate student account
+   * Calls PATCH /api/admin/students/:id/terminate
+   */
+  async terminateStudent(id, reason = '') {
+    const response = await apiFetch(`/api/admin/students/${id}/terminate`, {
+      method: 'PATCH',
+      body: { reason }
+    });
+    return response;
+  },
+
+  /**
    * Get official clubs metadata and live member counts
    */
   async getClubsWithStats() {

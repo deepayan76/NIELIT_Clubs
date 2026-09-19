@@ -68,8 +68,23 @@ const userSchema = new mongoose.Schema(
     },
     accountStatus: {
       type: String,
-      enum: ['ACTIVE', 'INACTIVE', 'SUSPENDED'],
+      enum: ['ACTIVE', 'INACTIVE', 'SUSPENDED', 'TERMINATED'],
       default: 'ACTIVE'
+    },
+    terminatedAt: {
+      type: Date,
+      default: null
+    },
+    terminatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null
+    },
+    terminationReason: {
+      type: String,
+      maxlength: [500, 'Termination reason cannot exceed 500 characters.'],
+      trim: true,
+      default: null
     },
     registrationId: {
       type: mongoose.Schema.Types.ObjectId,
