@@ -37,6 +37,95 @@ export function scrollToSection(targetId) {
   tryScroll();
 }
 
+export function getRouteTitle(routerState) {
+  if (!routerState) return 'NIELIT Tech Clubs';
+
+  const {
+    pathname = '/',
+    search = '',
+    hash = '',
+    isAiClub,
+    isProgrammingClub,
+    isCybersecurityClub,
+    isIotClub,
+    isLogin,
+    isForgotPassword,
+    isResetPassword,
+    isDashboard,
+    isAdminLogin,
+    isAdminDashboard,
+    adminSubroute
+  } = routerState;
+
+  // 1. Dynamic / Dedicated Public Club Pages
+  if (isAiClub) return 'AI Club | NIELIT Tech Clubs';
+  if (isProgrammingClub) return 'Programming Club | NIELIT Tech Clubs';
+  if (isCybersecurityClub) return 'Cybersecurity Club | NIELIT Tech Clubs';
+  if (isIotClub) return 'IoT Club | NIELIT Tech Clubs';
+
+  // 2. Student Portal
+  if (isLogin) return 'Student Login | NIELIT Tech Clubs';
+  if (isForgotPassword) return 'Forgot Password | NIELIT Tech Clubs';
+  if (isResetPassword) return 'Reset Password | NIELIT Tech Clubs';
+  if (isDashboard) return 'Dashboard | NIELIT Tech Clubs';
+
+  // 3. Admin Portal
+  if (isAdminLogin) return 'Admin Login | NIELIT Tech Clubs';
+  if (isAdminDashboard) {
+    if (adminSubroute === 'registrations') {
+      return 'Registrations | NIELIT Tech Clubs';
+    }
+    return 'Admin Dashboard | NIELIT Tech Clubs';
+  }
+
+  // 4. Public Landing Page Major Routes & Anchor Sections
+  const cleanPath = (pathname || '/').toLowerCase().replace(/\/+$/, '') || '/';
+  const cleanHash = (hash || '').toLowerCase().replace(/\/+$/, '');
+
+  if (
+    cleanPath === '/about' ||
+    cleanHash === '#about' ||
+    cleanHash === '#/about'
+  ) {
+    return 'About | NIELIT Tech Clubs';
+  }
+
+  if (
+    cleanPath === '/clubs' ||
+    cleanHash === '#clubs' ||
+    cleanHash === '#/clubs'
+  ) {
+    return 'Clubs | NIELIT Tech Clubs';
+  }
+
+  if (
+    cleanPath === '/register' ||
+    cleanPath === '/join' ||
+    cleanPath === '/join-us' ||
+    cleanHash === '#register' ||
+    cleanHash === '#/register' ||
+    cleanHash === '#join' ||
+    cleanHash === '#join-us' ||
+    (search && search.includes('register'))
+  ) {
+    return 'Join Us | NIELIT Tech Clubs';
+  }
+
+  if (
+    cleanPath === '/' ||
+    cleanPath === '/home' ||
+    cleanHash === '#home' ||
+    cleanHash === '#/home' ||
+    cleanHash === '#' ||
+    cleanHash === ''
+  ) {
+    return 'NIELIT Tech Clubs';
+  }
+
+  // 5. Fallback / Unknown Route
+  return 'NIELIT Tech Clubs';
+}
+
 export function navigate(url, options = {}) {
   if (typeof window === 'undefined' || !url) return;
 
@@ -47,29 +136,65 @@ export function navigate(url, options = {}) {
     currentPath === '/ai' ||
     currentPath === '/ai/' ||
     currentPath === '/ai-club' ||
+    currentPath === '/ai-club/' ||
+    currentPath === '/clubs/ai' ||
+    currentPath === '/clubs/ai/' ||
+    currentPath === '/club/ai' ||
+    currentPath === '/club/ai/' ||
     currentHash === '#/ai' ||
-    currentHash === '#ai';
+    currentHash === '#ai' ||
+    currentHash === '#/clubs/ai' ||
+    currentHash === '#clubs/ai' ||
+    currentHash === '#/club/ai' ||
+    currentHash === '#club/ai';
 
   const isCurrentlyProg =
     currentPath === '/programming' ||
     currentPath === '/programming/' ||
     currentPath === '/programming-club' ||
+    currentPath === '/programming-club/' ||
+    currentPath === '/clubs/programming' ||
+    currentPath === '/clubs/programming/' ||
+    currentPath === '/club/programming' ||
+    currentPath === '/club/programming/' ||
     currentHash === '#/programming' ||
-    currentHash === '#programming';
+    currentHash === '#programming' ||
+    currentHash === '#/clubs/programming' ||
+    currentHash === '#clubs/programming' ||
+    currentHash === '#/club/programming' ||
+    currentHash === '#club/programming';
 
   const isCurrentlyCyber =
     currentPath === '/cybersecurity' ||
     currentPath === '/cybersecurity/' ||
     currentPath === '/cybersecurity-club' ||
+    currentPath === '/cybersecurity-club/' ||
+    currentPath === '/clubs/cybersecurity' ||
+    currentPath === '/clubs/cybersecurity/' ||
+    currentPath === '/club/cybersecurity' ||
+    currentPath === '/club/cybersecurity/' ||
     currentHash === '#/cybersecurity' ||
-    currentHash === '#cybersecurity';
+    currentHash === '#cybersecurity' ||
+    currentHash === '#/clubs/cybersecurity' ||
+    currentHash === '#clubs/cybersecurity' ||
+    currentHash === '#/club/cybersecurity' ||
+    currentHash === '#club/cybersecurity';
 
   const isCurrentlyIot =
     currentPath === '/iot' ||
     currentPath === '/iot/' ||
     currentPath === '/iot-club' ||
+    currentPath === '/iot-club/' ||
+    currentPath === '/clubs/iot' ||
+    currentPath === '/clubs/iot/' ||
+    currentPath === '/club/iot' ||
+    currentPath === '/club/iot/' ||
     currentHash === '#/iot' ||
-    currentHash === '#iot';
+    currentHash === '#iot' ||
+    currentHash === '#/clubs/iot' ||
+    currentHash === '#clubs/iot' ||
+    currentHash === '#/club/iot' ||
+    currentHash === '#club/iot';
 
   const isCurrentlyDashboard =
     currentPath.startsWith('/dashboard') ||
@@ -104,29 +229,65 @@ export function navigate(url, options = {}) {
     targetLower === '/ai' ||
     targetLower === '/ai/' ||
     targetLower === '/ai-club' ||
+    targetLower === '/ai-club/' ||
+    targetLower === '/clubs/ai' ||
+    targetLower === '/clubs/ai/' ||
+    targetLower === '/club/ai' ||
+    targetLower === '/club/ai/' ||
     targetLower === '#/ai' ||
-    targetLower === '#ai';
+    targetLower === '#ai' ||
+    targetLower === '#/clubs/ai' ||
+    targetLower === '#clubs/ai' ||
+    targetLower === '#/club/ai' ||
+    targetLower === '#club/ai';
 
   const isTargetProg =
     targetLower === '/programming' ||
     targetLower === '/programming/' ||
     targetLower === '/programming-club' ||
+    targetLower === '/programming-club/' ||
+    targetLower === '/clubs/programming' ||
+    targetLower === '/clubs/programming/' ||
+    targetLower === '/club/programming' ||
+    targetLower === '/club/programming/' ||
     targetLower === '#/programming' ||
-    targetLower === '#programming';
+    targetLower === '#programming' ||
+    targetLower === '#/clubs/programming' ||
+    targetLower === '#clubs/programming' ||
+    targetLower === '#/club/programming' ||
+    targetLower === '#club/programming';
 
   const isTargetCyber =
     targetLower === '/cybersecurity' ||
     targetLower === '/cybersecurity/' ||
     targetLower === '/cybersecurity-club' ||
+    targetLower === '/cybersecurity-club/' ||
+    targetLower === '/clubs/cybersecurity' ||
+    targetLower === '/clubs/cybersecurity/' ||
+    targetLower === '/club/cybersecurity' ||
+    targetLower === '/club/cybersecurity/' ||
     targetLower === '#/cybersecurity' ||
-    targetLower === '#cybersecurity';
+    targetLower === '#cybersecurity' ||
+    targetLower === '#/clubs/cybersecurity' ||
+    targetLower === '#clubs/cybersecurity' ||
+    targetLower === '#/club/cybersecurity' ||
+    targetLower === '#club/cybersecurity';
 
   const isTargetIot =
     targetLower === '/iot' ||
     targetLower === '/iot/' ||
     targetLower === '/iot-club' ||
+    targetLower === '/iot-club/' ||
+    targetLower === '/clubs/iot' ||
+    targetLower === '/clubs/iot/' ||
+    targetLower === '/club/iot' ||
+    targetLower === '/club/iot/' ||
     targetLower === '#/iot' ||
-    targetLower === '#iot';
+    targetLower === '#iot' ||
+    targetLower === '#/clubs/iot' ||
+    targetLower === '#clubs/iot' ||
+    targetLower === '#/club/iot' ||
+    targetLower === '#club/iot';
 
   const isTargetDashboard =
     targetLower.startsWith('/dashboard') ||
@@ -165,6 +326,9 @@ export function navigate(url, options = {}) {
     !isCurrentlyResetPassword &&
     !isCurrentlyAdmin
   ) {
+    window.history.pushState({}, '', url);
+    window.dispatchEvent(new Event('popstate'));
+    window.dispatchEvent(new Event('hashchange'));
     const targetId = url.substring(1);
     scrollToSection(targetId);
     return;
@@ -199,6 +363,7 @@ export function navigate(url, options = {}) {
 
     window.history.pushState({}, '', url);
     window.dispatchEvent(new Event('popstate'));
+    window.dispatchEvent(new Event('hashchange'));
 
     const hashIndex = url.indexOf('#');
     if (
@@ -231,6 +396,7 @@ export function navigate(url, options = {}) {
   ) {
     window.history.pushState({}, '', url);
     window.dispatchEvent(new Event('popstate'));
+    window.dispatchEvent(new Event('hashchange'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
@@ -239,12 +405,13 @@ export function navigate(url, options = {}) {
   if (url.includes('?') || url.startsWith('/#') || url.startsWith('/')) {
     window.history.pushState({}, '', url);
     window.dispatchEvent(new Event('popstate'));
+    window.dispatchEvent(new Event('hashchange'));
   }
   const hashIndex = url.indexOf('#');
   if (hashIndex !== -1) {
     const targetId = url.substring(hashIndex + 1);
     scrollToSection(targetId);
-  } else if (url === '/' || url === '#home' || url === '/#home') {
+  } else if (url === '/' || url === '#home' || url === '/#home' || url === '/home') {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -314,32 +481,68 @@ export function useRouter() {
     path === '/ai' ||
     path === '/ai/' ||
     path === '/ai-club' ||
+    path === '/ai-club/' ||
+    path === '/clubs/ai' ||
+    path === '/clubs/ai/' ||
+    path === '/club/ai' ||
+    path === '/club/ai/' ||
     hash === '#/ai' ||
-    hash === '#ai';
+    hash === '#ai' ||
+    hash === '#/clubs/ai' ||
+    hash === '#clubs/ai' ||
+    hash === '#/club/ai' ||
+    hash === '#club/ai';
 
   // Determine if current route is Programming Club
   const isProgrammingClub =
     path === '/programming' ||
     path === '/programming/' ||
     path === '/programming-club' ||
+    path === '/programming-club/' ||
+    path === '/clubs/programming' ||
+    path === '/clubs/programming/' ||
+    path === '/club/programming' ||
+    path === '/club/programming/' ||
     hash === '#/programming' ||
-    hash === '#programming';
+    hash === '#programming' ||
+    hash === '#/clubs/programming' ||
+    hash === '#clubs/programming' ||
+    hash === '#/club/programming' ||
+    hash === '#club/programming';
 
   // Determine if current route is Cybersecurity Club
   const isCybersecurityClub =
     path === '/cybersecurity' ||
     path === '/cybersecurity/' ||
     path === '/cybersecurity-club' ||
+    path === '/cybersecurity-club/' ||
+    path === '/clubs/cybersecurity' ||
+    path === '/clubs/cybersecurity/' ||
+    path === '/club/cybersecurity' ||
+    path === '/club/cybersecurity/' ||
     hash === '#/cybersecurity' ||
-    hash === '#cybersecurity';
+    hash === '#cybersecurity' ||
+    hash === '#/clubs/cybersecurity' ||
+    hash === '#clubs/cybersecurity' ||
+    hash === '#/club/cybersecurity' ||
+    hash === '#club/cybersecurity';
 
   // Determine if current route is IoT Club
   const isIotClub =
     path === '/iot' ||
     path === '/iot/' ||
     path === '/iot-club' ||
+    path === '/iot-club/' ||
+    path === '/clubs/iot' ||
+    path === '/clubs/iot/' ||
+    path === '/club/iot' ||
+    path === '/club/iot/' ||
     hash === '#/iot' ||
-    hash === '#iot';
+    hash === '#iot' ||
+    hash === '#/clubs/iot' ||
+    hash === '#clubs/iot' ||
+    hash === '#/club/iot' ||
+    hash === '#club/iot';
 
   // Determine if current route is Login (Student)
   const isLogin =
@@ -415,7 +618,7 @@ export function useRouter() {
     else adminSubroute = 'dashboard';
   }
 
-  return {
+  const routerState = {
     pathname: currentLocation.pathname,
     search: currentLocation.search,
     hash: currentLocation.hash,
@@ -433,4 +636,6 @@ export function useRouter() {
     adminSubroute,
     navigate
   };
+
+  return routerState;
 }

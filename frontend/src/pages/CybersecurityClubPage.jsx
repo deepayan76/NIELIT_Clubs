@@ -30,7 +30,6 @@ export default function CybersecurityClubPage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'Cybersecurity Club | NIELIT Tech Clubs';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 

@@ -28,7 +28,6 @@ export default function AIClubPage() {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'AI Club | NIELIT Tech Clubs';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 

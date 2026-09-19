@@ -28,9 +28,10 @@ import Notifications from './pages/admin/Notifications';
 import AdminSettings from './pages/admin/AdminSettings';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 
-import { useRouter, scrollToSection } from './utils/router';
+import { useRouter, scrollToSection, getRouteTitle } from './utils/router';
 
 function AppContent() {
+  const router = useRouter();
   const {
     pathname,
     search,
@@ -47,7 +48,31 @@ function AppContent() {
     isAdminLogin,
     isAdminDashboard,
     adminSubroute
-  } = useRouter();
+  } = router;
+
+  // Centralized Document Title Handling
+  useEffect(() => {
+    const nextTitle = getRouteTitle(router);
+    if (typeof document !== 'undefined' && document.title !== nextTitle) {
+      document.title = nextTitle;
+    }
+  }, [
+    pathname,
+    search,
+    hash,
+    isAiClub,
+    isProgrammingClub,
+    isCybersecurityClub,
+    isIotClub,
+    isLogin,
+    isForgotPassword,
+    isResetPassword,
+    isDashboard,
+    dashboardSubroute,
+    isAdminLogin,
+    isAdminDashboard,
+    adminSubroute
+  ]);
 
   // Scroll to anchor on route change or hash change
   useEffect(() => {

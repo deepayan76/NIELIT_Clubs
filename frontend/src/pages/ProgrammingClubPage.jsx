@@ -30,7 +30,6 @@ export default function ProgrammingClubPage() {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'Programming Club | NIELIT Tech Clubs';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 

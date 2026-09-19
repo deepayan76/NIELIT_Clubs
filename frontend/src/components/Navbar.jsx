@@ -102,12 +102,7 @@ export default function Navbar() {
     if (e && e.preventDefault) e.preventDefault();
     setMobileMenuOpen(false);
     setActiveSection(id);
-
-    if (href.startsWith('#')) {
-      scrollToSection(id);
-    } else {
-      navigate(href);
-    }
+    navigate(href || `#${id}`);
   };
 
   return (

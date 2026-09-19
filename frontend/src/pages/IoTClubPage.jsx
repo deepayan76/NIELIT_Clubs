@@ -23,7 +23,6 @@ export default function IoTClubPage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'IoT Club | NIELIT Tech Clubs';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
