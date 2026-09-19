@@ -87,7 +87,7 @@ export default function ProgFooter() {
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => handleNav('/#club-cybersecurity')}>
+                <button type="button" onClick={() => handleNav('/cybersecurity')}>
                   Cybersecurity Club
                 </button>
               </li>

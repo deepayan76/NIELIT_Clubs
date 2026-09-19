@@ -82,12 +82,12 @@ export default function AIFooter() {
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => handleNav('/#club-programming')}>
+                <button type="button" onClick={() => handleNav('/programming')}>
                   Programming Club
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => handleNav('/#club-cybersecurity')}>
+                <button type="button" onClick={() => handleNav('/cybersecurity')}>
                   Cybersecurity Club
                 </button>
               </li>

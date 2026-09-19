@@ -239,7 +239,9 @@ export function navigate(url, options = {}) {
     targetLower === '#/clubs/ai' ||
     targetLower === '#clubs/ai' ||
     targetLower === '#/club/ai' ||
-    targetLower === '#club/ai';
+    targetLower === '#club/ai' ||
+    targetLower === '#club-ai' ||
+    targetLower === '/#club-ai';
 
   const isTargetProg =
     targetLower === '/programming' ||
@@ -255,7 +257,9 @@ export function navigate(url, options = {}) {
     targetLower === '#/clubs/programming' ||
     targetLower === '#clubs/programming' ||
     targetLower === '#/club/programming' ||
-    targetLower === '#club/programming';
+    targetLower === '#club/programming' ||
+    targetLower === '#club-programming' ||
+    targetLower === '/#club-programming';
 
   const isTargetCyber =
     targetLower === '/cybersecurity' ||
@@ -271,7 +275,9 @@ export function navigate(url, options = {}) {
     targetLower === '#/clubs/cybersecurity' ||
     targetLower === '#clubs/cybersecurity' ||
     targetLower === '#/club/cybersecurity' ||
-    targetLower === '#club/cybersecurity';
+    targetLower === '#club/cybersecurity' ||
+    targetLower === '#club-cybersecurity' ||
+    targetLower === '/#club-cybersecurity';
 
   const isTargetIot =
     targetLower === '/iot' ||
@@ -287,7 +293,9 @@ export function navigate(url, options = {}) {
     targetLower === '#/clubs/iot' ||
     targetLower === '#clubs/iot' ||
     targetLower === '#/club/iot' ||
-    targetLower === '#club/iot';
+    targetLower === '#club/iot' ||
+    targetLower === '#club-iot' ||
+    targetLower === '/#club-iot';
 
   const isTargetDashboard =
     targetLower.startsWith('/dashboard') ||
@@ -491,7 +499,9 @@ export function useRouter() {
     hash === '#/clubs/ai' ||
     hash === '#clubs/ai' ||
     hash === '#/club/ai' ||
-    hash === '#club/ai';
+    hash === '#club/ai' ||
+    hash === '#club-ai' ||
+    hash === '#/club-ai';
 
   // Determine if current route is Programming Club
   const isProgrammingClub =
@@ -508,7 +518,9 @@ export function useRouter() {
     hash === '#/clubs/programming' ||
     hash === '#clubs/programming' ||
     hash === '#/club/programming' ||
-    hash === '#club/programming';
+    hash === '#club/programming' ||
+    hash === '#club-programming' ||
+    hash === '#/club-programming';
 
   // Determine if current route is Cybersecurity Club
   const isCybersecurityClub =
@@ -525,7 +537,9 @@ export function useRouter() {
     hash === '#/clubs/cybersecurity' ||
     hash === '#clubs/cybersecurity' ||
     hash === '#/club/cybersecurity' ||
-    hash === '#club/cybersecurity';
+    hash === '#club/cybersecurity' ||
+    hash === '#club-cybersecurity' ||
+    hash === '#/club-cybersecurity';
 
   // Determine if current route is IoT Club
   const isIotClub =
@@ -542,7 +556,9 @@ export function useRouter() {
     hash === '#/clubs/iot' ||
     hash === '#clubs/iot' ||
     hash === '#/club/iot' ||
-    hash === '#club/iot';
+    hash === '#club/iot' ||
+    hash === '#club-iot' ||
+    hash === '#/club-iot';
 
   // Determine if current route is Login (Student)
   const isLogin =
