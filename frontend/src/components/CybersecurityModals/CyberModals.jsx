@@ -13,7 +13,7 @@ export function CyberOverviewModal({ isOpen, onClose }) {
           <X size={16} />
         </button>
 
-        <span className="cyber-section-eyebrow">NIELIT CYBERSECURITY CLUB</span>
+        <span className="cyber-section-eyebrow">NEXORA CYBERSECURITY CLUB</span>
         <h3 className="cyber-modal-title">Club Overview & Experience</h3>
         <p className="cyber-modal-subtitle">Defensive Security • Ethical Experimentation • Hands-On Labs</p>
 

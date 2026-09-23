@@ -1,405 +1,276 @@
-.navbar-header {
-  position: sticky;
-  top: 0;
+/* ==========================================================
+   NEXORA TECH CLUBS — STICKY LIQUID GLASS NAVBAR
+   Ultra-refined glassmorphism, specular highlights & backdrop blur
+   ========================================================== */
+
+.nexora-navbar-header {
+  position: fixed;
+  top: 36px;
   left: 0;
-  width: 100%;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  background-color: rgba(255, 255, 255, 0.96);
+  right: 0;
+  width: min(95vw, 1540px);
+  margin: 0 auto;
+  padding: 0 32px;
   z-index: 1000;
-  transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              backdrop-filter 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              -webkit-backdrop-filter 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border-bottom: 1px solid transparent;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
+  pointer-events: none;
+  box-sizing: border-box;
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Liquid Glass State on Scroll */
-.navbar-header.is-scrolled {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: rgba(255, 255, 255, 0.76);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 10px 30px rgba(22, 54, 74, 0.07), 
-              inset 0 -1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.navbar-container {
+.nexora-navbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: min(100% - 48px, 1360px);
-  margin: 0 auto;
+  width: 100%;
+  pointer-events: auto;
+  padding: 12px 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
-/* Brand */
-.navbar-brand {
-  display: flex;
+/* Scrolled Liquid Glass Floating Bar */
+.nexora-navbar-header.scrolled {
+  top: 14px;
+}
+
+.nexora-navbar-header.scrolled .nexora-navbar-inner {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 12px 36px 0 rgba(0, 0, 0, 0.12),
+    0 2px 6px 0 rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
+  padding: 10px 24px;
+}
+
+/* Brand / Logo Top Left */
+.nexora-navbar-brand {
+  display: inline-flex;
   align-items: center;
   text-decoration: none;
   cursor: pointer;
-  outline: none;
-  flex-shrink: 0;
-  z-index: 20;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.navbar-brand:focus-visible {
-  outline: 2px solid var(--blue-dark);
-  outline-offset: 4px;
-  border-radius: 4px;
+.nexora-navbar-brand:hover {
+  opacity: 0.9;
+  transform: translateY(-0.5px);
 }
 
-.navbar-logo-img {
-  height: 48px;
-  width: auto;
-  max-width: 190px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
-  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.3s ease;
-}
-
-.navbar-header.is-scrolled .navbar-logo-img {
-  height: 40px;
-}
-
-.navbar-brand:hover .navbar-logo-img {
-  transform: scale(1.025);
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
-}
-
-.navbar-brand:active .navbar-logo-img {
+.nexora-navbar-brand:active {
   transform: scale(0.98);
 }
 
-/* Centered Desktop Animated Top Dock */
-.navbar-desktop-nav {
+.nexora-logo-img {
+  height: 42px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================
+   CENTER LIQUID GLASS PILL NAVIGATION
+   ========================================================== */
+.nexora-nav-pill-container {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 15;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: auto;
 }
 
-.navbar-threeui-dock.animated-top-dock-component {
+.nexora-nav-pill {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent !important;
-  width: max-content;
-  height: auto;
-  min-width: 0;
-  min-height: 0;
-  overflow: visible;
-  padding: 0;
-  margin: 0;
-}
-
-.navbar-threeui-dock.animated-top-dock-component::after {
-  display: none;
-}
-
-.navbar-threeui-dock .animated-top-dock__nav {
-  position: relative;
-  top: 0;
-  left: 0;
-  transform: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  height: 38px;
-  padding: 4px;
-  border-radius: var(--radius-pill, 999px);
-  background: rgba(241, 245, 249, 0.94);
-  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(203, 213, 225, 0.9);
-  overflow: visible;
-}
-
-.navbar-header.is-scrolled .navbar-threeui-dock .animated-top-dock__nav {
-  background: rgba(248, 250, 252, 0.96);
-  border-color: rgba(148, 163, 184, 0.6);
-  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.95);
-}
-
-.navbar-threeui-dock .animated-top-dock__item {
-  color: #334155;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(226, 232, 240, 0.95);
-  border-radius: var(--radius-pill, 999px);
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: 0.04em;
-  padding: 0 14px;
-  cursor: pointer;
-  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.navbar-threeui-dock .animated-top-dock__item[data-dock-near="true"],
-.navbar-threeui-dock .animated-top-dock__item:hover,
-.navbar-threeui-dock .animated-top-dock__item:focus-visible {
-  color: #0f172a;
-  background: #ffffff;
-  border-color: #94a3b8;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
-}
-
-.navbar-threeui-dock .animated-top-dock__link {
-  width: auto;
-  gap: 6px;
-  padding: 0 15px;
-}
-
-.navbar-threeui-dock .animated-top-dock__link[aria-pressed="true"] {
-  color: #ffffff;
-  background: #0f172a;
-  border-color: #0f172a;
-  font-weight: 700;
-  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.25);
-}
-
-.navbar-threeui-dock .animated-top-dock__logo {
-  width: 28px;
-  height: 28px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 3px;
-  border-radius: 50%;
-  flex: none;
-}
-
-.dock-logo-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.nav-item {
-  display: flex;
-}
-
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 18px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: inherit;
-  color: var(--nav-text);
-  border-radius: var(--radius-pill);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: background-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.nav-link:hover {
-  color: var(--black);
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-1.5px);
-}
-
-.nav-link:active {
-  transform: translateY(0.5px) scale(0.98);
-}
-
-.nav-link:focus-visible {
-  outline: 2px solid var(--blue-dark);
-  outline-offset: 2px;
-}
-
-.nav-link.active {
-  background-color: var(--nav-active);
-  color: var(--black);
-  font-weight: 600;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
-  transform: translateY(0);
-}
-
-.nav-action {
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-/* Tablet (800px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
-  .navbar-logo-img {
-    height: 44px;
-    max-width: 160px;
-  }
-  .nav-link {
-    padding: 6px 14px;
-    font-size: 13.5px;
-  }
-}
-
-/* Mobile Toggle */
-.navbar-mobile-toggle {
-  display: none;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  color: var(--text-dark);
-  width: 42px;
+  background: rgba(240, 240, 243, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 9999px;
   height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  user-select: none;
+  box-shadow:
+    0 4px 20px 0 rgba(0, 0, 0, 0.06),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Specular Liquid Shine on Pill Top Edge */
+.nexora-nav-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nexora-nav-item {
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #222222;
+  text-decoration: none;
+  line-height: 1;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.nexora-nav-item:hover {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.nexora-nav-item.active {
+  color: #FFFFFF;
+  background-color: #222222;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+
+/* ==========================================================
+   MOBILE TOGGLE & LIQUID GLASS DROPDOWN MENU
+   ========================================================== */
+.nexora-mobile-toggle {
+  display: none;
+  background: rgba(240, 240, 243, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  z-index: 15;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 1);
 }
 
-.navbar-mobile-toggle:hover {
+.nexora-mobile-toggle:hover {
   background: rgba(255, 255, 255, 0.95);
-  transform: scale(1.04);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
-.navbar-mobile-toggle:active {
-  transform: scale(0.95);
-}
-
-.navbar-mobile-toggle:focus-visible {
-  outline: 2px solid var(--blue-dark);
-  outline-offset: 2px;
-}
-
-/* Mobile Menu Dropdown with Smooth Stagger Animation */
-.navbar-mobile-menu {
+/* Mobile Dropdown Menu with Liquid Glass */
+.nexora-mobile-menu {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  top: calc(100% + 12px);
+  left: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 16px;
-  box-shadow: 0 16px 40px rgba(22, 54, 74, 0.15),
-              inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  z-index: 1000;
-  transform-origin: top center;
-  animation: smoothSlideDown 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow:
+    0 16px 48px 0 rgba(0, 0, 0, 0.16),
+    0 2px 8px 0 rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+  padding: 12px;
+  z-index: 100;
+  pointer-events: auto;
 }
 
-@keyframes smoothSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-12px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.mobile-nav-list {
+.nexora-mobile-nav-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin: 0;
+  padding: 0;
 }
 
-.mobile-nav-link {
+.nexora-mobile-nav-link {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 12px 18px;
-  font-size: 15px;
+  padding: 11px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
   font-weight: 500;
-  font-family: inherit;
-  color: var(--text-dark);
-  border: none;
+  color: #222222;
+  border-radius: 8px;
   background: transparent;
-  border-radius: 10px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
 }
 
-.mobile-nav-link.active {
-  background-color: rgba(106, 137, 167, 0.18);
-  color: var(--blue-dark);
+.nexora-mobile-nav-link:hover,
+.nexora-mobile-nav-link.active {
+  background: #222222;
+  color: #FFFFFF;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.mobile-nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.85);
-  transform: translateX(3px);
-}
-
-.mobile-nav-link:active {
-  transform: scale(0.98);
-}
-
-.mobile-nav-action {
-  font-weight: 700;
-  color: var(--primary-blue);
-}
-
-/* Mobile Media Query (< 768px) */
-@media (max-width: 767px) {
-  .navbar-header {
-    padding-top: 14px;
-    padding-bottom: 14px;
+/* ==========================================================
+   RESPONSIVE STYLES
+   ========================================================== */
+@media (max-width: 960px) {
+  .nexora-navbar-header {
+    top: 24px;
+    padding: 0 20px;
   }
-  .navbar-header.is-scrolled {
-    padding-top: 10px;
-    padding-bottom: 10px;
+  .nexora-navbar-header.scrolled {
+    top: 12px;
   }
-  .navbar-desktop-nav {
+  .nexora-logo-img {
+    height: 36px;
+  }
+  .nexora-nav-item {
+    font-size: 12.5px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nexora-navbar-header {
+    top: 18px;
+    padding: 0 12px;
+  }
+  .nexora-navbar-header.scrolled {
+    top: 10px;
+  }
+  .nexora-navbar-inner {
+    padding: 8px 14px;
+  }
+  .nexora-nav-pill-container {
     display: none;
   }
-  .navbar-mobile-toggle {
+  .nexora-mobile-toggle {
     display: flex;
   }
-  .navbar-logo-img {
-    height: 42px;
-    max-width: 150px;
-  }
-}
-
-/* Small Mobile (<= 380px) */
-@media (max-width: 380px) {
-  .navbar-logo-img {
-    height: 36px;
-    max-width: 130px;
-  }
-  .navbar-mobile-toggle {
-    width: 38px;
-    height: 38px;
+  .nexora-logo-img {
+    height: 32px;
   }
 }

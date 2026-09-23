@@ -28,7 +28,7 @@ export default function IoTJoinCTA() {
                 type="button"
                 className="iot-cta-btn-outline"
                 onClick={() => navigate('/#clubs')}
-                aria-label="Explore other NIELIT Tech Clubs"
+                aria-label="Explore other NEXORA Tech Clubs"
               >
                 <span>Explore Other Clubs</span>
               </button>

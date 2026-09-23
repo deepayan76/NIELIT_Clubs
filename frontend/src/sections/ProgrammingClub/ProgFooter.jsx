@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate } from '../../utils/router';
 
 export default function ProgFooter() {
@@ -21,18 +21,18 @@ export default function ProgFooter() {
                 handleNav('/');
               }}
               className="prog-footer-brand-link"
-              aria-label="NIELIT Tech Clubs Home"
+              aria-label="NEXORA Tech Clubs Home"
             >
               <img
                 src={logoImg}
-                alt="NIELIT Logo"
+                alt="NEXORA Logo"
                 className="prog-footer-logo-img"
               />
             </a>
-            <h3 className="prog-footer-brand-title">NIELIT TECH CLUBS</h3>
-            <p className="prog-footer-tagline">Learn. Build. Together.</p>
+            <h3 className="prog-footer-brand-title">NEXORA TECH CLUBS</h3>
+            <p className="prog-footer-tagline">LEARN. BUILD. LEAD.</p>
             <p className="prog-footer-desc">
-              A community of students exploring technology and innovation across programming, AI, security, and hardware.
+              Where Ideas Become Innovation. A community of students exploring technology and innovation across programming, AI, security, and hardware.
             </p>
           </div>
 
@@ -119,15 +119,15 @@ export default function ProgFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:clubs@nielit.edu.in">Email Contact</a>
+                <a href="mailto:contact@nexoratech.org">Email Contact</a>
               </li>
             </ul>
 
             <div className="prog-footer-inst-note">
               <span className="prog-inst-name">
-                National Institute of Electronics and Information Technology
+                NEXORA TECH CLUBS
               </span>
-              <span className="prog-inst-sub">Built by students, for students.</span>
+              <span className="prog-inst-sub">LEARN. BUILD. LEAD.</span>
             </div>
           </div>
         </div>
@@ -135,18 +135,18 @@ export default function ProgFooter() {
         {/* Bottom Bar */}
         <div className="prog-footer-bottom">
           <p className="prog-footer-copy">
-            © 2026 NIELIT Tech Clubs. All rights reserved.
+            © 2026 NEXORA Tech Clubs. All rights reserved.
           </p>
           <div className="prog-footer-legal-links">
-            <button type="button" onClick={() => alert('NIELIT Clubs Privacy Policy')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs Privacy Policy')}>
               Privacy
             </button>
             <span className="prog-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Clubs Terms')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs Terms')}>
               Terms
             </button>
             <span className="prog-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Clubs FAQs & Support')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs FAQs & Support')}>
               FAQs
             </button>
           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate, scrollToSection } from '../../utils/router';
 
 export default function CyberFooter() {
@@ -25,15 +25,15 @@ export default function CyberFooter() {
                 handleNav('/');
               }}
               className="cyber-footer-brand-link"
-              aria-label="NIELIT Tech Clubs Home"
+              aria-label="NEXORA Tech Clubs Home"
             >
               <img
                 src={logoImg}
-                alt="NIELIT Logo"
+                alt="NEXORA Logo"
                 className="cyber-footer-logo-img"
               />
             </a>
-            <h3 className="cyber-footer-brand-title">NIELIT TECH CLUBS</h3>
+            <h3 className="cyber-footer-brand-title">NEXORA TECH CLUBS</h3>
             <p className="cyber-footer-tagline">Secure. Defend. Evolve.</p>
             <p className="cyber-footer-desc">
               A community of students exploring technology and innovation across cybersecurity, AI, software, and hardware.
@@ -128,15 +128,15 @@ export default function CyberFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:cybersecurity@nielit.edu.in">Email Contact</a>
+                <a href="mailto:contact@nexoratech.org">Email Contact</a>
               </li>
             </ul>
 
             <div className="cyber-footer-inst-note">
               <span className="cyber-inst-name">
-                National Institute of Electronics and Information Technology
+                NEXORA TECH CLUBS
               </span>
-              <span className="cyber-inst-sub">Built by students, for students.</span>
+              <span className="cyber-inst-sub">LEARN. BUILD. LEAD.</span>
             </div>
           </div>
         </div>
@@ -144,18 +144,18 @@ export default function CyberFooter() {
         {/* Bottom Bar */}
         <div className="cyber-footer-bottom">
           <p className="cyber-footer-copy">
-            © 2026 NIELIT Tech Clubs. All rights reserved.
+            © 2026 NEXORA Tech Clubs. All rights reserved.
           </p>
           <div className="cyber-footer-legal-links">
-            <button type="button" onClick={() => alert('NIELIT Cybersecurity Ethics & Privacy Policy')}>
+            <button type="button" onClick={() => alert('NEXORA Cybersecurity Ethics & Privacy Policy')}>
               Privacy
             </button>
             <span className="cyber-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Responsible Disclosure Policy')}>
+            <button type="button" onClick={() => alert('NEXORA Responsible Disclosure Policy')}>
               Responsible Security
             </button>
             <span className="cyber-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Tech Clubs Terms')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs Terms')}>
               Terms
             </button>
           </div>

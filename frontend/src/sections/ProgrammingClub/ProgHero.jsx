@@ -10,7 +10,7 @@ export default function ProgHero({ onWatchOverview }) {
         <div className="prog-hero-grid">
           {/* LEFT: Programming Club Identity */}
           <div className="prog-hero-left">
-            <div className="prog-hero-eyebrow">NIELIT TECH CLUBS</div>
+            <div className="prog-hero-eyebrow">NEXORA TECH CLUBS</div>
             <h1 className="prog-hero-title">Programming Club</h1>
             <div className="prog-hero-subheading">Think. Code. Solve.</div>
             <p className="prog-hero-desc">

@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import Hero from '../sections/Hero';
 import About from '../sections/About';
 import Clubs from '../sections/Clubs';
@@ -8,8 +7,7 @@ import Footer from '../components/Footer';
 
 export default function Home() {
   return (
-    <div className="page-wrapper">
-      <Navbar />
+    <div className="page-wrapper nexora-home-wrapper">
       <main id="main-content">
         <Hero />
         <About />

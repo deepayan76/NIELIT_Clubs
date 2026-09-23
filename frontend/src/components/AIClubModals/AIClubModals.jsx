@@ -24,7 +24,7 @@ export function OverviewModal({ isOpen, onClose }) {
       <div className="ai-modal-card ai-overview-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ai-modal-header">
           <div>
-            <span className="ai-modal-eyebrow">NIELIT AI CLUB OVERVIEW</span>
+            <span className="ai-modal-eyebrow">NEXORA AI CLUB OVERVIEW</span>
             <h2 className="ai-modal-title">Welcome to AI Club</h2>
           </div>
           <button type="button" className="ai-modal-close-btn" onClick={onClose} aria-label="Close modal">
@@ -118,7 +118,7 @@ export function VisionModal({ isOpen, onClose }) {
         <div className="ai-modal-body">
           <div className="ai-manifesto-text">
             <p>
-              We believe Artificial Intelligence should not remain locked behind research papers or enterprise paywalls. At NIELIT, our student club creates a vibrant laboratory where curiosity turns into engineering excellence.
+              We believe Artificial Intelligence should not remain locked behind research papers or enterprise paywalls. At NEXORA, our student club creates a vibrant laboratory where curiosity turns into engineering excellence.
             </p>
             <div className="ai-manifesto-quote">
               "We don't just consume technology; we dissect it, understand its principles, and build software that makes a tangible difference."
@@ -212,7 +212,7 @@ export function ProjectIdeasModal({ isOpen, onClose }) {
 
         <div className="ai-modal-body">
           <p className="ai-modal-lead">
-            Explore active capstone concepts tackled by NIELIT students or propose your own custom problem statement with faculty mentorship.
+            Explore active capstone concepts tackled by NEXORA students or propose your own custom problem statement with faculty mentorship.
           </p>
 
           <div className="ai-ideas-list">
@@ -278,7 +278,7 @@ export function SearchModal({ isOpen, onClose }) {
     { title: '5-Step Process: Learn to Impact', tag: 'How It Works', href: '#how-it-works' },
     { title: 'AI-Powered Student Assistant (Capstone)', tag: 'Capstone', href: '#capstone' },
     { title: 'Student Squads & Problem Solving', tag: 'Skills', href: '#skills' },
-    { title: 'Register for NIELIT AI Club', tag: 'Join', href: '/?club=ai#register' }
+    { title: 'Register for NEXORA AI Club', tag: 'Join', href: '/?club=ai#register' }
   ];
 
   const filtered = topics.filter((t) =>

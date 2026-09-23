@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate, scrollToSection } from '../../utils/router';
 
 export default function IoTFooter() {
@@ -18,9 +18,9 @@ export default function IoTFooter() {
         <div className="iot-footer-top-grid">
           {/* Column 1: Brand & Tagline */}
           <div className="iot-footer-col">
-            <h3 className="iot-footer-brand-title">NIELIT TECH CLUBS</h3>
-            <p className="iot-footer-tagline">Learn. Build. Together.</p>
-            <p className="iot-footer-desc">A community of exploring technology.</p>
+            <h3 className="iot-footer-brand-title">NEXORA TECH CLUBS</h3>
+            <p className="iot-footer-tagline">LEARN. BUILD. LEAD.</p>
+            <p className="iot-footer-desc">A community exploring technology and physical-digital systems.</p>
           </div>
 
           {/* Column 2: Quick Links */}
@@ -85,11 +85,11 @@ export default function IoTFooter() {
         {/* Lower Legal / Branding Row */}
         <div className="iot-footer-bottom-row">
           <div className="iot-footer-bottom-brand">
-            <img src={logoImg} alt="NIELIT Logo" className="iot-footer-logo-img" />
+            <img src={logoImg} alt="NEXORA Logo" className="iot-footer-logo-img" />
             <div className="iot-footer-legal-text">
-              <span className="iot-footer-year">2026 NIELIT Tech Clubs</span>
+              <span className="iot-footer-year">© 2026 NEXORA Tech Clubs. All rights reserved.</span>
               <span className="iot-footer-institute">
-                National Institute of Electronics & Information Technology
+                NEXORA TECH CLUBS • LEARN. BUILD. LEAD.
               </span>
             </div>
           </div>

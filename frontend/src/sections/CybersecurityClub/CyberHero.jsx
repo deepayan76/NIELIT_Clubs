@@ -9,7 +9,7 @@ export default function CyberHero({ onWatchOverview }) {
       <div className="cyber-section-container">
         <div className="cyber-hero-grid">
           <div className="cyber-hero-left">
-            <div className="cyber-hero-eyebrow">NIELIT TECH CLUBS</div>
+            <div className="cyber-hero-eyebrow">NEXORA TECH CLUBS</div>
             <h1 className="cyber-hero-title">Cybersecurity Club</h1>
             <div className="cyber-hero-subheading">Secure. Defend. Evolve.</div>
             <p className="cyber-hero-desc">

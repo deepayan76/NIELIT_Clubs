@@ -13,7 +13,7 @@ export function IoTOverviewModal({ isOpen, onClose }) {
           <div>
             <span className="iot-meta-label">
               <span className="iot-meta-dot" />
-              NIELIT IOT CLUB
+              NEXORA IOT CLUB
             </span>
             <h3 className="iot-modal-title">Connected Engineering Overview</h3>
           </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Universal client router for NIELIT Tech Clubs.
+ * Universal client router for NEXORA Tech Clubs.
  * Seamlessly manages pathnames (/ai, /login, /dashboard/*, /admin/*), hash routes (#/ai, #/dashboard, #/admin), query parameters (?club=ai),
  * and dynamic scroll positioning with intelligent retry logic.
  */
@@ -38,7 +38,7 @@ export function scrollToSection(targetId) {
 }
 
 export function getRouteTitle(routerState) {
-  if (!routerState) return 'NIELIT Tech Clubs';
+  if (!routerState) return 'NEXORA Tech Clubs';
 
   const {
     pathname = '/',
@@ -59,32 +59,32 @@ export function getRouteTitle(routerState) {
   } = routerState;
 
   // 1. Dynamic / Dedicated Public Club Pages
-  if (isAiClub) return 'AI Club | NIELIT Tech Clubs';
-  if (isProgrammingClub) return 'Programming Club | NIELIT Tech Clubs';
-  if (isCybersecurityClub) return 'Cybersecurity Club | NIELIT Tech Clubs';
-  if (isIotClub) return 'IoT Club | NIELIT Tech Clubs';
+  if (isAiClub) return 'NEXORA AI Club';
+  if (isProgrammingClub) return 'NEXORA Programming Club';
+  if (isCybersecurityClub) return 'NEXORA Cybersecurity Club';
+  if (isIotClub) return 'NEXORA IoT Club';
 
   // 2. Student Portal
-  if (isLogin) return 'Student Login | NIELIT Tech Clubs';
-  if (isForgotPassword) return 'Forgot Password | NIELIT Tech Clubs';
-  if (isResetPassword) return 'Reset Password | NIELIT Tech Clubs';
+  if (isLogin) return 'Student Login | NEXORA Tech Clubs';
+  if (isForgotPassword) return 'Forgot Password | NEXORA Tech Clubs';
+  if (isResetPassword) return 'Reset Password | NEXORA Tech Clubs';
   if (isDashboard) {
     if (dashboardSubroute === 'resources') {
-      return 'Resources | NIELIT Tech Clubs';
+      return 'Resources | NEXORA Tech Clubs';
     }
-    return 'Dashboard | NIELIT Tech Clubs';
+    return 'Dashboard | NEXORA Tech Clubs';
   }
 
   // 3. Admin Portal
-  if (isAdminLogin) return 'Admin Login | NIELIT Tech Clubs';
+  if (isAdminLogin) return 'Admin Login | NEXORA Tech Clubs';
   if (isAdminDashboard) {
     if (adminSubroute === 'resources') {
-      return 'Admin Resources | NIELIT Tech Clubs';
+      return 'Admin Resources | NEXORA Tech Clubs';
     }
     if (adminSubroute === 'registrations') {
-      return 'Registrations | NIELIT Tech Clubs';
+      return 'Registrations | NEXORA Tech Clubs';
     }
-    return 'Admin Dashboard | NIELIT Tech Clubs';
+    return 'Admin Dashboard | NEXORA Tech Clubs';
   }
 
   // 4. Public Landing Page Major Routes & Anchor Sections
@@ -96,7 +96,7 @@ export function getRouteTitle(routerState) {
     cleanHash === '#about' ||
     cleanHash === '#/about'
   ) {
-    return 'About | NIELIT Tech Clubs';
+    return 'About | NEXORA Tech Clubs';
   }
 
   if (
@@ -104,7 +104,7 @@ export function getRouteTitle(routerState) {
     cleanHash === '#clubs' ||
     cleanHash === '#/clubs'
   ) {
-    return 'Clubs | NIELIT Tech Clubs';
+    return 'Clubs | NEXORA Tech Clubs';
   }
 
   if (
@@ -117,7 +117,7 @@ export function getRouteTitle(routerState) {
     cleanHash === '#join-us' ||
     (search && search.includes('register'))
   ) {
-    return 'Join Us | NIELIT Tech Clubs';
+    return 'Join Us | NEXORA Tech Clubs';
   }
 
   if (
@@ -128,11 +128,11 @@ export function getRouteTitle(routerState) {
     cleanHash === '#' ||
     cleanHash === ''
   ) {
-    return 'NIELIT Tech Clubs';
+    return 'NEXORA Tech Clubs';
   }
 
   // 5. Fallback / Unknown Route
-  return 'NIELIT Tech Clubs';
+  return 'NEXORA Tech Clubs';
 }
 
 export function navigate(url, options = {}) {

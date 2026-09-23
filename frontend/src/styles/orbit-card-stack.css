@@ -1,0 +1,255 @@
+/* ==========================================================
+   COMPONENTRY ORBIT CARD STACK STYLES
+   Smooth fan/orbit interactive card deck
+   ========================================================== */
+
+.orbit-card-stack-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding: 20px 0 40px 0;
+  box-sizing: border-box;
+}
+
+.orbit-card-stack-container {
+  position: relative;
+  height: 520px;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Single Card */
+.orbit-card-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(84vw, 21.5rem);
+  transform-origin: bottom center;
+  cursor: pointer;
+  border-radius: 1.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #FFFFFF;
+  padding: 16px;
+  color: #141414;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition-property: transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+}
+
+.orbit-card-item:hover,
+.orbit-card-item.is-active {
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.14), 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.orbit-card-item:focus-visible {
+  ring: 2px solid #18181B;
+  box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.2), 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Media & Portrait */
+.orbit-card-media {
+  position: relative;
+  width: 100%;
+}
+
+.orbit-portrait-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1.36;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1.45rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: #F4F4F5;
+}
+
+.orbit-portrait-img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  padding: 12px;
+  transition: transform 0.35s ease;
+}
+
+.orbit-card-item:hover .orbit-portrait-img {
+  transform: scale(1.04);
+}
+
+.orbit-portrait-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  border-radius: 999px;
+  background-color: #18181B;
+  padding: 3px 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #FFFFFF;
+  line-height: 1.3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Action Arrow Button */
+.orbit-card-arrow-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #18181B;
+  color: #FFFFFF;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.22s ease, background-color 0.22s ease;
+}
+
+.orbit-card-arrow-btn:hover {
+  background: #000000;
+  transform: scale(1.1);
+}
+
+.orbit-arrow-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2px;
+}
+
+/* Card Body Content */
+.orbit-card-content {
+  padding: 12px 6px 6px 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.orbit-card-role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin: 0 0 4px 0;
+}
+
+.orbit-card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #18181B;
+  margin: 0 0 8px 0;
+}
+
+.orbit-card-desc {
+  font-size: 0.90rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: #52525B;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 58px;
+}
+
+.orbit-card-footer {
+  margin-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orbit-card-stat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #71717A;
+}
+
+.orbit-card-action-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease;
+}
+
+.orbit-card-item:hover .orbit-card-action-text {
+  transform: translateX(2px);
+}
+
+/* Fallback background if no image */
+.orbit-portrait-fallback-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, var(--portrait-accent, #6366F1) 0%, transparent 60%);
+  opacity: 0.35;
+}
+
+/* ==========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================== */
+
+@media (max-width: 1024px) {
+  .orbit-card-stack-container {
+    height: 490px;
+  }
+  .orbit-card-item {
+    width: min(84vw, 19.5rem);
+    padding: 14px;
+  }
+  .orbit-card-title {
+    font-size: 1.55rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .orbit-card-stack-container {
+    height: 460px;
+  }
+  .orbit-card-item {
+    width: min(88vw, 18rem);
+    padding: 12px;
+    border-radius: 1.5rem;
+  }
+  .orbit-card-title {
+    font-size: 1.4rem;
+  }
+  .orbit-card-desc {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 2;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbit-card-stack-stage {
+    padding: 10px 0 20px 0;
+  }
+  .orbit-card-stack-container {
+    height: 430px;
+  }
+  .orbit-card-item {
+    width: min(92vw, 16.5rem);
+    padding: 10px;
+  }
+  .orbit-card-title {
+    font-size: 1.25rem;
+  }
+}

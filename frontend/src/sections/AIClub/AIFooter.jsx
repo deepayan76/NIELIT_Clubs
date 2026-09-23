@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate } from '../../utils/router';
 
 export default function AIFooter() {
@@ -21,17 +21,18 @@ export default function AIFooter() {
                 handleNav('/');
               }}
               className="ai-footer-brand-link"
+              aria-label="NEXORA Tech Clubs Home"
             >
               <img
                 src={logoImg}
-                alt="NIELIT Logo"
+                alt="NEXORA Logo"
                 className="ai-footer-logo-img"
               />
             </a>
-            <h3 className="ai-footer-brand-title">NIELIT TECH CLUBS</h3>
-            <p className="ai-footer-tagline">Learn. Build. Together.</p>
+            <h3 className="ai-footer-brand-title">NEXORA TECH CLUBS</h3>
+            <p className="ai-footer-tagline">LEARN. BUILD. LEAD.</p>
             <p className="ai-footer-desc">
-              A community of students exploring technology and innovation across AI,
+              Where Ideas Become Innovation. A community of students exploring technology and innovation across AI,
               software, security, and hardware.
             </p>
           </div>
@@ -119,15 +120,15 @@ export default function AIFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:clubs@nielit.edu.in">Email Contact</a>
+                <a href="mailto:contact@nexoratech.org">Email Contact</a>
               </li>
             </ul>
 
             <div className="ai-footer-inst-note">
               <span className="ai-inst-name">
-                National Institute of Electronics and Information Technology
+                NEXORA TECH CLUBS
               </span>
-              <span className="ai-inst-sub">Built by students, for students.</span>
+              <span className="ai-inst-sub">LEARN. BUILD. LEAD.</span>
             </div>
           </div>
         </div>
@@ -135,18 +136,18 @@ export default function AIFooter() {
         {/* Bottom Bar */}
         <div className="ai-footer-bottom">
           <p className="ai-footer-copy">
-            © 2026 NIELIT Tech Clubs. All rights reserved.
+            © 2026 NEXORA Tech Clubs. All rights reserved.
           </p>
           <div className="ai-footer-legal-links">
-            <button type="button" onClick={() => alert('NIELIT Clubs Privacy Policy')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs Privacy Policy')}>
               Privacy
             </button>
             <span className="ai-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Clubs Terms')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs Terms')}>
               Terms
             </button>
             <span className="ai-legal-dot">•</span>
-            <button type="button" onClick={() => alert('NIELIT Clubs FAQs & Support')}>
+            <button type="button" onClick={() => alert('NEXORA Tech Clubs FAQs & Support')}>
               FAQs
             </button>
           </div>

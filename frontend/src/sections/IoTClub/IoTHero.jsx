@@ -28,7 +28,7 @@ export default function IoTHero({ onWatchOverview }) {
         <div className="iot-hero-grid">
           {/* LEFT: IoT Club Identity & Story */}
           <div className="iot-hero-left">
-            <div className="iot-hero-eyebrow">NIELIT TECH CLUBS</div>
+            <div className="iot-hero-eyebrow">NEXORA TECH CLUBS</div>
             <h1 className="iot-hero-title">IoT Club</h1>
             <div className="iot-hero-tagline">Connect. Sense. Automate.</div>
             <p className="iot-hero-desc">

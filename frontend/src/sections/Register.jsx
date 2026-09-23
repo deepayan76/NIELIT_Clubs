@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Info } from 'lucide-react';
 import { clubs } from '../data/clubs';
 import Toast from '../components/Toast';
-import logoImg from '../assets/logo.png';
-import checklistImg from '../assets/registration/checklist.png';
-import Interactive3DScene from '../components/ThreeCanvas/Interactive3DScene';
 import { apiFetch } from '../services/api';
+import { EyeTracking } from '@/components/ui/eye-tracking';
 import '../styles/Register.css';
 
 export default function Register() {
@@ -30,6 +28,29 @@ export default function Register() {
     semester: '',
     reason: ''
   });
+
+  // Dynamic responsive eye size & gap for two realistic eyes
+  const [eyeSize, setEyeSize] = useState(120);
+  const [eyeGap, setEyeGap] = useState(28);
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (typeof window === 'undefined') return;
+      if (window.innerWidth < 640) {
+        setEyeSize(85);
+        setEyeGap(14);
+      } else if (window.innerWidth < 1024) {
+        setEyeSize(105);
+        setEyeGap(18);
+      } else {
+        setEyeSize(125);
+        setEyeGap(22);
+      }
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   // Re-check if URL changes
   useEffect(() => {
@@ -138,7 +159,7 @@ export default function Register() {
       });
 
       setToastMessage(
-        `Registration submitted successfully for ${selectedClubObj?.name || 'NIELIT Club'}! Your application is now under review by NIELIT Tech Clubs administration.`
+        `Registration submitted successfully for ${selectedClubObj?.name || 'NEXORA Club'}! Your application is now under review by NEXORA Tech Clubs administration.`
       );
       setIsToastVisible(true);
 
@@ -173,176 +194,172 @@ export default function Register() {
     }
   };
 
-
   return (
     <section className="register-section container" id="register">
-      <div className="register-grid">
-        {/* Left Side: Blue Registration Form Panel */}
-        <div className="register-panel">
-          <h2 className="register-panel-title">Register</h2>
+      <div className="register-container-wrapper">
+        <div className="register-layout-grid">
+          {/* Left Side: White Registration Form Panel */}
+          <div className="register-panel">
+            <h2 className="register-panel-title">Register</h2>
 
-          <form className="register-form" onSubmit={handleSubmit} noValidate>
-            {/* Club Selection */}
-            <div className="form-group">
-              <label className="form-label club-question-label">
-                Which club are you interested in?
-              </label>
+            <form className="register-form" onSubmit={handleSubmit} noValidate>
+              {/* Club Selection */}
+              <div className="form-group">
+                <label className="form-label club-question-label">
+                  Which club are you interested in?
+                </label>
 
-              <div
-                className="club-selector-grid"
-                role="radiogroup"
-                aria-label="Select a club"
-              >
-                {clubs.map((c) => {
-                  const isSelected = formData.club === c.id;
-                  return (
-                    <button
-                      type="button"
-                      key={c.id}
-                      role="radio"
-                      aria-checked={isSelected}
-                      className={`club-selector-card ${isSelected ? 'selected' : ''}`}
-                      onClick={() => handleChange('club', c.id)}
-                    >
-                      <span className="selector-radio-dot" />
-                      <div className="selector-icon-wrap">
-                        <img src={c.icon} alt="" className="selector-icon" />
-                      </div>
-                      <span className="selector-name">{c.shortName}</span>
-                    </button>
-                  );
-                })}
+                <div
+                  className="club-selector-grid"
+                  role="radiogroup"
+                  aria-label="Select a club"
+                >
+                  {clubs.map((c) => {
+                    const isSelected = formData.club === c.id;
+                    return (
+                      <button
+                        type="button"
+                        key={c.id}
+                        role="radio"
+                        aria-checked={isSelected}
+                        className={`club-selector-card ${isSelected ? 'selected' : ''}`}
+                        onClick={() => handleChange('club', c.id)}
+                      >
+                        <span className="selector-radio-dot" />
+                        <div className="selector-icon-wrap">
+                          <img src={c.icon} alt="" className="selector-icon" />
+                        </div>
+                        <span className="selector-name">{c.shortName}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                {errors.club && <p className="form-error-msg">{errors.club}</p>}
               </div>
-              {errors.club && <p className="form-error-msg">{errors.club}</p>}
-            </div>
 
-            {/* Name Input */}
-            <div className="form-group">
-              <label htmlFor="reg-name" className="form-label">
-                Name
-              </label>
-              <input
-                id="reg-name"
-                type="text"
-                className={`form-input ${errors.name ? 'input-error' : ''}`}
-                placeholder="write your name...."
-                value={formData.name}
-                onChange={(e) => handleChange('name', e.target.value)}
-                aria-required="true"
-              />
-              {errors.name && <p className="form-error-msg">{errors.name}</p>}
-            </div>
-
-            {/* Email Input (Under Name Box) */}
-            <div className="form-group">
-              <label htmlFor="reg-email" className="form-label">
-                Email
-              </label>
-              <input
-                id="reg-email"
-                type="email"
-                className={`form-input ${errors.email ? 'input-error' : ''}`}
-                placeholder="write your email...."
-                value={formData.email}
-                onChange={(e) => handleChange('email', e.target.value)}
-                aria-required="true"
-              />
-              {errors.email && <p className="form-error-msg">{errors.email}</p>}
-            </div>
-
-            {/* Roll Number Input */}
-            <div className="form-group">
-              <label htmlFor="reg-roll" className="form-label">
-                Roll Number
-              </label>
-              <input
-                id="reg-roll"
-                type="text"
-                className={`form-input ${errors.rollNumber ? 'input-error' : ''}`}
-                placeholder="1234......"
-                value={formData.rollNumber}
-                onChange={(e) => handleChange('rollNumber', e.target.value)}
-                aria-required="true"
-              />
-              {errors.rollNumber && <p className="form-error-msg">{errors.rollNumber}</p>}
-            </div>
-
-            {/* Semester Input */}
-            <div className="form-group">
-              <label htmlFor="reg-semester" className="form-label">
-                Semester
-              </label>
-              <input
-                id="reg-semester"
-                type="text"
-                className={`form-input ${errors.semester ? 'input-error' : ''}`}
-                placeholder="what is your semester?...."
-                value={formData.semester}
-                onChange={(e) => handleChange('semester', e.target.value)}
-                aria-required="true"
-              />
-              {errors.semester && <p className="form-error-msg">{errors.semester}</p>}
-            </div>
-
-            {/* Why do you want to join? Textarea */}
-            <div className="form-group">
-              <label htmlFor="reg-reason" className="form-label">
-                Why do you want to join ?
-              </label>
-              <textarea
-                id="reg-reason"
-                className={`form-textarea ${errors.reason ? 'input-error' : ''}`}
-                placeholder="express..."
-                rows="3"
-                value={formData.reason}
-                onChange={(e) => handleChange('reason', e.target.value)}
-                aria-required="true"
-              />
-              {errors.reason && <p className="form-error-msg">{errors.reason}</p>}
-            </div>
-
-            {/* Submit Action Area */}
-            <div className="register-submit-row">
-              <button
-                type="submit"
-                className="register-submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
-
-              <div className="register-info-note">
-                <Info size={16} className="info-icon" />
-                <span>After clicking submit check your email for logging in</span>
+              {/* Name Input */}
+              <div className="form-group">
+                <label htmlFor="reg-name" className="form-label">
+                  Name
+                </label>
+                <input
+                  id="reg-name"
+                  type="text"
+                  className={`form-input ${errors.name ? 'input-error' : ''}`}
+                  placeholder="write your name...."
+                  value={formData.name}
+                  onChange={(e) => handleChange('name', e.target.value)}
+                  aria-required="true"
+                />
+                {errors.name && <p className="form-error-msg">{errors.name}</p>}
               </div>
-            </div>
-          </form>
-        </div>
 
-        {/* Right Side: NIELIT Logo & Checklist Illustration */}
-        <div className="register-side-graphics">
-          <div className="register-side-top">
-            <img
-              src={logoImg}
-              alt="NIELIT Logo"
-              className="register-top-logo"
-            />
+              {/* Email Input */}
+              <div className="form-group">
+                <label htmlFor="reg-email" className="form-label">
+                  Email
+                </label>
+                <input
+                  id="reg-email"
+                  type="email"
+                  className={`form-input ${errors.email ? 'input-error' : ''}`}
+                  placeholder="write your email...."
+                  value={formData.email}
+                  onChange={(e) => handleChange('email', e.target.value)}
+                  aria-required="true"
+                />
+                {errors.email && <p className="form-error-msg">{errors.email}</p>}
+              </div>
+
+              {/* Roll Number Input */}
+              <div className="form-group">
+                <label htmlFor="reg-roll" className="form-label">
+                  Roll Number
+                </label>
+                <input
+                  id="reg-roll"
+                  type="text"
+                  className={`form-input ${errors.rollNumber ? 'input-error' : ''}`}
+                  placeholder="1234......"
+                  value={formData.rollNumber}
+                  onChange={(e) => handleChange('rollNumber', e.target.value)}
+                  aria-required="true"
+                />
+                {errors.rollNumber && <p className="form-error-msg">{errors.rollNumber}</p>}
+              </div>
+
+              {/* Semester Input */}
+              <div className="form-group">
+                <label htmlFor="reg-semester" className="form-label">
+                  Semester
+                </label>
+                <input
+                  id="reg-semester"
+                  type="text"
+                  className={`form-input ${errors.semester ? 'input-error' : ''}`}
+                  placeholder="what is your semester?...."
+                  value={formData.semester}
+                  onChange={(e) => handleChange('semester', e.target.value)}
+                  aria-required="true"
+                />
+                {errors.semester && <p className="form-error-msg">{errors.semester}</p>}
+              </div>
+
+              {/* Why do you want to join? Textarea */}
+              <div className="form-group">
+                <label htmlFor="reg-reason" className="form-label">
+                  Why do you want to join ?
+                </label>
+                <textarea
+                  id="reg-reason"
+                  className={`form-textarea ${errors.reason ? 'input-error' : ''}`}
+                  placeholder="express..."
+                  rows="3"
+                  value={formData.reason}
+                  onChange={(e) => handleChange('reason', e.target.value)}
+                  aria-required="true"
+                />
+                {errors.reason && <p className="form-error-msg">{errors.reason}</p>}
+              </div>
+
+              {/* Submit Action Area */}
+              <div className="register-submit-row">
+                <button
+                  type="submit"
+                  className="register-submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </button>
+
+                <div className="register-info-note">
+                  <Info size={16} className="info-icon" />
+                  <span>After clicking submit check your email for logging in</span>
+                </div>
+              </div>
+            </form>
           </div>
 
-          <div className="register-side-bottom">
-            <Interactive3DScene
-              src={checklistImg}
-              modelPath="/models/registration/registration.glb"
-              alt="Students with registration checklist in 3D"
-              className="register-checklist-img"
-              maxRotX={0.07}
-              maxRotY={0.09}
-              maxTrans={0.08}
-              scaleOnHover={1.03}
-              floating={true}
-              interactive={true}
-              seed={7.8}
-            />
+          {/* Right Side: Componentry Two Eyes Tracking Companion */}
+          <div className="register-eye-wrapper" aria-hidden="true">
+            <div className="register-eye-container">
+              <EyeTracking
+                eyeSize={eyeSize}
+                gap={eyeGap}
+                variant="realistic"
+                irisColor="#6B3514"
+                irisColorSecondary="#B06C38"
+                pupilColor="#080808"
+                scleraColor="#FAF6F0"
+                pupilRange={0.65}
+                eyeCount={2}
+                showReflection={true}
+                showIrisDetail={true}
+                reactivePupil={true}
+                blinkInterval={3800}
+                idleAnimation={true}
+              />
+            </div>
           </div>
         </div>
       </div>

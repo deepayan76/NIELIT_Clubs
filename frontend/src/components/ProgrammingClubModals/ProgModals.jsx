@@ -184,7 +184,7 @@ export function OverviewModal({ isOpen, onClose }) {
           <Terminal size={20} color="var(--prog-blue)" />
           <span className="prog-section-eyebrow" style={{ margin: 0 }}>CLUB OVERVIEW</span>
         </div>
-        <h2 className="prog-modal-title">Welcome to NIELIT Programming Club</h2>
+        <h2 className="prog-modal-title">Welcome to NEXORA Programming Club</h2>
         <p className="prog-modal-subtitle">
           A hands-on student engineering ecosystem dedicated to code logic, algorithmic mastery, and collaborative building.
         </p>
@@ -291,7 +291,7 @@ export function VisionModal({ isOpen, onClose }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', color: 'var(--prog-text-muted-dark)', fontSize: '14px', lineHeight: '1.65', marginBottom: '24px' }}>
           <p>
-            At NIELIT, we believe programming is not merely memorizing syntax—it is a rigorous discipline of logic, decomposition, and creative problem solving.
+            At NEXORA, we believe programming is not merely memorizing syntax—it is a rigorous discipline of logic, decomposition, and creative problem solving.
           </p>
           <p>
             Our vision is to bridge theoretical computer science fundamentals with modern software craftsmanship. We establish a supportive peer-driven environment where beginners gain confidence, intermediate developers refine their architecture skills, and advanced coders mentor the next wave of builders.

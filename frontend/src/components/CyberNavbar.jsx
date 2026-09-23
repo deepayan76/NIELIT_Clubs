@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Menu, X, ArrowRight } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/Newlogowhite.png';
+import logoIcon from '../assets/logoiconWhite.png';
 import { navigate, scrollToSection } from '../utils/router';
 import { AnimatedTopDock } from '../shaders/animated-top-dock/AnimatedTopDock';
 
@@ -134,7 +135,7 @@ export default function CyberNavbar({ onOpenSearch }) {
   return (
     <header className={`cyber-navbar-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="cyber-navbar-container">
-        {/* Left: Official NIELIT Logo without adjacent text */}
+        {/* Left: Official NEXORA Logo */}
         <a
           href="/"
           onClick={(e) => {
@@ -142,11 +143,11 @@ export default function CyberNavbar({ onOpenSearch }) {
             handleNav('/');
           }}
           className="cyber-navbar-brand"
-          aria-label="NIELIT Tech Clubs Home"
+          aria-label="NEXORA Tech Clubs Home"
         >
           <img
             src={logoImg}
-            alt="NIELIT Logo"
+            alt="NEXORA Tech Clubs Logo"
             className="cyber-navbar-logo-img"
           />
         </a>
@@ -165,7 +166,7 @@ export default function CyberNavbar({ onOpenSearch }) {
             items={cyberDockItems}
             onItemSelect={(id, href) => handleNav(href || `#${id}`, id)}
             onLogoClick={() => handleNav('/')}
-            logo={<img src={logoImg} alt="NIELIT" className="dock-logo-icon" />}
+            logo={<img src={logoIcon} alt="NEXORA" className="dock-logo-icon" />}
             className="cyber-navbar-threeui-dock"
           />
         </nav>

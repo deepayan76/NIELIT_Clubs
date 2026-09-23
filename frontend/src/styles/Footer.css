@@ -1,16 +1,23 @@
 .footer-section {
-  background-color: var(--primary-blue);
+  background-color: #1a1a1a;
   color: var(--white);
   padding-top: clamp(40px, 5vw, 64px);
   padding-bottom: clamp(36px, 4vw, 48px);
   margin-bottom: 0 !important;
   margin-top: var(--section-gap);
+  border-top: 1px solid #333333;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-section * {
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-container {
   display: flex;
   flex-direction: column;
   gap: clamp(32px, 4vw, 48px);
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Upper Grid */
@@ -33,6 +40,7 @@
   color: var(--white);
   margin-bottom: 12px;
   text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-brand-tagline {
@@ -40,12 +48,14 @@
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 4px;
   font-weight: 400;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-brand-desc {
   font-size: clamp(13.5px, 1.1vw, 14px);
   color: rgba(255, 255, 255, 0.85);
   font-weight: 400;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Column Headings */
@@ -56,6 +66,7 @@
   color: var(--white);
   margin-bottom: 16px;
   text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-links-list {
@@ -72,6 +83,7 @@
   transition: color var(--transition-fast), transform var(--transition-fast);
   display: inline-block;
   padding: 2px 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-links-list a:hover {
@@ -92,12 +104,11 @@
 }
 
 .footer-logo-img {
-  height: clamp(48px, 4.5vw, 60px);
-  width: auto;
-  max-width: 170px;
+  height: clamp(40px, 3.8vw, 48px);
+  width: clamp(40px, 3.8vw, 48px);
   object-fit: contain;
   flex-shrink: 0;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
 }
 
 .footer-legal-text {
@@ -110,6 +121,7 @@
   font-size: clamp(15px, 1.2vw, 17px);
   font-weight: 600;
   color: var(--white);
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-institute {
@@ -117,6 +129,7 @@
   color: rgba(255, 255, 255, 0.9);
   font-weight: 400;
   line-height: 1.35;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Tablet (768px - 1023px) */
@@ -142,8 +155,8 @@
     gap: 14px;
   }
   .footer-logo-img {
-    height: 44px;
-    max-width: 130px;
+    height: 40px;
+    width: 40px;
   }
 }
 
@@ -154,3 +167,4 @@
     gap: 10px;
   }
 }
+

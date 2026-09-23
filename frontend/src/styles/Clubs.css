@@ -1,8 +1,59 @@
-.clubs-section {
-  padding-top: 20px;
-}
+/* ==========================================================
+   NEXORA TECH CLUBS — CLUBS SECTION
+   Orbit Card Stack Presentation & Big Bold Typography
+   ========================================================== */
 
-.clubs-list {
+.clubs-section {
+  padding-top: 40px;
+  margin-bottom: var(--section-gap);
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.clubs-section .section-heading-wrapper {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.clubs-section .section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(38px, 4.8vw, 58px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  text-transform: none;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.clubs-section .section-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(16px, 1.4vw, 20px);
+  font-weight: 400;
+  color: #A1A1AA;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.clubs-orbit-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .clubs-section {
+    padding-top: 20px;
+  }
+  .clubs-section .section-title {
+    font-size: clamp(30px, 7vw, 40px);
+  }
+  .clubs-section .section-subtitle {
+    font-size: 15px;
+  }
 }

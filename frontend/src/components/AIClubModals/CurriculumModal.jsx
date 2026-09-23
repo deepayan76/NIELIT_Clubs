@@ -86,7 +86,7 @@ export default function CurriculumModal({ isOpen, onClose }) {
       <div className="ai-modal-card ai-curriculum-modal" onClick={(e) => e.stopPropagation()}>
         <div className="ai-modal-header">
           <div>
-            <span className="ai-modal-eyebrow">NIELIT AI CLUB CURRICULUM</span>
+            <span className="ai-modal-eyebrow">NEXORA AI CLUB CURRICULUM</span>
             <h2 className="ai-modal-title">Full 12-Week Technical Syllabus</h2>
           </div>
           <button

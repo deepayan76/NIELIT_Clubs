@@ -12,7 +12,7 @@ export default function AIHero({ onWatchOverview }) {
           {/* LEFT COLUMN: AI Club Information & Actions */}
           <div className="ai-hero-col-left">
             <div className="ai-hero-header-block">
-              <span className="ai-hero-eyebrow">NIELIT TECH CLUBS</span>
+              <span className="ai-hero-eyebrow">NEXORA TECH CLUBS</span>
               <h1 className="ai-hero-title">AI Club</h1>
               <h2 className="ai-hero-tagline">Learn. Experiment. Build.</h2>
               <p className="ai-hero-desc">

@@ -44,7 +44,7 @@ export default function AICapstone({ onExploreProjects }) {
                 </h3>
                 <p className="ai-capstone-proj-desc">
                   A smart assistant to help students find information, organize tasks
-                  and interact with NIELIT club resources.
+                  and interact with NEXORA club resources.
                 </p>
 
                 {/* Technical Architecture Specs */}

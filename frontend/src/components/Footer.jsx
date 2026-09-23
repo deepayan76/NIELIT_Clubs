@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/logoiconWhite.png';
 import { navigate } from '../utils/router';
 import '../styles/Footer.css';
 
@@ -15,9 +15,9 @@ export default function Footer() {
         <div className="footer-top-grid">
           {/* Column 1: Brand & Tagline */}
           <div className="footer-col footer-col-brand">
-            <h3 className="footer-brand-title">NIELIT TECH CLUBS</h3>
-            <p className="footer-brand-tagline">Learn. Build. Together.</p>
-            <p className="footer-brand-desc">A community of exploring technology.</p>
+            <h3 className="footer-brand-title">NEXORA TECH CLUBS</h3>
+            <p className="footer-brand-tagline">LEARN. BUILD. LEAD.</p>
+            <p className="footer-brand-desc">Where Ideas Become Innovation.</p>
           </div>
 
           {/* Column 2: Quick Links */}
@@ -41,7 +41,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#register" onClick={(e) => { e.preventDefault(); handleNav('#register'); }}>
-                  Register
+                  Join Us
                 </a>
               </li>
             </ul>
@@ -78,11 +78,11 @@ export default function Footer() {
         {/* Lower Legal / Branding Row */}
         <div className="footer-bottom-row">
           <div className="footer-bottom-brand">
-            <img src={logoImg} alt="NIELIT Logo" className="footer-logo-img" />
+            <img src={logoImg} alt="NEXORA Logo" className="footer-logo-img" />
             <div className="footer-legal-text">
-              <span className="footer-year">2026 NIELIT Tech Clubs</span>
+              <span className="footer-year">2026 NEXORA Tech Clubs</span>
               <span className="footer-institute">
-                National Institute of Electronics & Information Technology
+                LEARN. BUILD. LEAD.
               </span>
             </div>
           </div>
