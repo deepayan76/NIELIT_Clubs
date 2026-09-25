@@ -119,7 +119,7 @@ async function runPhase7Tests() {
     const adminLoginRes = await request('/api/admin/auth/login', {
       method: 'POST',
       body: {
-        email: process.env.ADMIN_EMAIL || 'admin@nielit.edu.in',
+        email: process.env.ADMIN_EMAIL || 'admin@nexora.club.in',
         password: 'Admin@123'
       }
     });

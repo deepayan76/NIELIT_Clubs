@@ -61,7 +61,7 @@ export default function AdminLogin() {
                 id="admin-email"
                 type="email"
                 className="login-input"
-                placeholder="admin@nexora.edu.in"
+                placeholder="admin@nexora.club.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"

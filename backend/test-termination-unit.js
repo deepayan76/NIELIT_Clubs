@@ -113,7 +113,7 @@ async function runTerminationUnitTests() {
   console.log('\n--- Test 2: AuditLog Action Enum Support ---');
   const validAuditLog = new AuditLog({
     actorRole: 'ADMIN',
-    actorIdentifier: 'admin@nielit.edu.in',
+    actorIdentifier: 'admin@nexora.club.in',
     action: 'STUDENT_ACCOUNT_TERMINATED',
     targetType: 'USER',
     targetId: new mongoose.Types.ObjectId().toString(),
@@ -126,7 +126,7 @@ async function runTerminationUnitTests() {
   // Test 3: terminateStudent Controller ID & Non-Existent Validation
   // -------------------------------------------------------------
   console.log('\n--- Test 3: terminateStudent ID & Non-Existent Validation ---');
-  const invalidIdReq = { params: { id: 'invalid-id' }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nielit.edu.in' } };
+  const invalidIdReq = { params: { id: 'invalid-id' }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nexora.club.in' } };
   const invalidIdRes = createMockRes();
   await terminateStudent(invalidIdReq, invalidIdRes, () => {});
   assert(invalidIdRes.statusCode === 404, 'terminateStudent returns 404 for invalid ObjectId format');
@@ -136,7 +136,7 @@ async function runTerminationUnitTests() {
 
   // Non-existent user
   User.findById = async () => null;
-  const notFoundReq = { params: { id: new mongoose.Types.ObjectId().toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nielit.edu.in' } };
+  const notFoundReq = { params: { id: new mongoose.Types.ObjectId().toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nexora.club.in' } };
   const notFoundRes = createMockRes();
   await terminateStudent(notFoundReq, notFoundRes, () => {});
   assert(notFoundRes.statusCode === 404, 'terminateStudent returns 404 for non-existent user');
@@ -148,12 +148,12 @@ async function runTerminationUnitTests() {
   const adminTargetUser = {
     _id: new mongoose.Types.ObjectId(),
     name: 'Super Admin',
-    email: 'admin@nielit.edu.in',
+    email: 'admin@nexora.club.in',
     role: 'ADMIN',
     accountStatus: 'ACTIVE'
   };
   User.findById = async () => adminTargetUser;
-  const adminTermReq = { params: { id: adminTargetUser._id.toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nielit.edu.in' } };
+  const adminTermReq = { params: { id: adminTargetUser._id.toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nexora.club.in' } };
   const adminTermRes = createMockRes();
   await terminateStudent(adminTermReq, adminTermRes, () => {});
   assert(adminTermRes.statusCode === 403, 'terminateStudent returns 403 when attempting to terminate an ADMIN');
@@ -170,7 +170,7 @@ async function runTerminationUnitTests() {
     accountStatus: 'TERMINATED'
   };
   User.findById = async () => alreadyTerminatedUser;
-  const conflictReq = { params: { id: alreadyTerminatedUser._id.toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nielit.edu.in' } };
+  const conflictReq = { params: { id: alreadyTerminatedUser._id.toString() }, user: { id: new mongoose.Types.ObjectId(), email: 'admin@nexora.club.in' } };
   const conflictRes = createMockRes();
   await terminateStudent(conflictReq, conflictRes, () => {});
   assert(conflictRes.statusCode === 409, 'terminateStudent returns 409 when target is already TERMINATED');
@@ -198,7 +198,7 @@ async function runTerminationUnitTests() {
 
   const validTermReq = {
     params: { id: activeStudentUser._id.toString() },
-    user: { id: new mongoose.Types.ObjectId().toString(), email: 'admin@nielit.edu.in' },
+    user: { id: new mongoose.Types.ObjectId().toString(), email: 'admin@nexora.club.in' },
     body: {
       reason: '   Violation of academic honesty policy   ',
       // Malicious mass assignment injection payloads:

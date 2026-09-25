@@ -92,7 +92,7 @@ async function runResourcesTests() {
     // Test 1: Admin Authentication for Tests
     // -------------------------------------------------------------
     console.log('--- Step 1: Admin Authentication Setup ---');
-    const adminEmail = process.env.ADMIN_INITIAL_EMAIL || 'admin@nielit.edu.in';
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.ADMIN_INITIAL_EMAIL || 'admin@nexora.club.in';
     const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || 'Admin@NIELIT2026!';
 
     const adminLoginRes = await request('/api/admin/auth/login', {

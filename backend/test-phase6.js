@@ -46,7 +46,7 @@ async function runPhase6Tests() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: process.env.ADMIN_EMAIL || 'admin@nielit.edu.in',
+        email: process.env.ADMIN_EMAIL || 'admin@nexora.club.in',
         password: process.env.ADMIN_PASSWORD || 'Admin@123'
       })
     });

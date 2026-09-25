@@ -30,7 +30,7 @@ export async function adminLogin(req, res, next) {
       });
     }
 
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@nielit.edu.in';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@nexora.club.in';
     const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
     const jwtSecret = process.env.JWT_SECRET;
     const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1d';
@@ -69,7 +69,7 @@ export async function adminLogin(req, res, next) {
         id: 'adm_root',
         email: adminEmail,
         role: 'ADMIN',
-        name: 'NIELIT Club Administrator'
+        name: 'Club Administrator'
       },
       jwtSecret,
       { expiresIn: jwtExpiresIn }
@@ -93,7 +93,7 @@ export async function adminLogin(req, res, next) {
         _id: 'adm_root',
         email: adminEmail,
         role: 'ADMIN',
-        name: 'NIELIT Club Administrator'
+        name: 'Club Administrator'
       }
     });
   } catch (error) {
@@ -129,7 +129,7 @@ export function getAdminMe(req, res) {
     data: {
       email: req.user.email,
       role: 'ADMIN',
-      name: req.user.name || 'NIELIT Club Administrator'
+      name: req.user.name || 'Club Administrator'
     }
   });
 }

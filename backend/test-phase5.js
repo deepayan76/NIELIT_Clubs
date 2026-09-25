@@ -53,7 +53,7 @@ async function runPhase5Tests() {
     const res = await fetch(`${BASE_URL}/api/admin/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@nielit.edu.in', password: 'WrongPassword999' })
+      body: JSON.stringify({ email: process.env.ADMIN_EMAIL || 'admin@nexora.club.in', password: 'WrongPassword999' })
     });
     if (res.status !== 401) throw new Error(`Expected 401, got ${res.status}`);
     const body = await res.json();
@@ -65,7 +65,7 @@ async function runPhase5Tests() {
     const res = await fetch(`${BASE_URL}/api/admin/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@nielit.edu.in', password: 'Admin@123' })
+      body: JSON.stringify({ email: process.env.ADMIN_EMAIL || 'admin@nexora.club.in', password: 'Admin@123' })
     });
     if (res.status !== 200) throw new Error(`Expected 200, got ${res.status}`);
     const setCookie = res.headers.get('set-cookie');

@@ -272,7 +272,7 @@ export async function approveRegistration(req, res, next) {
 
     registration.status = 'APPROVED';
     registration.reviewedAt = new Date();
-    registration.reviewedBy = req.user?.name || 'NIELIT Club Administrator';
+    registration.reviewedBy = req.user?.name || 'Club Administrator';
     registration.decisionEmailStatus = 'PENDING';
 
     await user.save();
@@ -281,7 +281,7 @@ export async function approveRegistration(req, res, next) {
     await logAuditEvent({
       req,
       actorRole: 'ADMIN',
-      actorIdentifier: req.user?.email || 'admin@nielit.edu.in',
+      actorIdentifier: req.user?.email || 'admin@nexora.club.in',
       action: 'REGISTRATION_APPROVED',
       targetType: 'REGISTRATION',
       targetId: registration._id,
@@ -362,7 +362,7 @@ export async function rejectRegistration(req, res, next) {
 
     registration.status = 'REJECTED';
     registration.reviewedAt = new Date();
-    registration.reviewedBy = req.user?.name || 'NIELIT Club Administrator';
+    registration.reviewedBy = req.user?.name || 'Club Administrator';
     registration.rejectionReason = rejectionReason;
     registration.decisionEmailStatus = 'PENDING';
 
@@ -371,7 +371,7 @@ export async function rejectRegistration(req, res, next) {
     await logAuditEvent({
       req,
       actorRole: 'ADMIN',
-      actorIdentifier: req.user?.email || 'admin@nielit.edu.in',
+      actorIdentifier: req.user?.email || 'admin@nexora.club.in',
       action: 'REGISTRATION_REJECTED',
       targetType: 'REGISTRATION',
       targetId: registration._id,
@@ -530,7 +530,7 @@ export async function terminateStudent(req, res, next) {
     await logAuditEvent({
       req,
       actorRole: 'ADMIN',
-      actorIdentifier: req.user?.email || 'admin@nielit.edu.in',
+      actorIdentifier: req.user?.email || 'admin@nexora.club.in',
       action: 'STUDENT_ACCOUNT_TERMINATED',
       targetType: 'USER',
       targetId: user._id,
