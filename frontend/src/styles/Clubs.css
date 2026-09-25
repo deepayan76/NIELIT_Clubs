@@ -45,7 +45,18 @@
   overflow: visible;
 }
 
-/* Responsive adjustments */
+/* Visibility Utilities */
+.clubs-orbit-wrapper.desktop-only {
+  display: flex;
+}
+
+.clubs-mobile-scroll-stack.mobile-only {
+  display: none !important;
+}
+
+/* ==========================================================
+   Responsive & Mobile Scroll Stack
+   ========================================================== */
 @media (max-width: 768px) {
   .clubs-section {
     padding-top: 20px;
@@ -55,5 +66,104 @@
   }
   .clubs-section .section-subtitle {
     font-size: 15px;
+  }
+
+  /* Switch from Orbit to Mobile Scroll Stack on Mobile */
+  .clubs-orbit-wrapper.desktop-only {
+    display: none !important;
+  }
+
+  .clubs-mobile-scroll-stack.mobile-only {
+    display: block !important;
+  }
+
+  .clubs-mobile-scroll-stack {
+    position: relative;
+    width: 100%;
+    height: 300vh; /* Scroll track for 4 cards */
+    margin-top: 16px;
+    box-sizing: border-box;
+  }
+
+  .clubs-mobile-sticky-wrapper {
+    position: sticky;
+    top: 14vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    padding: 10px 0;
+  }
+
+  .clubs-mobile-stack-stage {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 480px;
+    margin: 0 auto;
+  }
+
+  .clubs-mobile-card-motion-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: center top;
+    will-change: transform, opacity;
+  }
+
+  .clubs-mobile-card-item {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(90vw, 21.5rem) !important;
+    max-width: 360px !important;
+    margin: 0 auto !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .clubs-mobile-sticky-wrapper {
+    top: 12vh;
+  }
+
+  .clubs-mobile-stack-stage {
+    max-width: 320px;
+    height: 450px;
+  }
+
+  .clubs-mobile-card-item {
+    width: min(92vw, 19.5rem) !important;
+    padding: 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .clubs-mobile-sticky-wrapper {
+    top: 10vh;
+  }
+
+  .clubs-mobile-stack-stage {
+    max-width: 290px;
+    height: 430px;
+  }
+
+  .clubs-mobile-card-item {
+    width: min(94vw, 17.5rem) !important;
+    padding: 10px !important;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .clubs-mobile-scroll-stack.mobile-only {
+    display: none !important;
+  }
+
+  .clubs-orbit-wrapper.desktop-only {
+    display: flex !important;
   }
 }

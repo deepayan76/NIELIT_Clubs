@@ -1,6 +1,5 @@
 import React from 'react';
 import { HoverTransition } from '@/components/ui/hover-transition';
-import AboutMobileCardStack from '../components/AboutMobileCardStack';
 import learnImg from '../assets/about/learn.png';
 import buildImg from '../assets/about/build.png';
 import leadImg from '../assets/about/lead.png';
@@ -60,8 +59,8 @@ export default function About() {
           </div>
         </div>
 
-        {/* Learn / Build / Lead Pillars Section (Desktop Grid) */}
-        <div className="about-pillars-grid desktop-only" aria-label="NEXORA Core Pillars: Learn, Build, Lead">
+        {/* Learn / Build / Lead Pillars Section */}
+        <div className="about-pillars-grid" aria-label="NEXORA Core Pillars: Learn, Build, Lead">
           {pillars.map((pillar) => (
             <HoverTransition
               key={pillar.title}
@@ -96,9 +95,6 @@ export default function About() {
             />
           ))}
         </div>
-
-        {/* Mobile-Only Scroll-Driven Stacked Card Animation */}
-        <AboutMobileCardStack pillars={pillars} />
       </div>
     </section>
   );

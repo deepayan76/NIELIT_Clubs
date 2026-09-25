@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import SectionHeading from '../components/SectionHeading';
 import { OrbitCardStack } from '@/components/ui/orbit-card-stack';
+import ClubsMobileCardStack from '../components/ClubsMobileCardStack';
 import { navigate } from '../utils/router';
 import aiImg from '../assets/clubs/ai-card.png';
 import programmingImg from '../assets/clubs/programming-card.png';
@@ -70,7 +71,8 @@ export default function Clubs() {
         align="center"
       />
 
-      <div className="clubs-orbit-wrapper">
+      {/* Desktop Orbit Stack (Unchanged) */}
+      <div className="clubs-orbit-wrapper desktop-only">
         <OrbitCardStack
           items={clubStackItems}
           defaultActiveIndex={0}
@@ -80,6 +82,12 @@ export default function Clubs() {
           onCardClick={handleCardClick}
         />
       </div>
+
+      {/* Mobile Scroll-Driven Card Stack */}
+      <ClubsMobileCardStack
+        items={clubStackItems}
+        onCardClick={handleCardClick}
+      />
     </section>
   );
 }
