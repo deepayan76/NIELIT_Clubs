@@ -1,5 +1,5 @@
 import * as React from "react"
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, useMotionValue, useSpring } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 function Eye({
@@ -18,25 +18,41 @@ function Eye({
   variant = "realistic",
   reactivePupil = true,
   mouseX,
-  mouseY
+  mouseY,
+  isActive = true,
 }) {
   const eyeRef = React.useRef(null)
   const [isBlinking, setIsBlinking] = React.useState(false)
-  const [pupilScale, setPupilScale] = React.useState(1)
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 280, damping: 24, mass: 0.45 })
-  const springY = useSpring(y, { stiffness: 280, damping: 24, mass: 0.45 })
+  const pupilScale = useMotionValue(1)
+  const springX = useSpring(x, { stiffness: 260, damping: 26, mass: 0.45 })
+  const springY = useSpring(y, { stiffness: 260, damping: 26, mass: 0.45 })
 
   const irisSize = Math.round(eyeHeight * 0.53)
   const pupilSize = Math.round(irisSize * 0.48)
   const maxOffsetX = (eyeWidth / 2 - irisSize / 2 - 6) * pupilRange
   const maxOffsetY = (eyeHeight / 2 - irisSize / 2 - 5) * pupilRange
 
-  // Blink animation
+  // Cached center position to avoid getBoundingClientRect() on every frame
+  const centerPosRef = React.useRef({ x: 0, y: 0 })
+
+  const updateCenter = React.useCallback(() => {
+    if (!eyeRef.current) return
+    const rect = eyeRef.current.getBoundingClientRect()
+    centerPosRef.current = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    }
+  }, [])
+
+  // Blink animation (only when active in viewport)
   React.useEffect(() => {
-    if (blinkInterval <= 0) return
+    if (blinkInterval <= 0 || !isActive) return
+
+    let blinkTimeout = null
+    let interval = null
 
     const blink = () => {
       setIsBlinking(true)
@@ -44,57 +60,78 @@ function Eye({
     }
 
     const randomOffset = index * 100 + Math.random() * 200
-    const timeout = setTimeout(() => {
+    blinkTimeout = setTimeout(() => {
       blink()
-      const interval = setInterval(blink, blinkInterval + Math.random() * 1500)
-      return () => clearInterval(interval)
+      interval = setInterval(blink, blinkInterval + Math.random() * 1500)
     }, randomOffset)
 
-    return () => clearTimeout(timeout)
-  }, [blinkInterval, index])
+    return () => {
+      if (blinkTimeout) clearTimeout(blinkTimeout)
+      if (interval) clearInterval(interval)
+    }
+  }, [blinkInterval, index, isActive])
 
-  // Track mouse position and update pupil
+  // Recalculate center on resize/scroll when active
   React.useEffect(() => {
-    let animFrame
+    if (!isActive) return
+    updateCenter()
+    window.addEventListener("resize", updateCenter, { passive: true })
+    window.addEventListener("scroll", updateCenter, { passive: true })
+    return () => {
+      window.removeEventListener("resize", updateCenter)
+      window.removeEventListener("scroll", updateCenter)
+    }
+  }, [isActive, updateCenter])
+
+  // Track mouse position and update pupil (only when active in viewport)
+  React.useEffect(() => {
+    if (!isActive) return
+
+    let animFrame = 0
+    let lastCalculatedX = -9999
+    let lastCalculatedY = -9999
 
     const update = () => {
-      if (!eyeRef.current) {
-        animFrame = requestAnimationFrame(update)
-        return
-      }
+      const curMouseX = mouseX.current
+      const curMouseY = mouseY.current
 
-      const rect = eyeRef.current.getBoundingClientRect()
-      const eyeCenterX = rect.left + rect.width / 2
-      const eyeCenterY = rect.top + rect.height / 2
+      // Only recompute when mouse actually moved
+      if (curMouseX !== lastCalculatedX || curMouseY !== lastCalculatedY) {
+        lastCalculatedX = curMouseX
+        lastCalculatedY = curMouseY
 
-      const dx = mouseX.current - eyeCenterX
-      const dy = mouseY.current - eyeCenterY
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      const angle = Math.atan2(dy, dx)
+        const eyeCenterX = centerPosRef.current.x
+        const eyeCenterY = centerPosRef.current.y
 
-      const clampedDistance = Math.min(distance, 500)
-      const normalizedDistance = clampedDistance / 500
-      
-      const offsetX = Math.cos(angle) * (normalizedDistance * maxOffsetX)
-      const offsetY = Math.sin(angle) * (normalizedDistance * maxOffsetY)
+        const dx = curMouseX - eyeCenterX
+        const dy = curMouseY - eyeCenterY
+        const distance = Math.sqrt(dx * dx + dy * dy)
+        const angle = Math.atan2(dy, dx)
 
-      // Slight natural resting offset inward (converging like the reference photo)
-      const restingInward = index === 0 ? 5 : -5
-      x.set(offsetX + restingInward)
-      y.set(offsetY)
+        const clampedDistance = Math.min(distance, 500)
+        const normalizedDistance = clampedDistance / 500
 
-      // Reactive pupil dilation based on distance
-      if (reactivePupil) {
-        const proximityScale = distance < 200 ? 1.15 - (distance / 200) * 0.15 : 0.94 + (Math.min(distance, 800) / 800) * 0.06
-        setPupilScale(proximityScale)
+        const offsetX = Math.cos(angle) * (normalizedDistance * maxOffsetX)
+        const offsetY = Math.sin(angle) * (normalizedDistance * maxOffsetY)
+
+        const restingInward = index === 0 ? 5 : -5
+        x.set(offsetX + restingInward)
+        y.set(offsetY)
+
+        if (reactivePupil) {
+          const proximityScale = distance < 200 ? 1.15 - (distance / 200) * 0.15 : 0.94 + (Math.min(distance, 800) / 800) * 0.06
+          pupilScale.set(proximityScale)
+        }
       }
 
       animFrame = requestAnimationFrame(update)
     }
 
     animFrame = requestAnimationFrame(update)
-    return () => cancelAnimationFrame(animFrame)
-  }, [x, y, maxOffsetX, maxOffsetY, reactivePupil, mouseX, mouseY, index])
+    return () => {
+      if (animFrame) cancelAnimationFrame(animFrame)
+    }
+  }, [isActive, x, y, pupilScale, maxOffsetX, maxOffsetY, reactivePupil, mouseX, mouseY, index])
 
   const resolvedTilt = tilt !== undefined ? tilt : index === 0 ? -7 : 7
 
@@ -118,12 +155,11 @@ function Eye({
         scaleY: { duration: 0.09, ease: "easeInOut" },
       }}
     >
-      {/* 3D Eyeball Delicate Red Capillary Veins (Matching reference image) */}
+      {/* 3D Eyeball Delicate Red Capillary Veins */}
       <svg
         className="pointer-events-none absolute inset-0 w-full h-full"
         viewBox={`0 0 ${eyeWidth} ${eyeHeight}`}
       >
-        {/* Left periphery veins */}
         <path
           d={`M ${eyeWidth * 0.07} ${eyeHeight * 0.32} Q ${eyeWidth * 0.22} ${eyeHeight * 0.36} ${eyeWidth * 0.31} ${eyeHeight * 0.42}`}
           fill="none"
@@ -148,8 +184,6 @@ function Eye({
           strokeLinecap="round"
           opacity="0.45"
         />
-
-        {/* Top subtle vein */}
         <path
           d={`M ${eyeWidth * 0.48} ${eyeHeight * 0.06} Q ${eyeWidth * 0.51} ${eyeHeight * 0.18} ${eyeWidth * 0.53} ${eyeHeight * 0.28}`}
           fill="none"
@@ -158,8 +192,6 @@ function Eye({
           strokeLinecap="round"
           opacity="0.38"
         />
-
-        {/* Right periphery veins */}
         <path
           d={`M ${eyeWidth * 0.92} ${eyeHeight * 0.34} Q ${eyeWidth * 0.8} ${eyeHeight * 0.38} ${eyeWidth * 0.69} ${eyeHeight * 0.44}`}
           fill="none"
@@ -210,7 +242,7 @@ function Eye({
           </div>
         )}
 
-        {/* Pupil */}
+        {/* Pupil with MotionValue scaling */}
         <motion.div
           className="absolute rounded-full"
           style={{
@@ -220,17 +252,13 @@ function Eye({
             top: irisSize / 2 - pupilSize / 2,
             background: pupilColor,
             boxShadow: "0 0 2px rgba(0,0,0,0.9)",
+            scale: pupilScale,
           }}
-          animate={{
-            scale: reactivePupil ? pupilScale : 1,
-          }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
         />
 
-        {/* Specular Highlights (Matching Reference Image) */}
+        {/* Specular Highlights */}
         {showReflection && (
           <>
-            {/* Main Crisp White Specular Dot (Upper-Left 10 o'clock position) */}
             <div
               className="absolute rounded-full pointer-events-none"
               style={{
@@ -242,7 +270,6 @@ function Eye({
                 boxShadow: "0 0 2px rgba(255, 255, 255, 0.95), 0 0 4px rgba(255, 255, 255, 0.5)",
               }}
             />
-            {/* Secondary Soft Specular Dot (Lower-Right 4 o'clock position) */}
             <div
               className="absolute rounded-full pointer-events-none"
               style={{
@@ -279,9 +306,11 @@ export function EyeTracking({
   variant = "realistic",
   reactivePupil = true,
 }) {
+  const containerRef = React.useRef(null)
   const mouseX = React.useRef(typeof window !== "undefined" ? window.innerWidth / 2 : 0)
   const mouseY = React.useRef(typeof window !== "undefined" ? window.innerHeight / 2 : 0)
   const [isMounted, setIsMounted] = React.useState(false)
+  const [inViewport, setInViewport] = React.useState(true)
 
   const resolvedWidth = eyeWidth || Math.round(eyeSize * 1.16)
   const resolvedHeight = eyeHeight || Math.round(eyeSize * 0.94)
@@ -290,8 +319,42 @@ export function EyeTracking({
     setIsMounted(true)
   }, [])
 
-  // Global mouse tracker
+  // IntersectionObserver to pause when off-screen
   React.useEffect(() => {
+    const el = containerRef.current
+    if (!el) return undefined
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInViewport(entry?.isIntersecting ?? true)
+      },
+      { rootMargin: "100px" }
+    )
+
+    observer.observe(el)
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        setInViewport(false)
+      } else if (el) {
+        const rect = el.getBoundingClientRect()
+        const isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100
+        setInViewport(isVisible)
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibility, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener("visibilitychange", handleVisibility)
+    }
+  }, [])
+
+  // Global mouse tracker (active only when in viewport)
+  React.useEffect(() => {
+    if (!inViewport) return
+
     const handleMouseMove = (e) => {
       mouseX.current = e.clientX
       mouseY.current = e.clientY
@@ -310,30 +373,36 @@ export function EyeTracking({
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("touchmove", handleTouchMove)
     }
-  }, [])
+  }, [inViewport])
 
   // Idle animation - subtle random eye movement when no cursor activity
   React.useEffect(() => {
-    if (!idleAnimation) return
+    if (!idleAnimation || !inViewport) return
 
-    let idleInterval
+    let idleInterval = null
+    let restoreTimeout = null
     let lastX = mouseX.current
     let lastY = mouseY.current
 
     const checkIdle = () => {
       if (mouseX.current === lastX && mouseY.current === lastY) {
-        // Start idle micro-movements
-        idleInterval = setInterval(() => {
-          const currentX = mouseX.current
-          const currentY = mouseY.current
-          mouseX.current = currentX + (Math.random() - 0.5) * 24
-          mouseY.current = currentY + (Math.random() - 0.5) * 24
-          // Restore after brief moment
-          setTimeout(() => {
-            mouseX.current = currentX
-            mouseY.current = currentY
-          }, 500)
-        }, 2200)
+        if (!idleInterval) {
+          idleInterval = setInterval(() => {
+            const currentX = mouseX.current
+            const currentY = mouseY.current
+            mouseX.current = currentX + (Math.random() - 0.5) * 24
+            mouseY.current = currentY + (Math.random() - 0.5) * 24
+            restoreTimeout = setTimeout(() => {
+              mouseX.current = currentX
+              mouseY.current = currentY
+            }, 500)
+          }, 2400)
+        }
+      } else {
+        if (idleInterval) {
+          clearInterval(idleInterval)
+          idleInterval = null
+        }
       }
       lastX = mouseX.current
       lastY = mouseY.current
@@ -343,13 +412,15 @@ export function EyeTracking({
 
     return () => {
       clearInterval(idleTimeout)
-      clearInterval(idleInterval)
+      if (idleInterval) clearInterval(idleInterval)
+      if (restoreTimeout) clearTimeout(restoreTimeout)
     }
-  }, [idleAnimation])
+  }, [idleAnimation, inViewport])
 
   if (!isMounted) {
     return (
       <div
+        ref={containerRef}
         className={cn("flex items-center justify-center", className)}
         style={{ gap }}
       >
@@ -366,6 +437,7 @@ export function EyeTracking({
 
   return (
     <div
+      ref={containerRef}
       className={cn("flex items-center justify-center", className)}
       style={{ gap }}
     >
@@ -387,9 +459,9 @@ export function EyeTracking({
           reactivePupil={reactivePupil}
           mouseX={mouseX}
           mouseY={mouseY}
+          isActive={inViewport}
         />
       ))}
     </div>
   )
 }
-

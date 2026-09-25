@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, type CSSProperties } from "react";
+import { getAdaptiveDpr } from "../../utils/performance";
 
 import aetherisLabsSource from "./sources/aetheris-labs.html?raw";
 import audioWordmarkSource from "./sources/audio-wordmark.html?raw";
@@ -562,7 +563,7 @@ function roundRectPath`;
    The document sees the pointer arrive reliably, but a sandboxed cross-process
    frame is not guaranteed the matching leave — so the host watches for that
    edge and posts it in, and the two signals together decide the state. */
-const GALLERY_HEADING_CLOCK = `var tNow = 0, playing = true, hovering = false, rate = 0, vel = 0, settled = false, last = performance.now();
+const GALLERY_HEADING_CLOCK = `var tNow = 0, playing = true, hovering = false, rate = 0, vel = 0, settled = false, last = performance.now(), rafId = 0;
 
 function setHover(state){
   if (hovering === state) return;
@@ -582,22 +583,51 @@ root.addEventListener('pointercancel',function(){ setHover(false); });
 window.addEventListener('blur', function(){ setHover(false); });
 
 function frame(now){
+  if (!playing || document.hidden){
+    rafId = 0;
+    return;
+  }
   var dt = Math.min(0.05, Math.max(0, (now - last)/1000));
   last = now;
-  if (playing){
-    var targetSpeed = hovering ? 1.4 : 0.85;
-    rate += (targetSpeed - rate) * (1 - Math.exp(-dt / 0.35));
-    tNow = ((tNow + dt * rate) % DUR + DUR) % DUR;
-    render(tNow);
-  }
-  requestAnimationFrame(frame);
+  var targetSpeed = hovering ? 1.4 : 0.85;
+  rate += (targetSpeed - rate) * (1 - Math.exp(-dt / 0.35));
+  tNow = ((tNow + dt * rate) % DUR + DUR) % DUR;
+  render(tNow);
+  rafId = requestAnimationFrame(frame);
 }
+
+function startLoop(){
+  if (!playing || document.hidden) return;
+  last = performance.now();
+  if (!rafId) rafId = requestAnimationFrame(frame);
+}
+
+function stopLoop(){
+  if (rafId){
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+}
+
+document.addEventListener('visibilitychange', function(){
+  if (document.hidden){
+    stopLoop();
+  } else if (playing){
+    startLoop();
+  }
+});
 
 /* font family, weight, and headline size arrive live so a control tick never
    rebuilds the document and repaints the twelve tile textures */
 window.addEventListener('message', function(event){
   var runtime = event.data && event.data.threeuiRuntime;
   if (!runtime) return;
+  if (typeof runtime.playing === 'boolean'){
+    if (runtime.playing !== playing){
+      playing = runtime.playing;
+      if (playing) startLoop(); else stopLoop();
+    }
+  }
   if (typeof runtime.font === 'string') SANS = runtime.font;
   if (typeof runtime.weight === 'string') HEAD_WEIGHT = runtime.weight;
   if (typeof runtime.headlineSize === 'number' && runtime.headlineSize > 0){
@@ -610,15 +640,17 @@ window.addEventListener('message', function(event){
 window.addEventListener('resize', function(){ resize(); settled = false; render(tNow); });
 resize();
 render(tNow);
-requestAnimationFrame(frame);
+startLoop();
 
 window.__DUR = DUR;
 window.__seek = function(t){
   tNow = ((t % DUR) + DUR) % DUR;
   playing = false;
+  stopLoop();
   render(tNow);
 };
-window.__play = function(){ last = performance.now(); playing = true; settled = false; };`;
+window.__play = function(){ playing = true; settled = false; startLoop(); };`;
+
 
 function transformGalleryHeadingSource(
   source: string,
@@ -676,10 +708,15 @@ function transformGalleryHeadingSource(
         + "  labelLayer = mkc(1,1);\n"
         + "}\n\nfunction resize",
     )
+    .replace(
+      "var dpr = Math.min(window.devicePixelRatio || 1, 2);",
+      `var dpr = Math.min(window.devicePixelRatio || 1, ${getAdaptiveDpr(2, 1.5, 1.25)});`,
+    )
     .replace("var spin = (t/DUR)*Math.PI*2;", `var spin = (t/DUR)*Math.PI*2*${variant.direction};`)
     .replace("ctx.fillStyle = '#000';\n  ctx.fillRect(0,0,W,H);", "ctx.fillStyle = '#FFFFFF';\n  ctx.fillRect(0,0,W,H);")
     .replace("ctx.clearRect(0,0,W,H);", "ctx.fillStyle = '#FFFFFF';\n  ctx.fillRect(0,0,W,H);")
     .replace(GALLERY_HEADING_CLOCK_BLOCK, GALLERY_HEADING_CLOCK);
+
 }
 
 /* ------------------------------------------------------------------ *
@@ -1781,6 +1818,37 @@ function NeuformIsolatedEffect({
       window.removeEventListener("blur", leave);
     };
   }, [trackPointerHover]);
+
+  /* Pause offscreen and when document is hidden to conserve GPU/CPU */
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return undefined;
+
+    let isIntersecting = true;
+    const updatePlayState = () => {
+      const playing = isIntersecting && !document.hidden;
+      frame.contentWindow?.postMessage({ threeuiRuntime: { playing } }, "*");
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry?.isIntersecting ?? true;
+      updatePlayState();
+    }, { rootMargin: "120px" });
+
+    observer.observe(frame);
+
+    const handleVisibility = () => updatePlayState();
+    document.addEventListener("visibilitychange", handleVisibility, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
+      try {
+        frame.contentWindow?.postMessage({ threeuiRuntime: { playing: false } }, "*");
+      } catch (e) {}
+    };
+  }, []);
+
 
   /* a srcDoc document cannot take a live prop, so continuous controls are posted
      into it instead of rebuilt into it — rebuilding restarts the animation */

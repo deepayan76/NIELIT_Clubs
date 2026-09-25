@@ -1,36 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import Home from './pages/Home';
-import AIClubPage from './pages/AIClubPage';
-import ProgrammingClubPage from './pages/ProgrammingClubPage';
-import CybersecurityClubPage from './pages/CybersecurityClubPage';
-import IoTClubPage from './pages/IoTClubPage';
-
-// Student Portal
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import DashboardLayout from './components/dashboard/DashboardLayout';
-import DashboardHome from './pages/dashboard/DashboardHome';
-import Profile from './pages/dashboard/Profile';
-import ApplicationPage from './pages/dashboard/ApplicationPage';
-import MyClubPage from './pages/dashboard/MyClubPage';
-import ResourcesPage from './pages/dashboard/ResourcesPage';
-import SettingsPage from './pages/dashboard/SettingsPage';
-import { AuthProvider } from './context/AuthContext';
-
-// Admin Portal
-import AdminLogin from './pages/AdminLogin';
-import AdminLayout from './components/admin/AdminLayout';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import Registrations from './pages/admin/Registrations';
-import Students from './pages/admin/Students';
-import Clubs from './pages/admin/Clubs';
-import AdminResources from './pages/admin/AdminResources';
-import Notifications from './pages/admin/Notifications';
-import AdminSettings from './pages/admin/AdminSettings';
 import { AdminAuthProvider } from './context/AdminAuthContext';
-
+import { AuthProvider } from './context/AuthContext';
 import { useRouter, scrollToSection, getRouteTitle } from './utils/router';
+
+// Lazy-load non-home pages for initial bundle performance and fast TTI
+const AIClubPage = lazy(() => import('./pages/AIClubPage'));
+const ProgrammingClubPage = lazy(() => import('./pages/ProgrammingClubPage'));
+const CybersecurityClubPage = lazy(() => import('./pages/CybersecurityClubPage'));
+const IoTClubPage = lazy(() => import('./pages/IoTClubPage'));
+
+// Student Portal (Lazy Loaded)
+const Login = lazy(() => import('./pages/Login'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const DashboardLayout = lazy(() => import('./components/dashboard/DashboardLayout'));
+const DashboardHome = lazy(() => import('./pages/dashboard/DashboardHome'));
+const Profile = lazy(() => import('./pages/dashboard/Profile'));
+const ApplicationPage = lazy(() => import('./pages/dashboard/ApplicationPage'));
+const MyClubPage = lazy(() => import('./pages/dashboard/MyClubPage'));
+const ResourcesPage = lazy(() => import('./pages/dashboard/ResourcesPage'));
+const SettingsPage = lazy(() => import('./pages/dashboard/SettingsPage'));
+
+// Admin Portal (Lazy Loaded)
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminLayout = lazy(() => import('./components/admin/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const Registrations = lazy(() => import('./pages/admin/Registrations'));
+const Students = lazy(() => import('./pages/admin/Students'));
+const Clubs = lazy(() => import('./pages/admin/Clubs'));
+const AdminResources = lazy(() => import('./pages/admin/AdminResources'));
+const Notifications = lazy(() => import('./pages/admin/Notifications'));
+const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
+
+function RouteLoadingFallback() {
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#222222',
+        color: '#FFFFFF',
+        fontFamily: "'Poppins', sans-serif"
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+        <img
+          src="/nexora-icon.png"
+          alt="NEXORA"
+          style={{ width: '38px', height: '38px', opacity: 0.85 }}
+        />
+        <span style={{ fontSize: '12px', letterSpacing: '0.12em', opacity: 0.65 }}>
+          LOADING NEXORA...
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function AppContent() {
   const router = useRouter();
@@ -137,7 +165,11 @@ function AppContent() {
 
   // Admin Portal - Login
   if (isAdminLogin) {
-    return <AdminLogin />;
+    return (
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <AdminLogin />
+      </Suspense>
+    );
   }
 
   // Admin Portal - Dashboard & Subpages
@@ -177,16 +209,20 @@ function AppContent() {
     }
 
     return (
-      <AdminLayout title={title} activeRoute={adminSubroute}>
-        {adminComponent}
-      </AdminLayout>
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <AdminLayout title={title} activeRoute={adminSubroute}>
+          {adminComponent}
+        </AdminLayout>
+      </Suspense>
     );
   }
 
   // Student Portal & Public Pages wrapped in AuthProvider
   return (
     <AuthProvider>
-      <StudentAndPublicContent router={router} />
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <StudentAndPublicContent router={router} />
+      </Suspense>
     </AuthProvider>
   );
 }
@@ -274,7 +310,7 @@ function StudentAndPublicContent({ router }) {
     return <IoTClubPage />;
   }
 
-  // Main Public Landing Page
+  // Main Public Landing Page (Synchronously loaded for instant initial render)
   return <Home />;
 }
 
@@ -285,4 +321,3 @@ export default function App() {
     </AdminAuthProvider>
   );
 }
-

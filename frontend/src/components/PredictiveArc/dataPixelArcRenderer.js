@@ -1,7 +1,9 @@
 /**
- * Data Pixel Arc Renderer
- * Authoritative implementation from https://threeui.com/source-code/predictive-arc.json
+ * Data Pixel Arc Renderer - High Performance Adaptive Implementation
+ * NEXORA TECH CLUBS
  */
+
+import { getAdaptiveDpr, getPerformanceTier, PERFORMANCE_TIERS } from '../../utils/performance';
 
 export const DATA_PIXEL_ARC_DEFAULTS = {
   mode: 'dark',
@@ -32,7 +34,7 @@ export function createDataPixelArcRenderer(canvas, getOptions) {
   const resize = (nextWidth, nextHeight) => {
     width = Math.max(1, nextWidth);
     height = Math.max(1, nextHeight);
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelRatio = getAdaptiveDpr(2, 1.5, 1.25);
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
@@ -46,12 +48,21 @@ export function createDataPixelArcRenderer(canvas, getOptions) {
   const render = () => {
     const options = getOptions();
     const isLight = resolveMode(options.mode) === 'light';
+    const tier = getPerformanceTier();
+
+    // Adaptive pixel resolution based on tier
+    let basePixelSize = options.pixelSize || 8;
+    if (tier === PERFORMANCE_TIERS.LOW) {
+      basePixelSize = Math.max(basePixelSize, 12);
+    } else if (tier === PERFORMANCE_TIERS.MEDIUM) {
+      basePixelSize = Math.max(basePixelSize, 10);
+    }
+    const pixelSize = basePixelSize;
 
     // In dark mode, fill with deep black/charcoal matching hero
     context.fillStyle = isLight && lightBackground ? lightBackground : '#050708';
     context.fillRect(0, 0, width, height);
 
-    const pixelSize = options.pixelSize || 8;
     const cols = Math.ceil(width / pixelSize);
     const rows = Math.ceil(height / pixelSize);
     const arcCenterY = height * (options.arcCenter ?? 0.4);
@@ -59,18 +70,26 @@ export function createDataPixelArcRenderer(canvas, getOptions) {
     const thickness = height * (options.thickness ?? 0.35);
 
     for (let x = 0; x < cols; x += 1) {
-      for (let y = 0; y < rows; y += 1) {
-        const px = x * pixelSize;
+      const px = x * pixelSize;
+      const nx = (px / width) * 2 - 1;
+      const xAtten = 1 - Math.pow(Math.abs(nx), 2.5);
+      if (xAtten <= 0.02) continue;
+
+      const curveY = arcCenterY + Math.pow(Math.abs(nx), 1.8) * arcDrop;
+      const wave1 = Math.sin(nx * 4 - time * 1.5) * 0.1;
+
+      // Tight bounding box along the curve to skip empty outer grid space
+      const yMin = Math.max(0, Math.floor((curveY - thickness * 1.1) / pixelSize));
+      const yMax = Math.min(rows, Math.ceil((curveY + thickness * 1.1) / pixelSize));
+
+      for (let y = yMin; y < yMax; y += 1) {
         const py = y * pixelSize;
-        const nx = (px / width) * 2 - 1;
-        const curveY = arcCenterY + Math.pow(Math.abs(nx), 1.8) * arcDrop;
         let intensity = Math.max(0, 1 - Math.abs(py - curveY) / thickness);
         if (intensity <= 0.01) continue;
 
-        const wave1 = Math.sin(nx * 4 - time * 1.5) * 0.1;
         const wave2 = Math.cos(py * 0.01 + time) * 0.1;
         intensity = Math.max(0, Math.min(1, intensity + wave1 + wave2));
-        intensity *= Math.max(0, 1 - Math.pow(Math.abs(nx), 2.5));
+        intensity *= xAtten;
         if (intensity <= 0.02) continue;
 
         const coreStrength = Math.pow(intensity, 3);
@@ -78,7 +97,6 @@ export function createDataPixelArcRenderer(canvas, getOptions) {
         let r, g, b;
 
         if (isLight) {
-          // Sage edge pixels hold their shape on paper while the emerald core stays vivid.
           const pigment = Math.pow(intensity, 0.78);
           const inkStrength = Math.max(0.45, Math.min(1.35, options.brightness || 1));
           const paper = [238, 242, 237];
@@ -91,7 +109,6 @@ export function createDataPixelArcRenderer(canvas, getOptions) {
           g = Math.max(0, Math.min(255, Math.round(paper[1] + (ink[1] - paper[1]) * inkStrength)));
           b = Math.max(0, Math.min(255, Math.round(paper[2] + (ink[2] - paper[2]) * inkStrength)));
         } else {
-          // Rich emerald green data-pixel spectrum
           r = Math.floor((30 * intensity + 100 * coreStrength) * (options.brightness || 1));
           g = Math.floor((220 * middleStrength + 40 * coreStrength) * (options.brightness || 1));
           b = Math.floor((80 * intensity + 50 * coreStrength) * (options.brightness || 1));

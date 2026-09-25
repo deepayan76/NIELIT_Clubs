@@ -92,23 +92,34 @@ export default function ProgNavbar({ onOpenSearch }) {
 
   useEffect(() => {
     let ticking = false;
+    let cachedSections = [];
+
+    const updateSectionCache = () => {
+      const sectionIds = ['about', 'how-it-works', 'practice', 'capstone', 'contact'];
+      cachedSections = sectionIds
+        .map((id) => {
+          const el = document.getElementById(id);
+          return el ? { id, top: el.offsetTop } : null;
+        })
+        .filter(Boolean);
+    };
+
+    updateSectionCache();
+    window.addEventListener('resize', updateSectionCache, { passive: true });
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 20);
+          const currentY = window.scrollY;
+          const shouldBeScrolled = currentY > 20;
+          setIsScrolled((prev) => (prev !== shouldBeScrolled ? shouldBeScrolled : prev));
 
-          const sections = ['about', 'how-it-works', 'practice', 'capstone', 'contact'];
-          const scrollPosition = window.scrollY + 200;
-
-          for (let i = sections.length - 1; i >= 0; i--) {
-            const sectionEl = document.getElementById(sections[i]);
-            if (sectionEl) {
-              const top = sectionEl.offsetTop;
-              if (scrollPosition >= top) {
-                setActiveSection(sections[i]);
-                break;
-              }
+          const scrollPosition = currentY + 200;
+          for (let i = cachedSections.length - 1; i >= 0; i--) {
+            if (scrollPosition >= cachedSections[i].top) {
+              const nextId = cachedSections[i].id;
+              setActiveSection((prev) => (prev !== nextId ? nextId : prev));
+              break;
             }
           }
           ticking = false;
@@ -118,7 +129,10 @@ export default function ProgNavbar({ onOpenSearch }) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateSectionCache);
+    };
   }, []);
 
   const handleNav = (url, id) => {

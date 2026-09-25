@@ -184,16 +184,23 @@ export function HoverTransition({
     "border-radius",
   ]);
 
+  const boundsRef = React.useRef(null);
+
   const activate = (event) => {
     setActive(true);
+    if (event?.currentTarget) {
+      boundsRef.current = event.currentTarget.getBoundingClientRect();
+    }
     onMouseEnter?.(event);
   };
   const deactivate = (event) => {
     setActive(false);
+    boundsRef.current = null;
     onMouseLeave?.(event);
   };
 
   const resetTilt = () => {
+    boundsRef.current = null;
     const element = rootRef.current;
     if (!element) return;
     element.style.setProperty("--hover-tilt-x", "0deg");
@@ -204,7 +211,12 @@ export function HoverTransition({
     onPointerMove?.(event);
     if (reducedMotion || event.pointerType !== "mouse") return;
 
-    const bounds = event.currentTarget.getBoundingClientRect();
+    if (!boundsRef.current && event.currentTarget) {
+      boundsRef.current = event.currentTarget.getBoundingClientRect();
+    }
+    const bounds = boundsRef.current;
+    if (!bounds || bounds.width === 0 || bounds.height === 0) return;
+
     const x = Math.min(
       1,
       Math.max(0, (event.clientX - bounds.left) / bounds.width),

@@ -18,24 +18,34 @@ export default function Navbar() {
 
   useEffect(() => {
     let ticking = false;
+    let cachedSections = [];
+
+    const updateSectionCache = () => {
+      const sectionIds = ['home', 'about', 'clubs', 'register'];
+      cachedSections = sectionIds
+        .map((id) => {
+          const el = document.getElementById(id);
+          return el ? { id, top: el.offsetTop } : null;
+        })
+        .filter(Boolean);
+    };
+
+    updateSectionCache();
+    window.addEventListener('resize', updateSectionCache, { passive: true });
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
-          setIsScrolled(currentY > 20);
+          const shouldBeScrolled = currentY > 20;
+          setIsScrolled((prev) => (prev !== shouldBeScrolled ? shouldBeScrolled : prev));
 
-          const sections = ['home', 'about', 'clubs', 'register'];
           const scrollPosition = currentY + 180;
-
-          for (let i = sections.length - 1; i >= 0; i--) {
-            const sectionEl = document.getElementById(sections[i]);
-            if (sectionEl) {
-              const top = sectionEl.offsetTop;
-              if (scrollPosition >= top) {
-                setActiveSection(sections[i]);
-                break;
-              }
+          for (let i = cachedSections.length - 1; i >= 0; i--) {
+            if (scrollPosition >= cachedSections[i].top) {
+              const nextId = cachedSections[i].id;
+              setActiveSection((prev) => (prev !== nextId ? nextId : prev));
+              break;
             }
           }
           ticking = false;
@@ -46,7 +56,10 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateSectionCache);
+    };
   }, []);
 
   const handleNavClick = (e, href, id) => {
