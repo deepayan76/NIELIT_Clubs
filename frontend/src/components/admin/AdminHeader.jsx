@@ -68,7 +68,7 @@ export default function AdminHeader({ title, onToggleMobileMenu }) {
               ADM
             </div>
             <div className="user-info-snippet">
-              <span className="user-name-label">{adminUser?.name || 'Administrator'}</span>
+              <span className="user-name-label">{adminUser?.name?.replace(/NIELIT\s*/gi, '').replace(/NEXORA\s*/gi, '').trim() || 'Club Administrator'}</span>
               <span className="user-role-label">{adminUser?.designation || 'Club Director'}</span>
             </div>
             <ChevronDown size={14} className="text-gray-400" />

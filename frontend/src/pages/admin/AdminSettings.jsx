@@ -33,11 +33,11 @@ export default function AdminSettings() {
         <div className="details-grid">
           <div className="detail-item">
             <span className="detail-label">Admin Name</span>
-            <span className="detail-value highlight">{adminUser.name}</span>
+            <span className="detail-value highlight">{adminUser?.name?.replace(/NIELIT\s*/gi, '').replace(/NEXORA\s*/gi, '').trim() || 'Club Administrator'}</span>
           </div>
           <div className="detail-item">
             <span className="detail-label">Designation</span>
-            <span className="detail-value">{adminUser.designation || 'Club Director'}</span>
+            <span className="detail-value">{adminUser?.designation || 'Club Director'}</span>
           </div>
           <div className="detail-item">
             <span className="detail-label">Official Email</span>

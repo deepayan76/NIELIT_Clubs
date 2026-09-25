@@ -6,6 +6,21 @@
 import { apiFetch } from './api';
 import { clubs as officialClubs } from '../data/clubs';
 
+function sanitizeAdminUser(data, defaultEmail = '') {
+  if (!data) return null;
+  const rawName = data.name || '';
+  const cleanName = rawName.replace(/NIELIT\s*/gi, '').replace(/NEXORA\s*/gi, '').trim() || 'Club Administrator';
+
+  return {
+    _id: data._id || 'adm_root',
+    name: cleanName,
+    email: data.email || defaultEmail,
+    role: data.role || 'ADMIN',
+    designation: data.designation || 'Club Director',
+    accountStatus: data.accountStatus || 'ACTIVE'
+  };
+}
+
 export const adminApi = {
   /**
    * Admin Login Authentication
@@ -25,11 +40,12 @@ export const adminApi = {
     });
 
     return {
-      admin: response.admin || {
+      admin: sanitizeAdminUser(response.admin, email.trim()) || {
         _id: 'adm_root',
-        name: 'NEXORA Club Administrator',
+        name: 'Club Administrator',
         email: email.trim(),
         role: 'ADMIN',
+        designation: 'Club Director',
         accountStatus: 'ACTIVE'
       }
     };
@@ -47,13 +63,7 @@ export const adminApi = {
 
       if (response.success && response.data) {
         return {
-          admin: {
-            _id: 'adm_root',
-            name: response.data.name || 'NEXORA Club Administrator',
-            email: response.data.email,
-            role: 'ADMIN',
-            accountStatus: 'ACTIVE'
-          }
+          admin: sanitizeAdminUser(response.data)
         };
       }
       return null;

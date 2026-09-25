@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       {/* Welcome Banner */}
       <div className="dash-welcome-banner">
         <h2 className="dash-welcome-title">
-          {getGreeting()}, {adminUser?.name || 'Admin'} 👋
+          {getGreeting()}, {adminUser?.name?.replace(/NIELIT\s*/gi, '').replace(/NEXORA\s*/gi, '').trim() || 'Club Administrator'} 👋
         </h2>
         <p className="dash-welcome-subtitle">
           Manage NEXORA Tech Clubs registrations, approval queues, and member directories.

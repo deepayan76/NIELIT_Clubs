@@ -34,7 +34,7 @@ export default function AdminProtectedRoute({ children }) {
           </div>
           <h2 className="locked-title">Admin Access Restricted</h2>
           <p className="locked-description">
-            This area requires authorized NEXORA Administrator credentials. Please sign in with an administrative account to proceed.
+            This area requires authorized Club Administrator credentials. Please sign in with an administrative account to proceed.
           </p>
           <button
             type="button"
