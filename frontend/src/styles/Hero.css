@@ -231,36 +231,43 @@
 /* Mobile Devices (<= 767px) */
 @media (max-width: 767px) {
   .hero-outer-section {
-    padding: 10px 0 32px 0;
+    padding: 10px 0 28px 0;
   }
   .hero-white-container {
     width: 95vw;
     border-radius: 12px;
     min-height: auto;
+    height: auto;
   }
   .hero-two-zone-layout {
     flex-direction: column;
-    padding: 70px 16px 20px 16px;
-    gap: 16px;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 76px 16px 14px 16px;
+    gap: 0;
   }
   .hero-content-zone {
+    flex: 0 0 auto;
     width: 100%;
+    max-width: 100%;
   }
   .hero-main-title {
-    font-size: clamp(30px, 8.2vw, 36px);
-    line-height: 1.15;
+    font-size: clamp(28px, 7.8vw, 34px);
+    line-height: 1.12;
     margin-bottom: 12px;
   }
   .hero-subtext {
-    font-size: 14.5px;
-    line-height: 1.5;
-    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.45;
+    margin-bottom: 16px;
+    max-width: 100%;
   }
   .hero-cta-group {
     flex-direction: row;
     width: 100%;
     gap: 10px;
-    margin-bottom: 0;
+    margin-bottom: 24px;
   }
   .hero-cta-btn {
     flex: 1;
@@ -269,63 +276,108 @@
     height: 39px;
   }
   .hero-visual-zone {
+    flex: 0 0 auto;
     width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    padding: 0;
   }
   .hero-gallery-container {
     width: 100%;
     max-width: 360px;
-    height: 240px;
+    height: 165px;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-gallery-canvas {
+    width: 100%;
+    height: 225px;
+    margin-top: -30px;
+    margin-bottom: -30px;
+    border: 0;
+    display: block;
   }
 }
 
 /* Compact Mobile (<= 480px) */
 @media (max-width: 480px) {
+  .hero-outer-section {
+    padding: 10px 0 24px 0;
+  }
   .hero-two-zone-layout {
-    padding: 66px 14px 18px 14px;
-    gap: 14px;
+    padding: 74px 14px 14px 14px;
+    gap: 0;
   }
   .hero-main-title {
-    font-size: 31px;
+    font-size: clamp(26px, 7.2vw, 30px);
     margin-bottom: 10px;
   }
   .hero-subtext {
-    font-size: 14px;
-    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.42;
+    margin-bottom: 14px;
+  }
+  .hero-cta-group {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .hero-cta-btn {
+    font-size: 13px;
+    height: 38px;
+    padding: 0 10px;
   }
   .hero-gallery-container {
     max-width: 320px;
-    height: 220px;
+    height: 150px;
+  }
+  .hero-gallery-canvas {
+    height: 210px;
+    margin-top: -30px;
+    margin-bottom: -30px;
   }
 }
 
 /* Extra Small Mobile (<= 380px) */
 @media (max-width: 380px) {
   .hero-outer-section {
-    padding: 8px 0 24px 0;
+    padding: 8px 0 20px 0;
   }
   .hero-two-zone-layout {
-    padding: 62px 12px 16px 12px;
-    gap: 12px;
+    padding: 70px 12px 12px 12px;
+    gap: 0;
   }
   .hero-main-title {
-    font-size: 27px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 8px;
   }
   .hero-subtext {
-    font-size: 13px;
-    margin-bottom: 14px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .hero-cta-group {
+    gap: 6px;
+    margin-bottom: 16px;
   }
   .hero-cta-btn {
     font-size: 12px;
     height: 36px;
-    padding: 0 8px;
+    padding: 0 6px;
   }
   .hero-gallery-container {
     max-width: 280px;
-    height: 195px;
+    height: 135px;
+  }
+  .hero-gallery-canvas {
+    height: 190px;
+    margin-top: -27px;
+    margin-bottom: -27px;
   }
 }
