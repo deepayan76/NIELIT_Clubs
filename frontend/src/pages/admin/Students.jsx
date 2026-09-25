@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { adminApi } from '../../services/adminApi';
-import { Search, Users, Eye, CheckCircle2, XCircle, UserX, X } from 'lucide-react';
+import { Search, Eye, CheckCircle2, XCircle, UserX, X } from 'lucide-react';
 import UserAvatar from '../../components/dashboard/UserAvatar';
 import TerminateStudentDialog from '../../components/admin/TerminateStudentDialog';
 
@@ -67,7 +67,7 @@ export default function Students() {
             borderRadius: '8px',
             marginBottom: '20px',
             fontWeight: 600,
-            fontSize: '0.9rem',
+            fontSize: '0.88rem',
             display: 'flex',
             alignItems: 'center',
             gap: '8px'
@@ -165,18 +165,18 @@ export default function Students() {
                       <td>{st.rollNumber}</td>
                       <td>{st.email}</td>
                       <td>
-                        <span style={{ fontWeight: 600, color: 'var(--admin-dark-blue)' }}>
+                        <span style={{ fontWeight: 600, color: 'var(--admin-black)' }}>
                           {st.club} Club
                         </span>
                       </td>
                       <td>{st.semester}th Sem</td>
                       <td>
                         {isTerminated ? (
-                          <span className="status-tag rejected" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                          <span className="status-tag rejected">
                             <XCircle size={12} /> Terminated
                           </span>
                         ) : (
-                          <span className="status-tag approved" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                          <span className="status-tag approved">
                             <CheckCircle2 size={12} /> Active
                           </span>
                         )}
@@ -232,10 +232,10 @@ export default function Students() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
                 <UserAvatar name={selectedStudent.name} size="large" />
                 <div>
-                  <h4 style={{ margin: '0 0 4px 0', fontSize: '1.25rem', color: 'var(--admin-dark-blue)' }}>
+                  <h4 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', color: 'var(--admin-black)' }}>
                     {selectedStudent.name}
                   </h4>
-                  <p style={{ margin: 0, color: 'var(--admin-gray)', fontSize: '0.88rem' }}>
+                  <p style={{ margin: 0, color: 'var(--admin-gray)', fontSize: '0.86rem' }}>
                     Roll No: <strong>{selectedStudent.rollNumber}</strong> • {selectedStudent.club} Club
                   </p>
                 </div>

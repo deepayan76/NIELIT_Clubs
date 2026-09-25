@@ -10,7 +10,6 @@ import {
   Clock,
   CheckCircle2,
   XCircle,
-  Layers,
   ArrowRight,
   Eye,
   Check,
@@ -65,7 +64,7 @@ export default function AdminDashboard() {
   };
 
   if (loading) {
-    return <div>Loading admin dashboard...</div>;
+    return <div style={{ color: 'var(--admin-gray)', padding: '20px' }}>Loading admin dashboard...</div>;
   }
 
   const clubList = [
@@ -83,7 +82,7 @@ export default function AdminDashboard() {
           {getGreeting()}, {adminUser?.name || 'Admin'} 👋
         </h2>
         <p className="dash-welcome-subtitle">
-          Manage NIELIT Tech Clubs registrations, approval queues, and member directories.
+          Manage NEXORA Tech Clubs registrations, approval queues, and member directories.
         </p>
       </div>
 
@@ -127,7 +126,7 @@ export default function AdminDashboard() {
               <div key={club.key} className="club-bar-item">
                 <div className="club-bar-label-row">
                   <span>{club.name}</span>
-                  <span>{count} applications ({percentage}%)</span>
+                  <span style={{ color: 'var(--admin-gray)' }}>{count} applications ({percentage}%)</span>
                 </div>
                 <div className="club-bar-track">
                   <div
@@ -169,7 +168,7 @@ export default function AdminDashboard() {
             <tbody>
               {recentRegistrations.length === 0 ? (
                 <tr>
-                  <td colSpan="6" style={{ textAlign: 'center', padding: '32px', color: 'var(--admin-gray)' }}>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: '36px', color: 'var(--admin-gray)' }}>
                     No recent registration requests.
                   </td>
                 </tr>
@@ -179,22 +178,22 @@ export default function AdminDashboard() {
                     <td className="admin-student-name">{reg.name}</td>
                     <td>{reg.rollNumber}</td>
                     <td>
-                      <span style={{ fontWeight: 600, color: 'var(--admin-dark-blue)' }}>
+                      <span style={{ fontWeight: 600, color: 'var(--admin-black)' }}>
                         {reg.club}
                       </span>
                     </td>
                     <td>{reg.semester}th Sem</td>
                     <td>
                       {reg.status === 'APPROVED' ? (
-                        <span className="status-tag approved" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                        <span className="status-tag approved">
                           ✓ Approved
                         </span>
                       ) : reg.status === 'REJECTED' ? (
-                        <span className="status-tag rejected" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                        <span className="status-tag rejected">
                           ✕ Rejected
                         </span>
                       ) : (
-                        <span className="status-tag pending" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                        <span className="status-tag pending">
                           ◷ Pending
                         </span>
                       )}

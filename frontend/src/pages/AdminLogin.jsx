@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, ShieldCheck, AlertCircle, ArrowLeft } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/nexora-logo.png';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { navigate } from '../utils/router';
 import '../styles/login.css';
@@ -29,15 +29,16 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="login-page-container" style={{ background: '#0F2331' }}>
-      <div className="login-card" style={{ maxWidth: '460px', border: '1px solid rgba(255,255,255,0.1)' }}>
+    <div className="login-page-container">
+      <div className="login-card" style={{ maxWidth: '460px' }}>
         {/* Brand Header */}
         <div className="login-brand-header">
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-            <img src={logoImg} alt="NIELIT Logo" className="login-logo" />
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} aria-label="NEXORA Tech Clubs">
+            <img src={logoImg} alt="NEXORA Tech Clubs" className="login-logo" />
           </a>
-          <h1 className="login-title" style={{ color: '#0F2331' }}>Admin Portal</h1>
-          <p className="login-subtitle">NIELIT Technical Clubs Administration</p>
+          <div className="login-motto-tag">LEARN. BUILD. LEAD.</div>
+          <h1 className="login-title">Admin Portal</h1>
+          <p className="login-subtitle">NEXORA Tech Clubs Administration</p>
         </div>
 
         {/* Error Banner */}
@@ -60,7 +61,7 @@ export default function AdminLogin() {
                 id="admin-email"
                 type="email"
                 className="login-input"
-                placeholder="admin@nielit.edu.in"
+                placeholder="admin@nexora.edu.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
@@ -91,7 +92,6 @@ export default function AdminLogin() {
           <button
             type="submit"
             className="login-btn"
-            style={{ background: '#0F2331' }}
             disabled={isLoading}
           >
             {isLoading ? 'Verifying role...' : (

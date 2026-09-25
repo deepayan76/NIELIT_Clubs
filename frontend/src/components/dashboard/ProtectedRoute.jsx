@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { navigate } from '../../utils/router';
-import { ShieldAlert, RefreshCw } from 'lucide-react';
+import { ShieldAlert, RefreshCw, LogIn } from 'lucide-react';
 
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -19,7 +19,7 @@ export default function ProtectedRoute({ children }) {
           <div className="avatar-circle" style={{ margin: '0 auto 16px auto', animation: 'spin 1s linear infinite' }}>
             <RefreshCw size={20} />
           </div>
-          <p style={{ color: 'var(--dash-gray)', fontSize: '0.95rem' }}>Verifying student authentication...</p>
+          <p style={{ color: 'var(--dash-gray)', fontSize: '0.92rem' }}>Verifying student authentication...</p>
         </div>
       </div>
     );
@@ -28,14 +28,14 @@ export default function ProtectedRoute({ children }) {
   if (!isAuthenticated) {
     return (
       <div className="locked-dashboard-container">
-        <div className="locked-card">
+        <div className="locked-card" role="alert">
           <div className="locked-icon-wrapper rejected">
-            <ShieldAlert size={32} />
+            <ShieldAlert size={30} />
           </div>
           <h2 className="locked-title">Authentication Required</h2>
-          <p className="locked-description">Please log in with your student credentials to access the student dashboard.</p>
+          <p className="locked-description">Please log in with your student credentials to access the NEXORA student portal.</p>
           <button type="button" className="dash-btn dash-btn-primary" onClick={() => navigate('/login')}>
-            Go to Login
+            <LogIn size={16} /> Go to Student Login
           </button>
         </div>
       </div>

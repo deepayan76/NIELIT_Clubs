@@ -145,7 +145,7 @@ export default function SettingsPage() {
             disabled
           />
           <span style={{ fontSize: '0.78rem', color: 'var(--dash-gray)' }}>
-            Verified institutional email address assigned to your NIELIT student account.
+            Verified institutional email address assigned to your NEXORA student account.
           </span>
         </div>
       </div>

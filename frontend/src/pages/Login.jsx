@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, LogIn, AlertCircle, ArrowRight } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/nexora-logo.png';
 import { useAuth } from '../context/AuthContext';
 import { navigate } from '../utils/router';
 import '../styles/login.css';
@@ -33,11 +33,12 @@ export default function Login() {
       <div className="login-card">
         {/* Brand Header */}
         <div className="login-brand-header">
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-            <img src={logoImg} alt="NIELIT Logo" className="login-logo" />
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} aria-label="NEXORA Tech Clubs">
+            <img src={logoImg} alt="NEXORA Tech Clubs" className="login-logo" />
           </a>
-          <h1 className="login-title">Welcome to the Student Dashboard</h1>
-          <p className="login-subtitle">Sign in to manage your NIELIT Tech Clubs membership</p>
+          <div className="login-motto-tag">LEARN. BUILD. LEAD.</div>
+          <h1 className="login-title">Student Portal</h1>
+          <p className="login-subtitle">Sign in to manage your NEXORA Tech Clubs membership</p>
         </div>
 
         {/* Error Banner */}

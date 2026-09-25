@@ -11,12 +11,12 @@ export default function StatusCard({ status, clubName, submittedDate }) {
           <div className="status-label-section">
             <span className="status-category-eyebrow">Application Status</span>
             <span className="status-tag approved">
-              <CheckCircle2 size={16} aria-hidden="true" /> ✓ APPROVED
+              <CheckCircle2 size={15} aria-hidden="true" /> APPROVED
             </span>
           </div>
         </div>
         <p className="status-message">
-          Your application has been approved. Welcome to the official NIELIT Tech Clubs student community!
+          Your application has been approved. Welcome to the official NEXORA Tech Clubs student community!
         </p>
         <div className="status-meta-row">
           <div className="status-meta-item">
@@ -39,7 +39,7 @@ export default function StatusCard({ status, clubName, submittedDate }) {
           <div className="status-label-section">
             <span className="status-category-eyebrow">Application Status</span>
             <span className="status-tag rejected">
-              <XCircle size={16} aria-hidden="true" /> ✕ APPLICATION NOT APPROVED
+              <XCircle size={15} aria-hidden="true" /> NOT APPROVED
             </span>
           </div>
         </div>
@@ -67,13 +67,13 @@ export default function StatusCard({ status, clubName, submittedDate }) {
         <div className="status-label-section">
           <span className="status-category-eyebrow">Application Status</span>
           <span className="status-tag pending">
-            <Clock size={16} aria-hidden="true" /> ◷ PENDING
+            <Clock size={15} aria-hidden="true" /> PENDING REVIEW
           </span>
         </div>
       </div>
       <p className="status-message">
         Your registration has been received and is currently under review by the club administration.
-        You'll receive an email when your application is reviewed.
+        You&apos;ll receive an email notification once your application is reviewed.
       </p>
       <div className="status-meta-row">
         <div className="status-meta-item">

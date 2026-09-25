@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NIELIT TECH CLUBS — STUDENT LOGIN PAGE STYLING
+   NEXORA TECH CLUBS — LOGIN & AUTHENTICATION DESIGN SYSTEM
    ========================================================================== */
 
 .login-page-container {
@@ -10,8 +10,13 @@
   justify-content: center;
   background-color: #F8FAFC;
   padding: 32px 16px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--dash-black);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-page-container.dark-theme {
+  background-color: #1A1A1A;
 }
 
 .login-card {
@@ -19,36 +24,47 @@
   max-width: 440px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 40px 36px;
-  box-shadow: 0 4px 20px rgba(22, 54, 74, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
 }
 
 .login-brand-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .login-logo {
-  height: 48px;
+  height: 44px;
   width: auto;
-  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
+  object-fit: contain;
+}
+
+.login-motto-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 8px;
 }
 
 .login-title {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  color: #16364A;
+  color: #111827;
   margin: 0 0 6px 0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .login-subtitle {
   font-size: 0.88rem;
-  color: #666666;
+  color: #64748B;
   margin: 0;
+  line-height: 1.45;
 }
 
 .login-form {
@@ -64,11 +80,11 @@
 }
 
 .login-label {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: #16364A;
+  color: #111827;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .login-input-wrapper {
@@ -89,17 +105,18 @@
   padding: 11px 14px 11px 38px;
   border: 1px solid #CBD5E1;
   border-radius: 8px;
-  font-size: 0.92rem;
-  color: #111111;
+  font-size: 0.9rem;
+  color: #111827;
   background: #FFFFFF;
-  transition: all 0.2s ease;
+  font-family: inherit;
+  transition: all 0.18s ease;
   box-sizing: border-box;
 }
 
 .login-input:focus {
   outline: none;
-  border-color: #6A89A7;
-  box-shadow: 0 0 0 3px rgba(106, 137, 167, 0.18);
+  border-color: #222222;
+  box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.08);
 }
 
 .login-error-banner {
@@ -107,37 +124,38 @@
   border: 1px solid #FECACA;
   color: #B91C1C;
   padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .login-success-banner {
-  background: #F0FDF4;
-  border: 1px solid #BBF7D0;
-  color: #166534;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #047857;
   padding: 12px 14px;
-  border-radius: 6px;
-  font-size: 0.88rem;
+  border-radius: 8px;
+  font-size: 0.86rem;
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .login-btn {
-  background: #16364A;
+  background: #222222;
   color: #FFFFFF;
-  border: none;
+  border: 1px solid #222222;
   border-radius: 8px;
   padding: 12px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 6px;
+  transition: all 0.18s ease;
+  margin-top: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,46 +163,49 @@
 }
 
 .login-btn:hover {
-  background: #1e4760;
+  background: #111111;
+  border-color: #111111;
 }
 
 .login-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.65;
   cursor: not-allowed;
 }
 
 .login-links-row {
   display: flex;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .login-link-muted {
   font-size: 0.82rem;
-  color: #6A89A7;
+  color: #64748B;
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
+  font-family: inherit;
+  transition: color 0.15s ease;
 }
 
 .login-link-muted:hover {
-  color: #16364A;
+  color: #222222;
   text-decoration: underline;
 }
 
 .login-footer-note {
   margin-top: 24px;
-  padding-top: 20px;
+  padding-top: 18px;
   border-top: 1px solid #F1F5F9;
   text-align: center;
   font-size: 0.84rem;
-  color: #666666;
+  color: #64748B;
 }
 
 .login-register-link {
-  color: #16364A;
+  color: #222222;
   font-weight: 600;
   text-decoration: none;
 }
@@ -193,52 +214,10 @@
   text-decoration: underline;
 }
 
-/* Demo Mode Box */
-.demo-accounts-box {
-  margin-top: 24px;
-  padding: 14px;
-  background: #F8FAFC;
-  border: 1px dashed #CBD5E1;
-  border-radius: 8px;
-}
-
-.demo-box-title {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #64748B;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.demo-btn-group {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.demo-btn {
-  font-size: 0.76rem;
-  padding: 5px 9px;
-  border-radius: 5px;
-  border: 1px solid #E2E8F0;
-  background: #FFFFFF;
-  color: #334155;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.15s ease;
-}
-
-.demo-btn:hover {
-  border-color: #6A89A7;
-  color: #16364A;
-  background: #F1F5F9;
-}
-
-.demo-btn.active {
-  background: #16364A;
-  color: #FFFFFF;
-  border-color: #16364A;
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 32px 24px;
+    border-radius: 12px;
+  }
 }

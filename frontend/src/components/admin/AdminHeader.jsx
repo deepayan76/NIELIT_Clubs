@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Shield, Bell, Menu, Settings, LogOut, ChevronDown, ShieldAlert } from 'lucide-react';
+import { Bell, Menu, Settings, LogOut, ChevronDown, ShieldCheck } from 'lucide-react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { navigate } from '../../utils/router';
 
@@ -41,7 +41,7 @@ export default function AdminHeader({ title, onToggleMobileMenu }) {
       <div className="header-right">
         {/* Admin Role Badge */}
         <span className="admin-header-badge">
-          <ShieldAlert size={14} /> ADMIN ACCESS
+          <ShieldCheck size={13} /> ADMIN
         </span>
 
         {/* Notification Bell */}
@@ -64,10 +64,7 @@ export default function AdminHeader({ title, onToggleMobileMenu }) {
             aria-expanded={profileOpen}
             aria-label="Admin account menu"
           >
-            <div
-              className="avatar-circle"
-              style={{ background: 'linear-gradient(135deg, #0F2331, #1E4760)' }}
-            >
+            <div className="avatar-circle">
               ADM
             </div>
             <div className="user-info-snippet">

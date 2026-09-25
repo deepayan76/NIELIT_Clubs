@@ -27,7 +27,7 @@ export const adminApi = {
     return {
       admin: response.admin || {
         _id: 'adm_root',
-        name: 'NIELIT Club Administrator',
+        name: 'NEXORA Club Administrator',
         email: email.trim(),
         role: 'ADMIN',
         accountStatus: 'ACTIVE'
@@ -49,7 +49,7 @@ export const adminApi = {
         return {
           admin: {
             _id: 'adm_root',
-            name: response.data.name || 'NIELIT Club Administrator',
+            name: response.data.name || 'NEXORA Club Administrator',
             email: response.data.email,
             role: 'ADMIN',
             accountStatus: 'ACTIVE'

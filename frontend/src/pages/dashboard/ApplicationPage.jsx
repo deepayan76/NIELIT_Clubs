@@ -67,7 +67,7 @@ export default function ApplicationPage() {
     <div>
       <div className="dash-welcome-banner">
         <h2 className="dash-welcome-title">Application Record</h2>
-        <p className="dash-welcome-subtitle">Complete registration application submitted to NIELIT Tech Clubs</p>
+        <p className="dash-welcome-subtitle">Complete registration application submitted to NEXORA Tech Clubs</p>
       </div>
 
       {loading ? (
@@ -81,7 +81,7 @@ export default function ApplicationPage() {
           <div className="editorial-card-header">
             <div>
               <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--dash-gray)', fontWeight: 700, letterSpacing: '0.05em' }}>
-                Application ID: {application?._id || user.registrationId || user._id || 'NLT-APP-2026'}
+                Application ID: {application?._id || user.registrationId || user._id || 'NX-APP-2026'}
               </span>
               <h3 className="editorial-card-title" style={{ marginTop: '2px' }}>
                 Club Membership Application

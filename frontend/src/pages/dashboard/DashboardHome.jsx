@@ -32,7 +32,7 @@ export default function DashboardHome() {
       {/* Welcome Banner */}
       <div className="dash-welcome-banner">
         <h2 className="dash-welcome-title">Welcome back, {user.name} 👋</h2>
-        <p className="dash-welcome-subtitle">Your NIELIT Tech Clubs journey starts here.</p>
+        <p className="dash-welcome-subtitle">Your NEXORA Tech Clubs journey starts here.</p>
       </div>
 
       {/* Application Status Card (First Major Card) */}
@@ -65,7 +65,7 @@ export default function DashboardHome() {
         <SummaryCard
           label="Member Since"
           value={summaryData?.memberSince || '2026'}
-          subtext="NIELIT Tech Clubs"
+          subtext="NEXORA Tech Clubs"
           icon={Calendar}
         />
       </div>

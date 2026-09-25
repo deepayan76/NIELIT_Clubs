@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, CheckCircle2, AlertCircle, ArrowRight, KeyRound, Eye, EyeOff } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/nexora-logo.png';
 import { authApi } from '../services/authApi';
 import { navigate, useRouter } from '../utils/router';
 import '../styles/login.css';
@@ -92,9 +92,10 @@ export default function ResetPassword() {
       <div className="login-card">
         {/* Brand Header */}
         <div className="login-brand-header">
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-            <img src={logoImg} alt="NIELIT Logo" className="login-logo" />
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} aria-label="NEXORA Tech Clubs">
+            <img src={logoImg} alt="NEXORA Tech Clubs" className="login-logo" />
           </a>
+          <div className="login-motto-tag">LEARN. BUILD. LEAD.</div>
           <h1 className="login-title">Choose New Password</h1>
           <p className="login-subtitle">
             Create a secure password with at least 8 characters, an uppercase letter, and a number.

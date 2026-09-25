@@ -102,7 +102,7 @@ export default function Profile() {
       {/* Security notice */}
       <div className="editorial-card" style={{ background: '#F8FAFC', borderStyle: 'dashed' }}>
         <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--dash-gray)', lineHeight: '1.5' }}>
-          <strong>Notice:</strong> Institutional student identity records, enrollment roles, and club assignments are verified by the NIELIT administration and cannot be modified directly from this portal. If any detail is incorrect, please contact your club coordinator.
+          <strong>Notice:</strong> Institutional student identity records, enrollment roles, and club assignments are verified by the NEXORA administration and cannot be modified directly from this portal. If any detail is incorrect, please contact your club coordinator.
         </p>
       </div>
     </div>

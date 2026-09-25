@@ -16,10 +16,10 @@ export default function AdminProtectedRoute({ children }) {
     return (
       <div className="locked-dashboard-container">
         <div style={{ textAlign: 'center', padding: '40px' }}>
-          <div className="avatar-circle" style={{ margin: '0 auto 16px auto', animation: 'spin 1s linear infinite', background: '#16364A' }}>
+          <div className="avatar-circle" style={{ margin: '0 auto 16px auto', animation: 'spin 1s linear infinite' }}>
             <RefreshCw size={20} />
           </div>
-          <p style={{ color: 'var(--admin-gray)', fontSize: '0.95rem' }}>Verifying administrator authentication...</p>
+          <p style={{ color: 'var(--admin-gray)', fontSize: '0.92rem' }}>Verifying administrator authentication...</p>
         </div>
       </div>
     );
@@ -30,11 +30,11 @@ export default function AdminProtectedRoute({ children }) {
       <div className="locked-dashboard-container">
         <div className="locked-card" role="alert">
           <div className="locked-icon-wrapper rejected">
-            <ShieldAlert size={32} />
+            <ShieldAlert size={30} />
           </div>
           <h2 className="locked-title">Admin Access Restricted</h2>
           <p className="locked-description">
-            This area requires authorized NIELIT Administrator credentials. Please sign in with an administrative account to proceed.
+            This area requires authorized NEXORA Administrator credentials. Please sign in with an administrative account to proceed.
           </p>
           <button
             type="button"

@@ -1,5 +1,5 @@
 /**
- * Central API Utility for NIELIT Tech Clubs
+ * Central API Utility for NEXORA Tech Clubs
  * Handles base URL, JSON headers, credentialed requests (HTTP-only cookies), and unified error parsing.
  */
 

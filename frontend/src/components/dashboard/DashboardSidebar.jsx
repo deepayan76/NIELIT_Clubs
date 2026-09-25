@@ -7,9 +7,9 @@ import {
   BookMarked,
   Settings,
   LogOut,
-  X
+  GraduationCap
 } from 'lucide-react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate } from '../../utils/router';
 import { useAuth } from '../../context/AuthContext';
 
@@ -84,11 +84,15 @@ export default function DashboardSidebar({ activeRoute, isOpen, onClose }) {
             e.preventDefault();
             handleNav('/dashboard');
           }}
+          aria-label="NEXORA Tech Clubs Student Portal"
         >
-          <img src={logoImg} alt="NIELIT Logo" className="sidebar-brand-logo" />
+          <img src={logoImg} alt="NEXORA Logo" className="sidebar-brand-logo" />
           <div className="sidebar-brand-text">
-            <span className="sidebar-brand-title">NIELIT</span>
-            <span className="sidebar-brand-subtitle">TECH CLUBS</span>
+            <span className="sidebar-brand-title">NEXORA TECH CLUBS</span>
+            <span className="sidebar-brand-subtitle">
+              <GraduationCap size={11} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '3px' }} />
+              Student Portal
+            </span>
           </div>
         </a>
 
@@ -122,7 +126,7 @@ export default function DashboardSidebar({ activeRoute, isOpen, onClose }) {
             onClick={handleLogout}
             aria-label="Log out of student portal"
           >
-            <LogOut size={18} aria-hidden="true" />
+            <LogOut size={16} aria-hidden="true" />
             <span>Logout</span>
           </button>
         </div>

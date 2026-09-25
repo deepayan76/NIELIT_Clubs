@@ -147,7 +147,7 @@ export default function AdminResources() {
           <div>
             <h2 className="dash-welcome-title">Resources</h2>
             <p className="dash-welcome-subtitle">
-              Add, manage, and share learning resources with NIELIT Tech Club students.
+              Add, manage, and share learning resources with NEXORA Tech Club students.
             </p>
           </div>
           <button

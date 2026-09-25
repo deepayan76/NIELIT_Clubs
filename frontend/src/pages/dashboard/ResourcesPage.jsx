@@ -90,7 +90,7 @@ export default function ResourcesPage() {
       <div className="dash-welcome-banner">
         <h2 className="dash-welcome-title">Club Learning Resources</h2>
         <p className="dash-welcome-subtitle">
-          Curated technical tutorials, repositories, documentation, and guides published by NIELIT Tech Clubs.
+          Curated technical tutorials, repositories, documentation, and guides published by NEXORA Tech Clubs.
         </p>
       </div>
 

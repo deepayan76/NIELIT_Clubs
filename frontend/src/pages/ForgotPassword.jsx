@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, ArrowLeft, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/nexora-logo.png';
 import { authApi } from '../services/authApi';
 import { navigate } from '../utils/router';
 import '../styles/login.css';
@@ -17,7 +17,7 @@ export default function ForgotPassword() {
     setSuccessMessage('');
 
     if (!email || !email.trim()) {
-      setErrorMessage('Please enter your registered institutional email address.');
+      setErrorMessage('Please enter your registered student email address.');
       return;
     }
 
@@ -40,12 +40,13 @@ export default function ForgotPassword() {
       <div className="login-card">
         {/* Brand Header */}
         <div className="login-brand-header">
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-            <img src={logoImg} alt="NIELIT Logo" className="login-logo" />
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} aria-label="NEXORA Tech Clubs">
+            <img src={logoImg} alt="NEXORA Tech Clubs" className="login-logo" />
           </a>
+          <div className="login-motto-tag">LEARN. BUILD. LEAD.</div>
           <h1 className="login-title">Reset Your Password</h1>
           <p className="login-subtitle">
-            Enter your student email and we'll send you a single-use link to reset your credentials.
+            Enter your student email and we'll send you a secure link to reset your credentials.
           </p>
         </div>
 

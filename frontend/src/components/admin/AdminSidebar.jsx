@@ -8,9 +8,9 @@ import {
   Bell,
   Settings,
   LogOut,
-  ShieldAlert
+  ShieldCheck
 } from 'lucide-react';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logoiconWhite.png';
 import { navigate } from '../../utils/router';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
@@ -90,12 +90,13 @@ export default function AdminSidebar({ activeRoute, isOpen, onClose }) {
             e.preventDefault();
             handleNav('/admin/dashboard');
           }}
+          aria-label="NEXORA Tech Clubs Admin Portal"
         >
-          <img src={logoImg} alt="NIELIT Logo" className="admin-brand-logo" />
+          <img src={logoImg} alt="NEXORA Logo" className="admin-brand-logo" />
           <div className="admin-brand-text">
-            <span className="admin-brand-title">NIELIT TECH CLUBS</span>
+            <span className="admin-brand-title">NEXORA TECH CLUBS</span>
             <span className="admin-brand-badge">
-              <ShieldAlert size={12} /> Admin Portal
+              <ShieldCheck size={11} /> Admin Portal
             </span>
           </div>
         </a>
@@ -119,7 +120,7 @@ export default function AdminSidebar({ activeRoute, isOpen, onClose }) {
                     style={{
                       background: '#EF4444',
                       color: '#FFF',
-                      fontSize: '0.72rem',
+                      fontSize: '0.7rem',
                       fontWeight: 700,
                       padding: '1px 6px',
                       borderRadius: '999px'
@@ -142,7 +143,7 @@ export default function AdminSidebar({ activeRoute, isOpen, onClose }) {
             onClick={handleLogout}
             aria-label="Log out of admin portal"
           >
-            <LogOut size={18} aria-hidden="true" />
+            <LogOut size={16} aria-hidden="true" />
             <span>Admin Logout</span>
           </button>
         </div>

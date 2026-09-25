@@ -6,10 +6,6 @@ import RejectionDialog from '../../components/admin/RejectionDialog';
 import RegistrationDetailModal from '../../components/admin/RegistrationDetailModal';
 import {
   Search,
-  Filter,
-  CheckCircle2,
-  Clock,
-  XCircle,
   Eye,
   Check,
   X,
@@ -107,7 +103,7 @@ export default function Registrations() {
             borderRadius: '8px',
             marginBottom: '20px',
             fontWeight: 600,
-            fontSize: '0.9rem'
+            fontSize: '0.88rem'
           }}
         >
           {toastMessage}
@@ -235,22 +231,22 @@ export default function Registrations() {
                       <td>{reg.email}</td>
                       <td>{reg.semester}th Sem</td>
                       <td>
-                        <span style={{ fontWeight: 600, color: 'var(--admin-dark-blue)' }}>
+                        <span style={{ fontWeight: 600, color: 'var(--admin-black)' }}>
                           {reg.club}
                         </span>
                       </td>
                       <td>{dateFormatted}</td>
                       <td>
                         {reg.status === 'APPROVED' ? (
-                          <span className="status-tag approved" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                          <span className="status-tag approved">
                             ✓ Approved
                           </span>
                         ) : reg.status === 'REJECTED' ? (
-                          <span className="status-tag rejected" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                          <span className="status-tag rejected">
                             ✕ Rejected
                           </span>
                         ) : (
-                          <span className="status-tag pending" style={{ fontSize: '0.74rem', padding: '3px 8px' }}>
+                          <span className="status-tag pending">
                             ◷ Pending
                           </span>
                         )}
