@@ -11,6 +11,20 @@ export function AuthProvider({ children }) {
 
   // Load authoritative session on startup
   useEffect(() => {
+    // Prevent student auth verification when on an admin route
+    if (typeof window !== 'undefined') {
+      const path = (window.location.pathname || '').toLowerCase();
+      const hash = (window.location.hash || '').toLowerCase();
+      if (
+        path.startsWith('/admin') ||
+        hash.startsWith('#/admin') ||
+        hash.startsWith('#admin')
+      ) {
+        setIsLoading(false);
+        return;
+      }
+    }
+
     async function initAuth() {
       try {
         const session = await authApi.getCurrentUser();

@@ -183,6 +183,27 @@ function AppContent() {
     );
   }
 
+  // Student Portal & Public Pages wrapped in AuthProvider
+  return (
+    <AuthProvider>
+      <StudentAndPublicContent router={router} />
+    </AuthProvider>
+  );
+}
+
+function StudentAndPublicContent({ router }) {
+  const {
+    isAiClub,
+    isProgrammingClub,
+    isCybersecurityClub,
+    isIotClub,
+    isLogin,
+    isForgotPassword,
+    isResetPassword,
+    isDashboard,
+    dashboardSubroute
+  } = router;
+
   // Student Portal - Forgot & Reset Password
   if (isForgotPassword) {
     return <ForgotPassword />;
@@ -260,9 +281,8 @@ function AppContent() {
 export default function App() {
   return (
     <AdminAuthProvider>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <AppContent />
     </AdminAuthProvider>
   );
 }
+
