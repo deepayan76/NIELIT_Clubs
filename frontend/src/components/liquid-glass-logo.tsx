@@ -178,6 +178,7 @@ export const LiquidGlassLogo = forwardRef<LiquidGlassLogoHandle, LiquidGlassLogo
                   maxWidth: '80%',
                   maxHeight: '80%',
                   objectFit: 'contain',
+                  filter: tuning.theme === 'dark' && tuning.logoColor !== 'original' ? 'brightness(0) invert(1)' : undefined,
                 }}
               />
             ) : (

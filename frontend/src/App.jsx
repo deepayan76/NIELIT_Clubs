@@ -375,7 +375,7 @@ export default function App() {
       >
         <div style={{ width: '100%', maxWidth: '100%' }}>
           <LiquidGlassLogo
-            logo="/nexora-logo.png"
+            logo="/nexora-icon.png"
             ending="logo"
             style={{ height: 480 }}
           />
