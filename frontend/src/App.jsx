@@ -1,8 +1,9 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Home from './pages/Home';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 import { AuthProvider } from './context/AuthContext';
 import { useRouter, scrollToSection, getRouteTitle } from './utils/router';
+import { LiquidGlassLogo } from './components/liquid-glass-logo';
 
 // Lazy-load non-home pages for initial bundle performance and fast TTI
 const AIClubPage = lazy(() => import('./pages/AIClubPage'));
@@ -314,7 +315,75 @@ function StudentAndPublicContent({ router }) {
   return <Home />;
 }
 
+let hasCompletedInitialLoad = false;
+
 export default function App() {
+  const [showLoader, setShowLoader] = useState(!hasCompletedInitialLoad);
+
+  useEffect(() => {
+    if (!showLoader) return;
+
+    let isDone = false;
+    const finish = () => {
+      if (!isDone) {
+        isDone = true;
+        hasCompletedInitialLoad = true;
+        setShowLoader(false);
+      }
+    };
+
+    // Respect reduced-motion preferences and reveal the page promptly when motion is reduced
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    if (prefersReducedMotion) {
+      const timer = setTimeout(finish, 50);
+      return () => clearTimeout(timer);
+    }
+
+    // Use the component's supported completion event if available
+    const handleCompletionEvent = () => finish();
+    window.addEventListener('liquid-glass-complete', handleCompletionEvent);
+
+    // Otherwise, determine transition timing from the installed component's animation implementation
+    // For ending="logo", animation completes at 1.8s (1800ms)
+    const animationTimer = setTimeout(finish, 1800);
+
+    return () => {
+      window.removeEventListener('liquid-glass-complete', handleCompletionEvent);
+      clearTimeout(animationTimer);
+    };
+  }, [showLoader]);
+
+  if (showLoader) {
+    return (
+      <div
+        className="liquid-glass-loader-screen"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 99999,
+          backgroundColor: '#000000',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden'
+        }}
+      >
+        <div style={{ width: '100%', maxWidth: '100%' }}>
+          <LiquidGlassLogo
+            logo="/nexora-logo.png"
+            ending="logo"
+            style={{ height: 480 }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <AdminAuthProvider>
       <AppContent />
